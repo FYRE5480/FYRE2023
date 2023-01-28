@@ -14,41 +14,41 @@ package frc.robot;
  */
 public final class Constants {
     /** The multipler of the speed of the drivetrain. */
-    public static double throttle = 1.0;
+    public static double THROTTLE = 1.0;
     
     /** The port of the left drivetrain motor. */
-    public static final int leftMotorPort = 0;
+    public static final int LEFT_MOTOR_PORT = 0;
 
     /** The port of the right drivetrain motor. */
-    public static final int rightMotorPort = 1; 
+    public static final int RIGHT_MOTOR_PORT = 1; 
 
     /** The expiration time for the motor's safety. */
-    public static final int expirationTime = Integer.MAX_VALUE;
+    public static final int EXPIRATION_TIME = Integer.MAX_VALUE;
 
     /** The toggle for motor safety. */
-    public static final boolean safetyToggle = false; 
+    public static final boolean SAFETY_TOGGLE = false; 
 
     /** The toggle for reversed movement controls. */
-    public static final boolean invertedDrive = false; 
+    public static final boolean INVERTED_DRIVE = false; 
 
     /** Toggles the tank drive on the robot. */
-    public static final boolean isTank = false;
+    public static final boolean IS_TANK = false;
     
     /** The constant of the encoder's distance per pulse. */
-    public static final double encoderDistanceConstant = 1.0 / 2048 * 6 * Math.PI;
+    public static final double ENCODER_DISTANCE_CONSTANT = 1.0 / 2048 * 6 * Math.PI;
 
     /** The first port for the left encoder. */
-    public static final int leftEncoderPortA = 3;
+    public static final int LEFT_ENCODER_PORT_A = 3;
 
     /** The second port for the left encoder. */
-    public static final int leftEncoderPortB = 2;
+    public static final int LEFT_ENCODER_PORT_B = 2;
 
     /** The first port for the right encoder. */
-    public static final int rightEncoderPortA = 1;
+    public static final int RIGHT_ENCODER_PORT_A = 1;
 
     /** The second port for the right encoder. */
-    public static final int rightEncoderPortB = 0;
+    public static final int RIGHT_ENCODER_PORT_B = 0;
 
-    /** The minimum change in speed to avoid deadbanding */
-    public static final double DEADBAND_CONSTANT = 0.2;
+    /** The deadband for the joysticks to prevent small, irregular movements. */
+    public static final double DEADBAND = 0.2; 
 }

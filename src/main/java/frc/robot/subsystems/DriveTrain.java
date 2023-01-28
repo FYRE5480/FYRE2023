@@ -21,8 +21,8 @@ public class DriveTrain extends SubsystemBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     // Initialize our motors by referencing their ports. 
-    private final Spark left = new Spark(Constants.leftMotorPort);
-    private final Spark right = new Spark(Constants.rightMotorPort);
+    private final Spark left = new Spark(Constants.LEFT_MOTOR_PORT);
+    private final Spark right = new Spark(Constants.RIGHT_MOTOR_PORT);
 
     // Package our motors into MotorControllerGroups to be added to a DifferentialDrive.
     private final MotorControllerGroup leftMotors = new MotorControllerGroup(left);
@@ -31,15 +31,15 @@ public class DriveTrain extends SubsystemBase {
 
     // Initialize our encoders to calculate wheel rotation in autonomous. 
     private final Encoder leftEncoder = new Encoder(
-        Constants.leftEncoderPortA, 
-        Constants.leftEncoderPortB, 
+        Constants.LEFT_ENCODER_PORT_A, 
+        Constants.LEFT_ENCODER_PORT_B, 
         false, 
         Encoder.EncodingType.k4X
     );
 
     private final Encoder rightEncoder = new Encoder(
-        Constants.rightEncoderPortA, 
-        Constants.rightEncoderPortB, 
+        Constants.RIGHT_ENCODER_PORT_A, 
+        Constants.RIGHT_ENCODER_PORT_A, 
         false, 
         Encoder.EncodingType.k2X
     );
@@ -70,7 +70,7 @@ public class DriveTrain extends SubsystemBase {
      */
     public void arcadeDrive(double movementSpeed, double rotationalSpeed) {
         // Invert the movement speed if the invertedDrive setting is enabled.
-        movementSpeed *= Constants.invertedDrive ? -1 : 1;
+        movementSpeed *= Constants.INVERTED_DRIVE ? -1 : 1;
         arcadeDrive(movementSpeed, rotationalSpeed);
     }
 
@@ -81,7 +81,7 @@ public class DriveTrain extends SubsystemBase {
      * @param movementSpeedRight - The movement speed of the right set of motors. 
      */
     public void tankDrive(double movementSpeedLeft, double movementSpeedRight) {
-        int multiplier = Constants.invertedDrive ? -1 : 1;
+        int multiplier = Constants.INVERTED_DRIVE ? -1 : 1;
         tankDrive(movementSpeedLeft * multiplier, movementSpeedRight * multiplier);
     }
 
@@ -152,12 +152,12 @@ public class DriveTrain extends SubsystemBase {
      */
     public void setupMotors(Spark[] motors) {
         for (Spark motor : motors) {
-            motor.setSafetyEnabled(Constants.safetyToggle);
-            motor.setExpiration(Constants.expirationTime);
+            motor.setSafetyEnabled(Constants.SAFETY_TOGGLE);
+            motor.setExpiration(Constants.EXPIRATION_TIME);
         }
 
-        diffDrive.setSafetyEnabled(Constants.safetyToggle);
-        diffDrive.setExpiration(Constants.expirationTime);
+        diffDrive.setSafetyEnabled(Constants.SAFETY_TOGGLE);
+        diffDrive.setExpiration(Constants.EXPIRATION_TIME);
     }
 
     /**
@@ -168,7 +168,7 @@ public class DriveTrain extends SubsystemBase {
     public void setupEncoders(Encoder[] encoders) {
         for (Encoder encoder : encoders) {
             encoder.reset();
-            encoder.setDistancePerPulse(Constants.encoderDistanceConstant);
+            encoder.setDistancePerPulse(Constants.ENCODER_DISTANCE_CONSTANT);
         }
     }
 
@@ -181,7 +181,7 @@ public class DriveTrain extends SubsystemBase {
         SmartDashboard.putNumber("GYRO Reading:", getGyroscope() % 360);
         SmartDashboard.putNumber("Left Encoder Distance (revolutions)", getEncoder("left"));
         SmartDashboard.putNumber("Right Encoder Distance (revolutions)", getEncoder("right"));
-        SmartDashboard.putNumber("Driving Throttle", Constants.throttle);
+        SmartDashboard.putNumber("Driving Throttle", Constants.THROTTLE);
         SmartDashboard.putNumber("Time Total:", DriverStation.getMatchTime());  
     }
 }
