@@ -48,4 +48,7 @@ public final class Constants {
 
     /** The second port for the right encoder. */
     public static final int rightEncoderPortB = 0;
+
+    /** The minimum change in speed to avoid deadbanding */
+    public static final double DEADBAND_CONSTANT = 0.2;
 }
