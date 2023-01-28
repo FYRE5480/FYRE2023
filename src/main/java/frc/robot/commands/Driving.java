@@ -44,7 +44,7 @@ public class Driving extends CommandBase {
         System.out.println(horizontal + " : horizontal, " + vertical + " : vertical"); 
 
         // Reverse the movement speed if the robot is in tank drive.
-        movementSpeed *= vertical * (Constants.isTank ? -1 : 1);
+        movementSpeed *= vertical * (Constants.IS_TANK ? -1 : 1);
 
         // Set the rotational speed to the x displacement.
         rotationalSpeed = horizontal;
@@ -54,8 +54,8 @@ public class Driving extends CommandBase {
         speeds = deadband(speeds);
 
         // Calculates the power to apply to each set of motors. 
-        double leftPower = -(rotationalSpeed - movementSpeed) * Constants.throttle;
-        double rightPower = -(rotationalSpeed + movementSpeed) * Constants.throttle;
+        double leftPower = -(rotationalSpeed - movementSpeed) * Constants.THROTTLE;
+        double rightPower = -(rotationalSpeed + movementSpeed) * Constants.THROTTLE;
 
         // Runs each set of motors based on their calculated power levels. 
         driveTrain.tankDrive(leftPower, rightPower);
@@ -68,7 +68,7 @@ public class Driving extends CommandBase {
      */
     public double[] deadband(double[] speeds) { 
         for (int i = 0; i < speeds.length; i++) {
-            if (Math.abs(speeds[i]) < 0.2) {
+            if (Math.abs(speeds[i]) < Constants.DEADBAND) {
                 speeds[i] = 0.0;
             }
         }
