@@ -58,7 +58,7 @@ public class Driving extends CommandBase {
         double rightPower = -(rotationalSpeed + movementSpeed) * Constants.THROTTLE;
 
         // Runs each set of motors based on their calculated power levels. 
-        driveTrain.tankDrive(leftPower, rightPower);
+        driveTrain.arcadeDrive(leftPower, rightPower);
     }
 
     /**
