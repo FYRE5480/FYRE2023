@@ -120,8 +120,13 @@ public class DriveTrain extends SubsystemBase {
                 break;
 
             case "both":
+                leftEncoder.reset();
+                rightEncoder.reset();
+                /** alternate way that was originally used - replaced due to inconsistency, 
+                 * but kept in case it was some bizarre bug fix
                 resetEncoder("left");
                 resetEncoder("right");
+                */
                 break;
             
             default:
