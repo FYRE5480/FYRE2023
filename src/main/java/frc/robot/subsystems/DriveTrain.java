@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.Victor;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -21,8 +21,8 @@ public class DriveTrain extends SubsystemBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     // Initialize our motors by referencing their ports. 
-    private final Victor left = new Victor(Constants.LEFT_MOTOR_PORT);
-    private final Victor right = new Victor(Constants.RIGHT_MOTOR_PORT);
+    private final Spark left = new Spark(Constants.LEFT_MOTOR_PORT);
+    private final Spark right = new Spark(Constants.RIGHT_MOTOR_PORT);
 
     // Package our motors into MotorControllerGroups to be added to a DifferentialDrive.
     private final MotorControllerGroup leftMotors = new MotorControllerGroup(left);
@@ -39,7 +39,7 @@ public class DriveTrain extends SubsystemBase {
 
     private final Encoder rightEncoder = new Encoder(
         Constants.RIGHT_ENCODER_PORT_A, 
-        Constants.RIGHT_ENCODER_PORT_B, 
+        Constants.RIGHT_ENCODER_PORT_A, 
         false, 
         Encoder.EncodingType.k2X
     );
@@ -52,7 +52,7 @@ public class DriveTrain extends SubsystemBase {
      */
     public DriveTrain() {
         // Set the safety toggle and expiration on the motors + drivetrain.
-        setupMotors(new Victor[]{left, right});
+        setupMotors(new Spark[]{left, right});
 
         // Reset and prepare our encoders for calculation.
         setupEncoders(new Encoder[]{leftEncoder, rightEncoder});
@@ -120,13 +120,8 @@ public class DriveTrain extends SubsystemBase {
                 break;
 
             case "both":
-                leftEncoder.reset();
-                rightEncoder.reset();
-                /** alternate way that was originally used - replaced due to inconsistency, 
-                 * but kept in case it was some bizarre bug fix
                 resetEncoder("left");
                 resetEncoder("right");
-                */
                 break;
             
             default:
@@ -155,8 +150,8 @@ public class DriveTrain extends SubsystemBase {
 
      * @param motors - An array of the motors to edit the properties of. 
      */
-    public void setupMotors(Victor[] motors) {
-        for (Victor motor : motors) {
+    public void setupMotors(Spark[] motors) {
+        for (Spark motor : motors) {
             motor.setSafetyEnabled(Constants.SAFETY_TOGGLE);
             motor.setExpiration(Constants.EXPIRATION_TIME);
         }
