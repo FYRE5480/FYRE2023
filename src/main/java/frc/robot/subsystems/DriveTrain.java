@@ -39,7 +39,7 @@ public class DriveTrain extends SubsystemBase {
 
     private final Encoder rightEncoder = new Encoder(
         Constants.RIGHT_ENCODER_PORT_A, 
-        Constants.RIGHT_ENCODER_PORT_A, 
+        Constants.RIGHT_ENCODER_PORT_B, 
         false, 
         Encoder.EncodingType.k2X
     );
