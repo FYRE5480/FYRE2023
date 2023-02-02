@@ -38,13 +38,13 @@ public class Driving extends CommandBase {
         // Get the current position of the joystick axis.
         // TODO: switch to XboxController. 
 
-        horizontal = RobotContainer.manipulatorControl.getX();
-        vertical = -RobotContainer.manipulatorControl.getY(); 
+        horizontal = RobotContainer.driverControl.getLeftX();
+        vertical = -RobotContainer.driverControl.getRightY(); 
 
         System.out.println(horizontal + " : horizontal, " + vertical + " : vertical"); 
 
         // Reverse the movement speed if the robot is in tank drive.
-        movementSpeed *= vertical * (Constants.IS_TANK ? -1 : 1);
+        movementSpeed = vertical * (Constants.IS_TANK ? -1 : 1);
 
         // Set the rotational speed to the x displacement.
         rotationalSpeed = horizontal;
@@ -58,7 +58,15 @@ public class Driving extends CommandBase {
         double rightPower = -(rotationalSpeed + movementSpeed) * Constants.THROTTLE;
 
         // Runs each set of motors based on their calculated power levels. 
-        driveTrain.arcadeDrive(leftPower, rightPower);
+
+        //robot stopped working when I tried to implement this - may be unrelated?
+        //if(Constants.IS_TANK){
+            driveTrain.tankDrive(leftPower, rightPower);
+        //} else {
+        //    driveTrain.arcadeDrive(leftPower, rightPower);
+        //}
+        
+        
     }
 
     /**

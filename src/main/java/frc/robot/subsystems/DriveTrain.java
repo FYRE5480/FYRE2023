@@ -11,7 +11,10 @@ import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
+//import edu.wpi.first.wpilibj.motorcontrol.Spark;
+
+//NOTE - for integration into WPILib's MotorControllerGroups, use WPI_[motor name] instead of [motor name]
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -21,12 +24,19 @@ public class DriveTrain extends SubsystemBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     // Initialize our motors by referencing their ports. 
-    private final Spark left = new Spark(Constants.LEFT_MOTOR_PORT);
-    private final Spark right = new Spark(Constants.RIGHT_MOTOR_PORT);
+    //private final Spark left1 = new Spark(Constants.LEFT_MOTOR_PORT_1);
+    //private final Spark right1 = new Spark(Constants.RIGHT_MOTOR_PORT_1);
+    //private final Spark left2 = new Spark(Constants.LEFT_MOTOR_PORT_2);
+    //private final Spark right2 = new Spark(Constants.RIGHT_MOTOR_PORT_2);
+
+    private final WPI_VictorSPX left1 = new WPI_VictorSPX(Constants.LEFT_MOTOR_PORT_1);
+    private final WPI_VictorSPX right1 = new WPI_VictorSPX(Constants.RIGHT_MOTOR_PORT_1);
+    private final WPI_VictorSPX left2 = new WPI_VictorSPX(Constants.LEFT_MOTOR_PORT_2);
+    private final WPI_VictorSPX right2 = new WPI_VictorSPX(Constants.RIGHT_MOTOR_PORT_2);
 
     // Package our motors into MotorControllerGroups to be added to a DifferentialDrive.
-    private final MotorControllerGroup leftMotors = new MotorControllerGroup(left);
-    private final MotorControllerGroup rightMotors = new MotorControllerGroup(right);
+    private final MotorControllerGroup leftMotors = new MotorControllerGroup(left1, left2);
+    private final MotorControllerGroup rightMotors = new MotorControllerGroup(right1, right2);
     private final DifferentialDrive diffDrive = new DifferentialDrive(leftMotors, rightMotors);
 
     // Initialize our encoders to calculate wheel rotation in autonomous. 
@@ -45,21 +55,21 @@ public class DriveTrain extends SubsystemBase {
     );
 
     // Initialize our gyroscope for measuring the angle of the bot.
-    private final Gyro driveGyro = new ADXRS450_Gyro(Port.kOnboardCS0);
+    //private final Gyro driveGyro = new ADXRS450_Gyro(Port.kOnboardCS0);
 
     /** 
      * Changes settings on the motors + encoders when instantiated.
      */
     public DriveTrain() {
         // Set the safety toggle and expiration on the motors + drivetrain.
-        setupMotors(new Spark[]{left, right});
+        setupMotors(new WPI_VictorSPX[]{left1, right1, left2, right2});
 
         // Reset and prepare our encoders for calculation.
         setupEncoders(new Encoder[]{leftEncoder, rightEncoder});
 
         // Reset and calibrate our gyroscope.
-        driveGyro.reset();
-        driveGyro.calibrate();
+        //driveGyro.reset();
+        //driveGyro.calibrate();
     }
 
     /** 
@@ -71,7 +81,7 @@ public class DriveTrain extends SubsystemBase {
     public void arcadeDrive(double movementSpeed, double rotationalSpeed) {
         // Invert the movement speed if the invertedDrive setting is enabled.
         movementSpeed *= Constants.INVERTED_DRIVE ? -1 : 1;
-        arcadeDrive(movementSpeed, rotationalSpeed);
+        diffDrive.arcadeDrive(movementSpeed, rotationalSpeed);
     }
 
     /** 
@@ -82,7 +92,8 @@ public class DriveTrain extends SubsystemBase {
      */
     public void tankDrive(double movementSpeedLeft, double movementSpeedRight) {
         int multiplier = Constants.INVERTED_DRIVE ? -1 : 1;
-        tankDrive(movementSpeedLeft * multiplier, movementSpeedRight * multiplier);
+        diffDrive.tankDrive(movementSpeedLeft * multiplier, movementSpeedRight * multiplier);
+        
     }
 
     /**
@@ -134,15 +145,17 @@ public class DriveTrain extends SubsystemBase {
 
      * @return - The current orientation of the gyroscope.
      */
-    public double getGyroscope() {
-        return driveGyro.getAngle();
+    
+     public double getGyroscope() {
+        //return driveGyro.getAngle();
+        return 0;
     }
 
     /** 
      * Reset the gyroscope. 
      */
     public void resetGyroscope() {
-        driveGyro.reset();
+        //driveGyro.reset();
     }
 
     /**
@@ -150,8 +163,8 @@ public class DriveTrain extends SubsystemBase {
 
      * @param motors - An array of the motors to edit the properties of. 
      */
-    public void setupMotors(Spark[] motors) {
-        for (Spark motor : motors) {
+    public void setupMotors(WPI_VictorSPX[] motors) {
+        for (WPI_VictorSPX motor : motors) {
             motor.setSafetyEnabled(Constants.SAFETY_TOGGLE);
             motor.setExpiration(Constants.EXPIRATION_TIME);
         }
