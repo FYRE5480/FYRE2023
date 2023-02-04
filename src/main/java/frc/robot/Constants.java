@@ -14,7 +14,7 @@ package frc.robot;
  */
 public final class Constants {
 
-    //TODO: Find an offset value for the xbox to vitually eliminate drift
+    //TODO: Find an offset value for the xbox controller to vitually eliminate drift
 
     /** The multipler of the speed of the drivetrain. */
     public static final double THROTTLE = 0.7;
