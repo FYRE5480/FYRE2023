@@ -4,18 +4,9 @@
 
 package frc.robot.subsystems;
 
-<<<<<<< Updated upstream
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-=======
-//import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Encoder;
-//import edu.wpi.first.wpilibj.SPI.Port;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-//import edu.wpi.first.wpilibj.interfaces.Gyro;
->>>>>>> Stashed changes
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 //import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import com.kauailabs.navx.frc.*;
