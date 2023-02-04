@@ -49,7 +49,7 @@ public class DriveTrain extends SubsystemBase {
 
     private final Encoder rightEncoder = new Encoder(
         Constants.RIGHT_ENCODER_PORT_A, 
-        Constants.RIGHT_ENCODER_PORT_A, 
+        Constants.RIGHT_ENCODER_PORT_B, 
         false, 
         Encoder.EncodingType.k2X
     );
@@ -131,8 +131,10 @@ public class DriveTrain extends SubsystemBase {
                 break;
 
             case "both":
-                resetEncoder("left");
-                resetEncoder("right");
+                leftEncoder.reset();
+                rightEncoder.reset();
+                //resetEncoder("left");
+                //resetEncoder("right");
                 break;
             
             default:
