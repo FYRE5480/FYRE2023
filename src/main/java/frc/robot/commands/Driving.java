@@ -13,12 +13,10 @@ import frc.robot.subsystems.DriveTrain;
 public class Driving extends CommandBase {
     // Initialize our variables for controlling drivetrain.
     private DriveTrain driveTrain;
-    private double movementSpeed;
-    private double rotationalSpeed;
 
     // Initialize our speed variables for controlling motor speeds.
-    private double horizontal;
-    private double vertical;
+    private double leftStick;
+    private double rightStick;
 
     /**
      * Initialize our driving commands through our DriveTrain subsystem.
@@ -35,38 +33,27 @@ public class Driving extends CommandBase {
      */
     @Override 
     public void execute() {
-        // Get the current position of the joystick axis.
-        // TODO: switch to XboxController. 
+        // Get the values of the joysticks we will use for our particular drive.
+        leftStick = RobotContainer.driverControl.getLeftX();
+        rightStick = Constants.IS_TANK ? RobotContainer.driverControl.getRightY() : RobotContainer.driverControl.getRightX(); 
 
-        horizontal = RobotContainer.driverControl.getLeftX();
-        vertical = RobotContainer.driverControl.getRightY(); 
-
-        System.out.println(horizontal + " : horizontal, " + vertical + " : vertical"); 
-
-        // Reverse the movement speed if the robot is in tank drive.
-        movementSpeed = vertical * (Constants.IS_TANK ? -1 : 1);
-
-        // Set the rotational speed to the x displacement.
-        rotationalSpeed = horizontal;
-
-        // Apply a deadband to the speed modifiers if they are negligible. 
-        double[] speeds = new double[]{ movementSpeed, rotationalSpeed };
+        // Apply a deadband to the joystick directions if they are negligible. 
+        double[] speeds = new double[]{ leftStick, rightStick };
         speeds = deadband(speeds);
 
+        // Outputs the positions of each of the joystick axis. 
+        System.out.println(leftStick + " : left stick, " + rightStick + " : right stick"); 
+
         // Calculates the power to apply to each set of motors. 
-        double leftPower = -(rotationalSpeed - movementSpeed) * Constants.THROTTLE;
-        double rightPower = -(rotationalSpeed + movementSpeed) * Constants.THROTTLE;
+        double leftPower = leftStick * Constants.THROTTLE;
+        double rightPower = rightStick * Constants.THROTTLE;
 
         // Runs each set of motors based on their calculated power levels. 
-
-        //robot stopped working when I tried to implement this - may be unrelated?
-        //if(Constants.IS_TANK){
+        if(Constants.IS_TANK){
             driveTrain.tankDrive(leftPower, rightPower);
-        //} else {
-        //    driveTrain.arcadeDrive(leftPower, rightPower);
-        //}
-        
-        
+        } else {
+            driveTrain.arcadeDrive(leftPower, rightPower);
+        }
     }
 
     /**
