@@ -14,7 +14,7 @@ package frc.robot;
  */
 public final class Constants {
     /** The multipler of the speed of the drivetrain. */
-    public static final double THROTTLE = 0.3;
+    public static final double THROTTLE = 0.7;
 
     /** The port of the right drivetrain motor. */
     public static final int RIGHT_MOTOR_PORT_1 = 0; 
@@ -38,7 +38,7 @@ public final class Constants {
     public static final boolean INVERTED_DRIVE = false; 
 
     /** Toggles the tank drive on the robot. */
-    public static final boolean IS_TANK = true;
+    public static final boolean IS_TANK = false;
     
     /** The constant of the encoder's distance per pulse. */
     public static final double ENCODER_DISTANCE_CONSTANT = 1.0 / 2048 * 6 * Math.PI;
