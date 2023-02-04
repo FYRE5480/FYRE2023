@@ -13,6 +13,9 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+    //TODO: Find an offset value for the xbox to vitually eliminate drift
+
     /** The multipler of the speed of the drivetrain. */
     public static final double THROTTLE = 0.3;
 
