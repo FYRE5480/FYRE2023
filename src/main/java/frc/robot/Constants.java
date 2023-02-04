@@ -38,7 +38,7 @@ public final class Constants {
     public static final boolean INVERTED_DRIVE = false; 
 
     /** Toggles the tank drive on the robot. */
-    public static final boolean IS_TANK = false;
+    public static final boolean IS_TANK = true;
     
     /** The constant of the encoder's distance per pulse. */
     public static final double ENCODER_DISTANCE_CONSTANT = 1.0 / 2048 * 6 * Math.PI;
