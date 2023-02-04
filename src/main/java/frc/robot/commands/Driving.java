@@ -39,7 +39,7 @@ public class Driving extends CommandBase {
         // TODO: switch to XboxController. 
 
         horizontal = RobotContainer.driverControl.getLeftX();
-        vertical = -RobotContainer.driverControl.getRightY(); 
+        vertical = RobotContainer.driverControl.getRightY(); 
 
         System.out.println(horizontal + " : horizontal, " + vertical + " : vertical"); 
 

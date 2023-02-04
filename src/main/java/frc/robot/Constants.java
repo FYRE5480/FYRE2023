@@ -14,7 +14,7 @@ package frc.robot;
  */
 public final class Constants {
     /** The multipler of the speed of the drivetrain. */
-    public static double THROTTLE = 1.0;
+    public static double THROTTLE = 0.6;
 
     /** The port of the right drivetrain motor. */
     public static final int RIGHT_MOTOR_PORT_1 = 0; 
