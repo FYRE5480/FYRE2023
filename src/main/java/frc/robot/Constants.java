@@ -13,11 +13,6 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-
-    // TODO: Find an offset value for the xbox controller to vitually eliminate drift
-
-    // TODO: Get solenoid and pressure data defined here and find out how solenoids work in the code 
-
     /** The multipler of the speed of the drivetrain. */
     public static final double THROTTLE = 0.7;
 
@@ -39,13 +34,18 @@ public final class Constants {
     /** The port of the arm motor */
     public static final int ARM_MOTOR_PORT = 5;  
 
-    //////////////////////////////////////////////////
-    /** The port of the claw solenoid? <p>
-     *  Please find out how controlling solenoids work
-     *  so that we can make sure how port wiring works
+    /**
+     * Solenoids utilize two different ports to control
+     * when they are to be extended or not. I used
+     * 6 and 7 as dummy numbers for the sole purpose of 
+     * needed variables.
      */
-    public static final int CLAW_SOLENOID_PORT = 6;  
-    //////////////////////////////////////////////////
+
+    /** The port of the claw solenoid's forward channel. */
+    public static final int CLAW_SOLENOID_FORWARD_CHANNEL = 6;  
+
+    /** The port of the claw solenoid's reverse channel. */
+    public static final int CLAW_SOLENOID_REVERSE_CHANNEL = 6;  
 
     /** The expiration time for the motor's safety. */
     public static final int EXPIRATION_TIME = Integer.MAX_VALUE;
@@ -74,6 +74,15 @@ public final class Constants {
     /** The second port for the right encoder. */
     public static final int RIGHT_ENCODER_PORT_B = 0;
 
+    /** The first port for the arm encoder. */
+    public static final int ARM_ENCODER_PORT_A = 5;
+
+    /** The second port for the arm encoder. */
+    public static final int ARM_ENCODER_PORT_B = 4;
+    
+    /** The port for the arm limit switch. */
+    public static final int ARM_SWITCH_PORT = 6; 
+    
     /** The deadband for the joysticks to prevent small, irregular movements. */
-    public static final double DEADBAND = 0.2; 
+    public static final double DEADBAND = 0.25; 
 }

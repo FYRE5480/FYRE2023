@@ -18,12 +18,7 @@ import frc.robot.Constants;
 public class DriveTrain extends SubsystemBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
-    // Initialize our motors by referencing their ports. 
-    //private final Spark left1 = new Spark(Constants.LEFT_MOTOR_PORT_1);
-    //private final Spark right1 = new Spark(Constants.RIGHT_MOTOR_PORT_1);
-    //private final Spark left2 = new Spark(Constants.LEFT_MOTOR_PORT_2);
-    //private final Spark right2 = new Spark(Constants.RIGHT_MOTOR_PORT_2);
-
+    // Initialize our motors by referencing their ports.
     private final WPI_VictorSPX left1 = new WPI_VictorSPX(Constants.LEFT_MOTOR_PORT_1);
     private final WPI_VictorSPX right1 = new WPI_VictorSPX(Constants.RIGHT_MOTOR_PORT_1);
     private final WPI_VictorSPX left2 = new WPI_VictorSPX(Constants.LEFT_MOTOR_PORT_2);

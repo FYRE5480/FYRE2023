@@ -34,19 +34,19 @@ public class Driving extends CommandBase {
     @Override 
     public void execute() {
         // Get the values of the joysticks we will use for our particular drive.
-        leftStick = Constants.IS_TANK ? RobotContainer.driverControl.getLeftX() : RobotContainer.driverControl.getLeftY();
+        leftStick = Constants.IS_TANK ? RobotContainer.driverControl.getLeftX() : -RobotContainer.driverControl.getLeftY();
         rightStick = Constants.IS_TANK ? RobotContainer.driverControl.getRightX() : RobotContainer.driverControl.getRightX(); 
 
         // Apply a deadband to the joystick directions if they are negligible. 
         double[] speeds = new double[]{ leftStick, rightStick };
         speeds = deadband(speeds);
 
-        // Outputs the positions of each of the joystick axis. 
-        System.out.println(leftStick + " : left stick, " + rightStick + " : right stick"); 
-
         // Calculates the power to apply to each set of motors. 
         double leftPower = leftStick * Constants.THROTTLE;
         double rightPower = rightStick * Constants.THROTTLE;
+
+        // Outputs the positions of each of the joystick axis. 
+        System.out.println(leftPower + " : left stick, " + rightPower + " : right stick"); 
 
         // Runs each set of motors based on their calculated power levels. 
         if(Constants.IS_TANK){
