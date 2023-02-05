@@ -14,7 +14,9 @@ package frc.robot;
  */
 public final class Constants {
 
-    //TODO: Find an offset value for the xbox controller to vitually eliminate drift
+    // TODO: Find an offset value for the xbox controller to vitually eliminate drift
+
+    // TODO: Get solenoid and pressure data defined here and find out how solenoids work in the code 
 
     /** The multipler of the speed of the drivetrain. */
     public static final double THROTTLE = 0.7;
@@ -29,7 +31,21 @@ public final class Constants {
     public static final int LEFT_MOTOR_PORT_2 = 2;
 
     /** The port of the left drivetrain motor. */
-    public static final int LEFT_MOTOR_PORT_1 = 3;    
+    public static final int LEFT_MOTOR_PORT_1 = 3;  
+    
+    /** The port of the intake motor */
+    public static final int INTAKE_MOTOR_PORT = 4;  
+
+    /** The port of the arm motor */
+    public static final int ARM_MOTOR_PORT = 5;  
+
+    //////////////////////////////////////////////////
+    /** The port of the claw solenoid? <p>
+     *  Please find out how controlling solenoids work
+     *  so that we can make sure how port wiring works
+     */
+    public static final int CLAW_SOLENOID_PORT = 6;  
+    //////////////////////////////////////////////////
 
     /** The expiration time for the motor's safety. */
     public static final int EXPIRATION_TIME = Integer.MAX_VALUE;
