@@ -35,7 +35,7 @@ public class Driving extends CommandBase {
     public void execute() {
         // Get the values of the joysticks we will use for our particular drive.
         leftStick = Constants.IS_TANK ? RobotContainer.driverControl.getLeftX() : RobotContainer.driverControl.getLeftY();
-        rightStick = Constants.IS_TANK ? RobotContainer.driverControl.getRightX() : RobotContainer.driverControl.getRightX(); 
+        rightStick = Constants.IS_TANK ? RobotContainer.driverControl.getRightY() : RobotContainer.driverControl.getRightX(); 
 
         // Apply a deadband to the joystick directions if they are negligible. 
         double[] speeds = new double[]{ leftStick, rightStick };
