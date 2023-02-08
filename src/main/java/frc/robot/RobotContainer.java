@@ -8,10 +8,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.Driving;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 import frc.robot.examples.ExampleCommand;
 import frc.robot.examples.ExampleSubsystem;
-import frc.robot.subsystems.DriveTrain;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -24,12 +25,23 @@ public class RobotContainer {
     private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
     private final ExampleCommand autoCommand = new ExampleCommand(exampleSubsystem);
 
+    // intake definitions
+    private final Intake intake = new Intake();
+    private final SpinIntake intakeSpinner = new SpinIntake(intake);
+
     // Initialize our joystick for manipulation and controller for drivetrain.
     public static final Joystick manipulatorControl = new Joystick(0);
     public static final XboxController driverControl = new XboxController(1); 
 
     // Create new subsystems for the robot to pull from.
     private static DriveTrain driveTrain = new DriveTrain(); 
+
+    
+    // A series of declared Joystick buttons for controlling the robot
+    private final JoystickButton J1 = new JoystickButton(manipulatorControl, 1);
+
+
+    
 
     /** 
      * The container for the robot. Contains subsystems, OI devices, and commands. 
@@ -38,6 +50,9 @@ public class RobotContainer {
         // Add a new Driving command to the drivetrain.
         driveTrain.setDefaultCommand(new Driving(driveTrain));
         
+	    //-> Series of declared Joystick buttons for controlling purposes. 
+
+
         // Configure the button bindings
         configureButtonBindings();
     }
@@ -48,7 +63,10 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
-    private void configureButtonBindings() {}
+    private void configureButtonBindings() {
+        J1.whileTrue(intakeSpinner);
+
+    }
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
