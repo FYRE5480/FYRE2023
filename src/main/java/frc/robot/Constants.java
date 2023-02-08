@@ -80,8 +80,11 @@ public final class Constants {
     /** The second port for the arm encoder. */
     public static final int ARM_ENCODER_PORT_B = 4;
     
-    /** The port for the arm limit switch. */
-    public static final int ARM_SWITCH_PORT = 6; 
+    /** The port for the upper arm limit switch. */
+    public static final int ARM_SWITCH_PORT_1 = 6; 
+    
+    /** The port for the lower arm limit switch. */
+    public static final int ARM_SWITCH_PORT_2 = 7; 
     
     /** The deadband for the joysticks to prevent small, irregular movements. */
     public static final double DEADBAND = 0.25; 
