@@ -35,6 +35,7 @@ public class RobotContainer {
 
     // Create new subsystems for the robot to pull from.
     private static DriveTrain driveTrain = new DriveTrain(); 
+    private static Arm arm = new Arm();
 
     
     // A series of declared Joystick buttons for controlling the robot
@@ -49,6 +50,8 @@ public class RobotContainer {
     public RobotContainer() {
         // Add a new Driving command to the drivetrain.
         driveTrain.setDefaultCommand(new Driving(driveTrain));
+
+        arm.setDefaultCommand(new ActuateArm(arm));
         
 	    //-> Series of declared Joystick buttons for controlling purposes. 
 
