@@ -1,11 +1,13 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 
 //import edu.wpi.first.wpilibj.;
 
@@ -16,7 +18,8 @@ public class Arm extends SubsystemBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     // Initialize our motor for our arm. 
-    private final WPI_VictorSPX armMotor = new WPI_VictorSPX(Constants.ARM_MOTOR_PORT);
+    private final CANSparkMax armMotor = new CANSparkMax(Constants.ARM_MOTOR_PORT, MotorType.kBrushless);
+
 
     /**
      * I am unsure if we are using an Encoder or a limit switch
@@ -35,7 +38,7 @@ public class Arm extends SubsystemBase {
     /** Creates a new ExampleSubsystem. */
     public Arm () {
         // Set the safety toggle and expiration on the motors + drivetrain.
-        setupMotors(new WPI_VictorSPX[]{armMotor});
+        //setupMotors(new CANSparkMax[]{armMotor});
 
         // Reset and prepare our encoders for calculation.
         setupEncoders(new Encoder[]{armEncoder});
@@ -69,12 +72,13 @@ public class Arm extends SubsystemBase {
 
      * @param motors - An array of the motors to edit the properties of. 
      */
-    public void setupMotors(WPI_VictorSPX[] motors) {
-        for (WPI_VictorSPX motor : motors) {
-            motor.setSafetyEnabled(Constants.SAFETY_TOGGLE);
-            motor.setExpiration(Constants.EXPIRATION_TIME);
+
+    /**public void setupMotors(CANSparkMax[] motors) {
+        for (CANSparkMax motor : motors) {
+            //motor.setSafetyEnabled(Constants.SAFETY_TOGGLE);
+            //motor.setExpiration(Constants.EXPIRATION_TIME);
         }
-    }
+    }*/
 
     /**
      * Reset the encoders and prepare to calculate rotation.
