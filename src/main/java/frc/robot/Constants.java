@@ -16,11 +16,23 @@ public final class Constants {
     /** The multipler of the speed of the drivetrain. */
     public static double THROTTLE = 1.0;
     
-    /** The port of the left drivetrain motor. */
-    public static final int LEFT_MOTOR_PORT = 0;
+    /** The first port of the left drivetrain motor. */
+    public static final int LEFT_MOTOR_PORT_1 = 0;
 
-    /** The port of the right drivetrain motor. */
-    public static final int RIGHT_MOTOR_PORT = 1; 
+    /** The second port of the left drivetrain motor. */
+    public static final int LEFT_MOTOR_PORT_2 = 1; 
+
+    /** The third port of the left drivetrain motor. */
+    public static final int LEFT_MOTOR_PORT_3 = 2;
+
+    /** The first port of the right drivetrain motor. */
+    public static final int RIGHT_MOTOR_PORT_1 = 3; 
+
+    /** The second port of the right drivetrain motor. */
+    public static final int RIGHT_MOTOR_PORT_2 = 4;
+
+    /** The third port of the right drivetrain motor. */
+    public static final int RIGHT_MOTOR_PORT_3 = 5; 
 
     /** The expiration time for the motor's safety. */
     public static final int EXPIRATION_TIME = Integer.MAX_VALUE;

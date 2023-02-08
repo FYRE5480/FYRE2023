@@ -11,9 +11,10 @@ import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
+//import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import frc.robot.Constants;
 
 /** Subsystem designed for controlling the bottom driving motors and fetching encoder values. */
@@ -21,12 +22,16 @@ public class DriveTrain extends SubsystemBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     // Initialize our motors by referencing their ports. 
-    private final Spark left = new Spark(Constants.LEFT_MOTOR_PORT);
-    private final Spark right = new Spark(Constants.RIGHT_MOTOR_PORT);
+    private final WPI_VictorSPX left1 = new WPI_VictorSPX(Constants.LEFT_MOTOR_PORT_1);
+    private final WPI_VictorSPX right1 = new WPI_VictorSPX(Constants.RIGHT_MOTOR_PORT_1);
+    private final WPI_VictorSPX left2 = new WPI_VictorSPX(Constants.LEFT_MOTOR_PORT_2);
+    private final WPI_VictorSPX right2 = new WPI_VictorSPX(Constants.RIGHT_MOTOR_PORT_2);
+    private final WPI_VictorSPX left3 = new WPI_VictorSPX(Constants.LEFT_MOTOR_PORT_3);
+    private final WPI_VictorSPX right3 = new WPI_VictorSPX(Constants.RIGHT_MOTOR_PORT_3);
 
     // Package our motors into MotorControllerGroups to be added to a DifferentialDrive.
-    private final MotorControllerGroup leftMotors = new MotorControllerGroup(left);
-    private final MotorControllerGroup rightMotors = new MotorControllerGroup(right);
+    private final MotorControllerGroup leftMotors = new MotorControllerGroup(left1, left2, left3);
+    private final MotorControllerGroup rightMotors = new MotorControllerGroup(right1, right2, right3);
     private final DifferentialDrive diffDrive = new DifferentialDrive(leftMotors, rightMotors);
 
     // Initialize our encoders to calculate wheel rotation in autonomous. 
@@ -41,7 +46,7 @@ public class DriveTrain extends SubsystemBase {
         Constants.RIGHT_ENCODER_PORT_A, 
         Constants.RIGHT_ENCODER_PORT_B, 
         false, 
-        Encoder.EncodingType.k2X
+        Encoder.EncodingType.k4X
     );
 
     // Initialize our gyroscope for measuring the angle of the bot.
@@ -52,7 +57,7 @@ public class DriveTrain extends SubsystemBase {
      */
     public DriveTrain() {
         // Set the safety toggle and expiration on the motors + drivetrain.
-        setupMotors(new Spark[]{left, right});
+        setupMotors(new WPI_VictorSPX[]{left1, left2, left3, right1, right2, right3});
 
         // Reset and prepare our encoders for calculation.
         setupEncoders(new Encoder[]{leftEncoder, rightEncoder});
@@ -155,8 +160,8 @@ public class DriveTrain extends SubsystemBase {
 
      * @param motors - An array of the motors to edit the properties of. 
      */
-    public void setupMotors(Spark[] motors) {
-        for (Spark motor : motors) {
+    public void setupMotors(WPI_VictorSPX[] motors) {
+        for (WPI_VictorSPX motor : motors) {
             motor.setSafetyEnabled(Constants.SAFETY_TOGGLE);
             motor.setExpiration(Constants.EXPIRATION_TIME);
         }
