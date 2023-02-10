@@ -27,7 +27,6 @@ public class RobotContainer {
 
     // intake definitions
     private final Intake intake = new Intake();
-    private final SpinIntake intakeSpinner = new SpinIntake(intake);
 
     // Initialize our joystick for manipulation and controller for drivetrain.
     public static final Joystick manipulatorControl = new Joystick(0);
@@ -39,7 +38,12 @@ public class RobotContainer {
 
     
     // A series of declared Joystick buttons for controlling the robot
+    
+    /** The big trigger on the front of the flight stick. Spins the intake forward */
     private final JoystickButton J1 = new JoystickButton(manipulatorControl, 1);
+
+    /** The side button on the top of the flight stick where a right handed person's thumb would rest. Spins the intake backward */
+    private final JoystickButton J2 = new JoystickButton(manipulatorControl, 2);
 
 
     
@@ -67,7 +71,11 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
-        J1.whileTrue(intakeSpinner);
+        // Note that the {button}.whileHeld({command}) has been depricated
+        J1.whileTrue(new SpinIntake(intake, "forward"));
+        J2.whileTrue(new SpinIntake(intake, "backward"));
+         
+        
 
     }
 

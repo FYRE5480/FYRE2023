@@ -31,11 +31,11 @@ public final class Constants {
     /** The port of the intake motor that lifts it in and out of the robot*/
     public static final int INTAKE_ACTUATOR_MOTOR_PORT = 4;  
     
-    /** One of the ports for the intake motors that spin the intake */
-    public static final int INTAKE_SPINNER1_MOTOR_PORT = 8;
-    
-    /** One of the ports for the intake motors that spin the intake */
-    public static final int INTAKE_SPINNER2_MOTOR_PORT = 9;
+    /** 
+    * The two motor controllers that spin the intake motors exist here,
+    * but they are both wired together on one PWM port.
+    */
+    public static final int INTAKE_SPINNER_MOTOR_PORT = 8;
     
     /** The port of the arm motor */
     public static final int ARM_MOTOR_PORT = 5;  
@@ -91,6 +91,14 @@ public final class Constants {
     
     /** The port for the lower arm limit switch. */
     public static final int ARM_SWITCH_PORT_2 = 7; 
+    
+    /** The port for the upper intake limit switch. */
+    public static final int INTAKE_SWITCH_PORT_1 = 8; 
+    
+    /** The port for the lower intake limit switch. */
+    public static final int INTAKE_SWITCH_PORT_2 = 9; 
+    
+    
     
     /** The deadband for the joysticks to prevent small, irregular movements. */
     public static final double DEADBAND = 0.25; 
