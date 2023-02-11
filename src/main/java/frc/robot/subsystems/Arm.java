@@ -28,8 +28,8 @@ public class Arm extends SubsystemBase {
     );
 
     // Initialize our limit switches for preventing obscene arm movement. 
-    private final DigitalInput armSwitchUpper = new DigitalInput(Constants.ARM_SWITCH_PORT_1);
-    private final DigitalInput armSwitchLower = new DigitalInput(Constants.ARM_SWITCH_PORT_2);
+    private final DigitalInput armSwitchUpper = new DigitalInput(Constants.ARM_SWITCH_PORT_A);
+    private final DigitalInput armSwitchLower = new DigitalInput(Constants.ARM_SWITCH_PORT_B);
 
     /** Creates a new ExampleSubsystem. */
     public Arm() {

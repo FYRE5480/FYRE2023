@@ -20,8 +20,8 @@ public class Intake extends SubsystemBase {
     private final VictorSPX actuationMotor = new VictorSPX(Constants.INTAKE_ACTUATOR_MOTOR_PORT);
 
     // Sets up the encoders for the intake
-    private final DigitalInput intakeSwitchUpper = new DigitalInput(Constants.INTAKE_SWITCH_PORT_1);
-    private final DigitalInput intakeSwitchLower = new DigitalInput(Constants.INTAKE_SWITCH_PORT_2);
+    private final DigitalInput intakeSwitchUpper = new DigitalInput(Constants.INTAKE_SWITCH_PORT_A);
+    private final DigitalInput intakeSwitchLower = new DigitalInput(Constants.INTAKE_SWITCH_PORT_B);
 
     /** Creates a new Intake subsystem. */
     public Intake() {}

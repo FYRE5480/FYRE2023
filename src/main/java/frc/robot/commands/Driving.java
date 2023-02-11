@@ -70,7 +70,7 @@ public class Driving extends CommandBase {
      */
     public double[] deadband(double[] speeds) { 
         for (int i = 0; i < speeds.length; i++) {
-            if (Math.abs(speeds[i]) < Constants.DEADBAND) {
+            if (Math.abs(speeds[i]) < Constants.CONTROLLER_DEADBAND) {
                 speeds[i] = 0.0;
             }
         }
