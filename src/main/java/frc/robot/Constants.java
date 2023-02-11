@@ -28,7 +28,7 @@ public final class Constants {
     /** The port of the left drivetrain motor. */
     public static final int LEFT_MOTOR_PORT_1 = 3;  
     
-    /** The port of the intake motor that lifts it in and out of the robot*/
+    /** The port of the intake motor that lifts it in and out of the robot. */
     public static final int INTAKE_ACTUATOR_MOTOR_PORT = 4;  
     
     /** 
@@ -37,15 +37,8 @@ public final class Constants {
     */
     public static final int INTAKE_SPINNER_MOTOR_PORT = 8;
     
-    /** The port of the arm motor */
+    /** The port of the arm motor. */
     public static final int ARM_MOTOR_PORT = 5;  
-    
-    /**
-    * Solenoids utilize two different ports to control
-    * when they are to be extended or not. I used
-    * 6 and 7 as dummy numbers for the sole purpose of 
-    * needed variables.
-    */
     
     /** The port of the claw solenoid's forward channel. */
     public static final int CLAW_SOLENOID_FORWARD_CHANNEL = 6;  
@@ -98,8 +91,15 @@ public final class Constants {
     /** The port for the lower intake limit switch. */
     public static final int INTAKE_SWITCH_PORT_2 = 9; 
     
-    
-    
     /** The deadband for the joysticks to prevent small, irregular movements. */
     public static final double DEADBAND = 0.25; 
+
+    /** The speed that the intake flywheels should be running at. */
+    public static final double INTAKE_SPEED = 0.6; 
+
+    /** The speed that the intake lifting motors should be running at. */
+    public static final double INTAKE_ACTUATION_SPEED = 0.3; 
+
+    /** The speed that the arm actuation motors should be running at. */
+    public static final double ARM_ACTUATION_SPEED = 0.5; 
 }

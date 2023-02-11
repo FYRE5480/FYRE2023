@@ -4,12 +4,14 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+// import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
+// import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+// import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-//NOTE - for integration into WPILib's MotorControllerGroups, use WPI_[motor name] instead of [motor name]
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -45,7 +47,7 @@ public class DriveTrain extends SubsystemBase {
     );
 
     // Initialize our gyroscope for measuring the angle of the bot.
-    //private final Gyro driveGyro = new ADXRS450_Gyro(Port.kOnboardCS0);
+    // private final Gyro driveGyro = new ADXRS450_Gyro(Port.kOnboardCS0);
 
     /** 
      * Changes settings on the motors + encoders when instantiated.
@@ -58,8 +60,8 @@ public class DriveTrain extends SubsystemBase {
         setupEncoders(new Encoder[]{leftEncoder, rightEncoder});
 
         // Reset and calibrate our gyroscope.
-        //driveGyro.reset();
-        //driveGyro.calibrate();
+        // driveGyro.reset();
+        // driveGyro.calibrate();
     }
 
     /** 
@@ -123,8 +125,6 @@ public class DriveTrain extends SubsystemBase {
             case "both":
                 leftEncoder.reset();
                 rightEncoder.reset();
-                //resetEncoder("left");
-                //resetEncoder("right");
                 break;
             
             default:
@@ -137,9 +137,8 @@ public class DriveTrain extends SubsystemBase {
 
      * @return - The current orientation of the gyroscope.
      */
-    
-     public double getGyroscope() {
-        //return driveGyro.getAngle();
+    public double getGyroscope() {
+        // return driveGyro.getAngle();
         return 0;
     }
 
@@ -147,7 +146,7 @@ public class DriveTrain extends SubsystemBase {
      * Reset the gyroscope. 
      */
     public void resetGyroscope() {
-        //driveGyro.reset();
+        // driveGyro.reset();
     }
 
     /**

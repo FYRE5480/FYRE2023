@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -11,17 +12,20 @@ import frc.robot.subsystems.DriveTrain;
 
 /** Handler for most events involving driving and chassis-motor manipulation. */
 public class Driving extends CommandBase {
-    // Initialize our variables for controlling drivetrain.
+    // Initialize the DriveTrain subsytem.
     private DriveTrain driveTrain;
 
     // Initialize our speed variables for controlling motor speeds.
     private double leftStick;
     private double rightStick;
 
+    // Fetch the driver controller from the RobotContainer.
+    private XboxController driverControl;
+    
     /**
      * Initialize our driving commands through our DriveTrain subsystem.
 
-     * @param driveTrain The instance of the DriveTrain which is in line with the controller. 
+     * @param driveTrain - The instance of the DriveTrain which is in line with the controller. 
      */
     public Driving(DriveTrain driveTrain) {
         this.driveTrain = driveTrain; 
@@ -29,13 +33,16 @@ public class Driving extends CommandBase {
     }
 
     /** 
-     * Apply the displacement of the controller sticks and apply it to our drivetrain.
+     * Apply the displacement of the controller sticks and apply it to our DriveTrain.
      */
     @Override 
     public void execute() {
+        // Set the driverControl variable to our XboxController.
+        driverControl = RobotContainer.driverControl; 
+
         // Get the values of the joysticks we will use for our particular drive.
-        leftStick = Constants.IS_TANK ? RobotContainer.driverControl.getLeftX() : -RobotContainer.driverControl.getLeftY();
-        rightStick = Constants.IS_TANK ? RobotContainer.driverControl.getRightX() : RobotContainer.driverControl.getRightX(); 
+        leftStick = Constants.IS_TANK ? driverControl.getLeftX() : -driverControl.getLeftY();
+        rightStick = Constants.IS_TANK ? driverControl.getRightX() : driverControl.getRightX(); 
 
         // Apply a deadband to the joystick directions if they are negligible. 
         double[] speeds = new double[]{ leftStick, rightStick };
@@ -49,7 +56,7 @@ public class Driving extends CommandBase {
         System.out.println(leftPower + " : left stick, " + rightPower + " : right stick"); 
 
         // Runs each set of motors based on their calculated power levels. 
-        if(Constants.IS_TANK){
+        if (Constants.IS_TANK) {
             driveTrain.tankDrive(leftPower, rightPower);
         } else {
             driveTrain.arcadeDrive(rightPower, leftPower);

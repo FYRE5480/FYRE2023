@@ -1,62 +1,72 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Intake;
 
-public class SpinIntake extends CommandBase{
-    // Initialize the variable for controlling the intake
+/**
+ * Handler containing methods relating to the movement of the intake flywheels.
+ */
+public class SpinIntake extends CommandBase {
+    // Initialize the Intake subsystem. 
     private Intake intake;
+
+    // Initialize the direction to spin the intake. 
     private String direction;
 
 
-
+    /**
+     * Creates a method manager for rotating the intake flywheels. 
+     *
+     * @param subsystem - The Intake subsystem to be built open. 
+     * @param direction - The direction in which the intake flywheels will run. 
+     */
     public SpinIntake(Intake subsystem, String direction) {
         this.intake = subsystem;
         this.direction = direction;
+        
         addRequirements(this.intake);
     }
 
-    public void initialize () {}
-
-    public void execute () {
-        // Checks if the intake needs to spin, and does it
+    /**
+     * Runs whatever methods are currently prompted from the intake. 
+     */
+    public void execute() {
+        // If a button for intake spinning is pressed, the flywheels will spin. 
         spin();
 
-        // Checks if the intake needs to actuate, and does it
-        actuationOnce();
-
+        // If a button for intake actuation is pressed, the intake will actuate.
+        actuate();
     }
 
-    public void end (boolean interrupted) {
-        intake.stopSpinIntake();
+    public void end(boolean interrupted) {
+        intake.stopIntakeSpin();
     }
-
-
 
     /**
-     * Checks if the intake needs to spin, and does it
+     * Spins the intake according to the direction variable.
      */
-    public void spin () {
+    public void spin() {
         switch (direction) {
-            case "forward" :
+            case "forward":
                 intake.spinForward();
                 break;
-            case "backward" :
+
+            case "backward":
                 intake.spinBackward();
                 break;
-            default :
-                intake.stopSpinIntake();
+
+            default:
+                intake.stopIntakeSpin();
                 break;
         }
     }
 
 
     /**
-     * Checks if the intake needs to be lifted or lowered, and does it
+     * Actuates the arm according to the positions of the limit
+     * switches if a button is pressed once.
      */
-    public void actuationOnce () {
+    public void actuate() {
         if (intake.getSwitchReading("lower")) {
             while (!intake.getSwitchReading("upper")) {
                 intake.liftIntake();
@@ -69,16 +79,16 @@ public class SpinIntake extends CommandBase{
         intake.stopActuationIntake();
     }
 
-
     /**
      * Method if we wanted an alternate control method,
      * where we hold down a button to move the intake instead of pressing one once.
-     * @param direction - the direction the intake wants to be moved
+     *
+     * @param direction - The direction to move the intake.
      */
-    public void actuationConstant (String direction) {
-        if (intake.getSwitchReading("lower") && direction.compareTo("raise") == 0) {
+    public void actuateConstant(String direction) {
+        if (intake.getSwitchReading("lower") && direction.equals("raise")) {
             intake.liftIntake();
-        } else if (intake.getSwitchReading("upper") && direction.compareTo("lower") == 0) {
+        } else if (intake.getSwitchReading("upper") && direction.equals("lower")) {
             intake.lowerIntake();
         } else {
             intake.stopActuationIntake();

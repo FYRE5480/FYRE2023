@@ -1,19 +1,21 @@
-/** 
- * A subsystem class to control the intake spinning and actuating
- */
-package frc.robot.subsystems;
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
+package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+/**
+ * Subsystem for controlling speed and position of the intake mechanism. 
+ */
 public class Intake extends SubsystemBase {
-
-    // There are two motor controllers that exist here, but they are wired together on one PWM port. 
+    // There are two motor controllers that exist here, but they are wired together to PWM port. 
     private final Spark intakeMotor = new Spark(Constants.INTAKE_SPINNER_MOTOR_PORT);
     private final VictorSPX actuationMotor = new VictorSPX(Constants.INTAKE_ACTUATOR_MOTOR_PORT);
 
@@ -21,27 +23,16 @@ public class Intake extends SubsystemBase {
     private final DigitalInput intakeSwitchUpper = new DigitalInput(Constants.INTAKE_SWITCH_PORT_1);
     private final DigitalInput intakeSwitchLower = new DigitalInput(Constants.INTAKE_SWITCH_PORT_2);
 
-
-    /** Creates a new ExampleSubsystem. */
-    public Intake () {}
-
-    @Override
-    public void periodic () {
-    	// This method will be called once per scheduler run
-    }
-
-    @Override
-    public void simulationPeriodic () {
-    	// This method will be called once per scheduler run during simulation
-    }
+    /** Creates a new Intake subsystem. */
+    public Intake() {}
 
     /**
-     * 
-     * @param side - which limit switch's output should read
-     * @return boolean - whether the specified limit switch is being engaged.
-     * Defaults to true to prevent the motor moving unintentionally
+     * Gets the reading of the appropriate limit switch. 
+     *
+     * @param side - The limit switch to be referenced ("upper" or "lower")
+     * @return - The current poisition of the prompted limit switch. 
      */
-    public boolean getSwitchReading(String side){
+    public boolean getSwitchReading(String side) {
         switch (side) {
             case "upper":
                 return intakeSwitchUpper.get();
@@ -54,42 +45,49 @@ public class Intake extends SubsystemBase {
         }
     }
 
-////////////////////////////////////////////////////
-///// This code deals with spinning the intake /////
-////////////////////////////////////////////////////
-    public void spinForward () {
-        intakeMotor.set(0.6);
+    // Methods for controlling the speed of the intake. 
+
+    /**
+     * Runs the intake forward at the INTAKE_SPEED level.
+     */
+    public void spinForward() {
+        intakeMotor.set(Constants.INTAKE_SPEED);
     }
 
-    public void spinBackward () {
-        intakeMotor.set(-0.6);
+    /**
+     * Runs the intake backward at the INTAKE_SPEED level.
+     */
+    public void spinBackward() {
+        intakeMotor.set(-Constants.INTAKE_SPEED);
     }
 
-    public void stopSpinIntake () {
+    /**
+     * Stops the flywheels on the intake system. 
+     */
+    public void stopIntakeSpin() {
         intakeMotor.set(0.0);
     }
-////////////////////////////////////////////////////
 
+    // Methods for controlling the actuation of the intake. 
 
-///////////////////////////////////////////////////
-//// This code deals with actuating the intake ////
-///////////////////////////////////////////////////
-    public void liftIntake () {
-        actuationMotor.set(ControlMode.PercentOutput, 0.3);
+    /**
+     * Runs the actuation motor upwards at the INTAKE_ACTUATION_SPEED level.
+     */
+    public void liftIntake() {
+        actuationMotor.set(ControlMode.PercentOutput, Constants.INTAKE_ACTUATION_SPEED);
     }
 
-    public void lowerIntake () {
-        actuationMotor.set(ControlMode.PercentOutput, -0.3);
+    /**
+     * Runs the actuation motor downwards at the INTAKE_ACTUATION_SPEED level. 
+     */
+    public void lowerIntake() {
+        actuationMotor.set(ControlMode.PercentOutput, -Constants.INTAKE_ACTUATION_SPEED);
     }
 
+    /**
+     * Stops the actuation motor on the intake system. 
+     */
     public void stopActuationIntake() {
         actuationMotor.set(ControlMode.PercentOutput, 0.0);
     }
-///////////////////////////////////////////////////
-
-
-
-
-
-
 }
