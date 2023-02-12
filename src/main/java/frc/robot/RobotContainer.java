@@ -10,11 +10,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ActuateArm;
+import frc.robot.commands.ActuateClaw;
 import frc.robot.commands.Driving;
 import frc.robot.commands.SpinIntake;
 import frc.robot.examples.ExampleCommand;
 import frc.robot.examples.ExampleSubsystem;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 
@@ -31,6 +33,7 @@ public class RobotContainer {
 
     // Create new subsystems for the robot to pull from.
     private static Arm arm = new Arm();
+    private static Claw claw = new Claw(); 
     private static DriveTrain driveTrain = new DriveTrain(); 
     private static Intake intake = new Intake();
 
@@ -40,20 +43,29 @@ public class RobotContainer {
     
     // A series of declared Joystick buttons for controlling the robot.
     
-    // Big trigger on the front of the stick. Unused.
-    // private final JoystickButton joystick1 = new JoystickButton(manipulatorControl, 1);
+    /** Big trigger on the front of the stick. Toggles the claw. */
+    private final JoystickButton joystick1 = new JoystickButton(manipulatorControl, 1);
 
-    // Side button on the top of the stick where the thumb would rest. Unused.
-    // private final JoystickButton joystick2 = new JoystickButton(manipulatorControl, 2);
-
-    // Button on left side of stick where thumb lies. Actuates arm up or down. 
+    /** Button on left side of stick where thumb lies. Actuates arm fully up or down. */
     private final JoystickButton joystick2 = new JoystickButton(manipulatorControl, 2);
 
-    // Front-most button on the left-top of the stick. Runs intake backward.
+    /** Bottom-left button on the top of the stick. Runs intake backward. */
     private final JoystickButton joystick3 = new JoystickButton(manipulatorControl, 3);
 
-    // Front-most button on the right-top of the stick. Runs intake forward.
+    /** 
+     * Bottom-right button on the top of the stick. 
+     * Actuates the arm down while pressed, unless it is already actuating. 
+     */
+    private final JoystickButton joystick4 = new JoystickButton(manipulatorControl, 4);
+
+    /** Top-left button on the top of the stick. Runs intake forward. */
     private final JoystickButton joystick5 = new JoystickButton(manipulatorControl, 5);
+
+    /** 
+     * Top-right button on the top of the stick. 
+     * Actuates the arm up while pressed, unless it is already actuating. 
+     */
+    private final JoystickButton joystick6 = new JoystickButton(manipulatorControl, 6);
 
     /** 
      * The container for the robot. Contains subsystems, OI devices, and commands. 
@@ -61,9 +73,8 @@ public class RobotContainer {
     public RobotContainer() {
         // Add a new Driving command to the drivetrain.
         driveTrain.setDefaultCommand(new Driving(driveTrain));
-        arm.setDefaultCommand(new ActuateArm(arm));
 
-        // Configure the button bindings
+        // Configure the button bindings.
         configureButtonBindings();
     }
 
@@ -75,10 +86,14 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         // Note that the {button}.whileHeld({command}) has been depricated
-        joystick5.whileTrue(new SpinIntake(intake, "forward"));
-        joystick3.whileTrue(new SpinIntake(intake, "backward"));
+        joystick1.whileTrue(new ActuateClaw(claw)); 
+        joystick2.whileTrue(new ActuateArm(arm, "full"));
 
-        joystick2.whileTrue(new ActuateArm(arm));
+        joystick3.whileTrue(new SpinIntake(intake, "backward"));
+        joystick5.whileTrue(new SpinIntake(intake, "forward"));
+
+        joystick4.whileTrue(new ActuateArm(arm, "down"));
+        joystick6.whileTrue(new ActuateArm(arm, "up"));
     }
 
     /**

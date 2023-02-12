@@ -100,12 +100,12 @@ public class Arm extends SubsystemBase {
                 return true;
         }
     }
-
+    
     /**
      * Actuates the arm up at the ARM_ACTUATION_SPEED. 
      */
     public void actuateUp() {
-        while (!getSwitchReading("lower")) {
+        if (!getSwitchReading("lower")) {
             armMotor.set(Constants.ARM_ACTUATION_SPEED);
         }
     }
@@ -114,9 +114,29 @@ public class Arm extends SubsystemBase {
      * Actuates the arm down at the ARM_ACTUATION_SPEED. 
      */
     public void actuateDown() {
-        while (!getSwitchReading("upper")) {
+        if (!getSwitchReading("upper")) {
             armMotor.set(-Constants.ARM_ACTUATION_SPEED);
         }
+    }
+
+    /**
+     * Actuates the arm up at the ARM_ACTUATION_SPEED until it hits the lower switch. 
+     */
+    public void actuateUpFull() {
+        while (!getSwitchReading("lower")) {
+            actuateUp(); 
+        }
+        stopMotor(); 
+    }
+
+    /**
+     * Actuates the arm down at the ARM_ACTUATION_SPEED until it hits the upper switch. 
+     */
+    public void actuateDownFull() {
+        while (!getSwitchReading("upper")) {
+            actuateDown();
+        }
+        stopMotor(); 
     }
 
     /**

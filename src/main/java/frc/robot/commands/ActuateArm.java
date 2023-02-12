@@ -10,26 +10,73 @@ public class ActuateArm extends CommandBase {
     // Initialize the Arm subsystem. 
     private final Arm arm;
 
+    // Initialize a variable for arm movement direction.
+    private String direction;
+
+    // Initialize a variable for checking if a full actuation is occuring.
+    private boolean actuationInMotion; 
+
     /**
 	 * Initialize our arm actuation through the Arm subsystem.
 	 *
-	 * @param arm - The Arm subsystem used by this command.
+	 * @param subsystem - The Arm subsystem used by this command.
 	 */
-    public ActuateArm(Arm arm) {
-        this.arm = arm;
+    public ActuateArm(Arm subsystem, String direction) {
+        this.arm = subsystem;
+        this.direction = direction; 
         
         addRequirements(this.arm);
     }
 
     /**
-     * Actuates the arm according to the current readings of the limit switches. 
+     * Runs whatever methods are currently prompted from the arm.  
      */
-    public void actuateArm() {
-        if (arm.getSwitchReading("upper")) {
-            arm.actuateDown();
-        } else if (arm.getSwitchReading("lower")) {
-            arm.actuateUp(); 
+    @Override
+    public void execute() {
+        // If a button for actuating the arm is pressed, perform actuation.
+        actuate(); 
+    }
+
+    /**
+     * Checks to see if the arm is able to actuate freely and is not 
+     * presently in motion. If it is, it will perform the proper actuation.
+     */
+    public void actuate() {
+        if (!actuationInMotion) {
+            switch (direction) {
+                case "up":
+                    arm.actuateUp();
+                    break;
+
+                case "down":
+                    arm.actuateDown();
+                    break;
+
+                case "full":
+                    actuateArmFull();
+                    break;
+
+                default:
+                    arm.stopMotor();
+                    break;
+            }
         }
+    }
+
+    /**
+     * Actuates the arm to full upper or full lower according to 
+     * the current readings of the limit switches. 
+     */
+    public void actuateArmFull() {
+        actuationInMotion = true; 
+
+        if (arm.getSwitchReading("upper")) {
+            arm.actuateDownFull();
+        } else if (arm.getSwitchReading("lower")) {
+            arm.actuateUpFull(); 
+        }
+
+        actuationInMotion = false; 
     }
 
     // Called once the command ends or is interrupted.

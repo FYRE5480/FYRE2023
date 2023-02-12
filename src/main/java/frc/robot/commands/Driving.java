@@ -25,10 +25,11 @@ public class Driving extends CommandBase {
     /**
      * Initialize our driving commands through our DriveTrain subsystem.
 
-     * @param driveTrain - The instance of the DriveTrain which is in line with the controller. 
+     * @param subsystem - The instance of the DriveTrain which is in line with the controller. 
      */
-    public Driving(DriveTrain driveTrain) {
-        this.driveTrain = driveTrain; 
+    public Driving(DriveTrain subsystem) {
+        this.driveTrain = subsystem; 
+        
         addRequirements(this.driveTrain); 
     }
 
