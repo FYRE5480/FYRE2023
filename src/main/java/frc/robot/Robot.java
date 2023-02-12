@@ -4,9 +4,17 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.SwitchCameras;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -15,8 +23,28 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
+    // Initialize commands for robot use, such as the auto command and container.
     private Command autoCommand;
     private RobotContainer robotContainer;
+
+    // Create a dummy variable for storing the manipulator controller.
+    private static Joystick joystick; 
+
+    // Initialize our camera variables.
+    private UsbCamera frontCam;
+    private UsbCamera clawCam; 
+
+    // Initialize our network map for switching between viewports, ana an array for cams.
+    private NetworkTableEntry cameraSelector;
+    private UsbCamera[] cameras;
+    
+    // Create arrays for storing "left" POV values and "right" POV values.
+    private List<Integer> leftValues = Arrays.asList(new Integer[]{225, 270, 315});
+    private List<Integer> rightValues = Arrays.asList(new Integer[]{45, 90, 135});
+
+    // Variables for switching between cameras. 
+    private boolean hasMoved = false; 
+    private int currentIndex = 0; 
 
     /**
 	 * This function is run when the robot is first started up and should be used for any
@@ -27,6 +55,19 @@ public class Robot extends TimedRobot {
         // Instantiate our RobotContainer. 
         // This will perform all our button bindings & put our autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
+
+        // Create a variable for the robot container's joystick.
+        joystick = RobotContainer.manipulatorControl;
+
+        // Creates a Camera object for each of the robot's viewports. 
+        frontCam = CameraServer.startAutomaticCapture(0);
+        clawCam = CameraServer.startAutomaticCapture(1);
+
+        // Fetches a table of all of the current CameraServer instances.
+        cameraSelector = NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection");
+
+        // Push our cameras into the array. 
+        cameras = new UsbCamera[]{frontCam, clawCam};
     }
 
     /**
@@ -82,7 +123,29 @@ public class Robot extends TimedRobot {
 
     /** This function is called periodically during operator control. */
     @Override
-  	public void teleopPeriodic() {}
+  	public void teleopPeriodic() {
+        int pov = joystick.getPOV();
+
+        if (pov != -1) {
+            if (pov == 0) {
+                hasMoved = false; 
+            }
+
+            if (leftValues.contains(pov)) {
+                cameraSelector.setString(
+                    SwitchCameras.switchView(cameras, hasMoved, "l", currentIndex)
+                );
+
+                hasMoved = true; 
+            } else if (rightValues.contains(pov)) {
+                cameraSelector.setString(
+                    SwitchCameras.switchView(cameras, hasMoved, "r", currentIndex)
+                );
+
+                hasMoved = true; 
+            }
+        }
+    }
 
     @Override
   	public void testInit() {
