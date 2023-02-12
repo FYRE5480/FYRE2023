@@ -16,7 +16,7 @@ public class Arm extends SubsystemBase {
     // Initialize our motor for our arm. 
     private final CANSparkMax armMotor = new CANSparkMax(
         Constants.ARM_MOTOR_PORT, 
-        MotorType.kBrushless
+        MotorType.kBrushed
     );
 
     // Initialize our encoder for calculating arm movement. 
