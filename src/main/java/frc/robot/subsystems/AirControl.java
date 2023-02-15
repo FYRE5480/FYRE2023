@@ -9,7 +9,7 @@ import frc.robot.Constants;
 public class AirControl {
 
     // Placeholder variables for the minimum and maximum PSI the compressor should recognize
-    // These can (and proabably should) be moved to constants when a perminant value is found
+    // These can (and proabably should) be moved to constants when a permanent value is found
     private int minPsi = 0;
     private int maxPsi = 0;
 
