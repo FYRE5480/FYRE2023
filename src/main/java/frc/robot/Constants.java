@@ -97,6 +97,9 @@ public final class Constants {
     /** The port of the right drivetrain motor. */
     public static final int RIGHT_MOTOR_PORT_B = 1; 
 
+    /** The port of the compressor. */
+    public static final int COMPRESSOR_PCM_PORT = 1;
+
     /** The toggle for motor safety. */
     public static final boolean SAFETY_TOGGLE = false; 
 
