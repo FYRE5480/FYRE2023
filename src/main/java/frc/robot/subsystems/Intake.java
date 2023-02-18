@@ -4,10 +4,13 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
+//import com.ctre.phoenix.motorcontrol.ControlMode;
+//import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
+//import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -16,8 +19,16 @@ import frc.robot.Constants;
  */
 public class Intake extends SubsystemBase {
     // There are two motor controllers that exist here, but they are wired together to PWM port. 
-    private final Spark intakeMotor = new Spark(Constants.INTAKE_SPINNER_MOTOR_PORT);
-    private final VictorSPX actuationMotor = new VictorSPX(Constants.INTAKE_ACTUATOR_MOTOR_PORT);
+    //private final Spark intakeMotor = new Spark(Constants.INTAKE_SPINNER_MOTOR_PORT);
+    private final CANSparkMax intakeMotor = new CANSparkMax(
+        Constants.INTAKE_SPINNER_MOTOR_PORT, 
+        MotorType.kBrushed
+        );
+    private final CANSparkMax actuationMotor = new CANSparkMax(
+        Constants.INTAKE_ACTUATOR_MOTOR_PORT,
+        MotorType.kBrushed
+        );
+    
 
     // Sets up the encoders for the intake
     private final DigitalInput intakeSwitchUpper = new DigitalInput(Constants.INTAKE_SWITCH_PORT_A);
@@ -67,6 +78,7 @@ public class Intake extends SubsystemBase {
     public void stopIntakeSpin() {
         intakeMotor.set(0.0);
     }
+    
 
     // Methods for controlling the actuation of the intake. 
 
@@ -74,20 +86,23 @@ public class Intake extends SubsystemBase {
      * Runs the actuation motor upwards at the INTAKE_ACTUATION_SPEED level.
      */
     public void liftIntake() {
-        actuationMotor.set(ControlMode.PercentOutput, Constants.INTAKE_ACTUATION_SPEED);
+        //actuationMotor.set(ControlMode.PercentOutput, Constants.INTAKE_ACTUATION_SPEED);
+        actuationMotor.set(Constants.INTAKE_ACTUATION_SPEED);
     }
 
     /**
      * Runs the actuation motor downwards at the INTAKE_ACTUATION_SPEED level. 
      */
     public void lowerIntake() {
-        actuationMotor.set(ControlMode.PercentOutput, -Constants.INTAKE_ACTUATION_SPEED);
+        //actuationMotor.set(ControlMode.PercentOutput, -Constants.INTAKE_ACTUATION_SPEED);
+        actuationMotor.set(-Constants.INTAKE_ACTUATION_SPEED);
     }
 
     /**
      * Stops the actuation motor on the intake system. 
      */
     public void stopActuationIntake() {
-        actuationMotor.set(ControlMode.PercentOutput, 0.0);
+        //actuationMotor.set(ControlMode.PercentOutput, 0.0);
+        actuationMotor.set(0.0);
     }
 }
