@@ -13,8 +13,10 @@ import frc.robot.commands.ActuateArm;
 import frc.robot.commands.ActuateClaw;
 import frc.robot.commands.Driving;
 import frc.robot.commands.SpinIntake;
+import frc.robot.commands.TurnOnCompressor;
 import frc.robot.examples.ExampleCommand;
 import frc.robot.examples.ExampleSubsystem;
+import frc.robot.subsystems.AirControl;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveTrain;
@@ -36,6 +38,7 @@ public class RobotContainer {
     private static Claw claw = new Claw(); 
     private static DriveTrain driveTrain = new DriveTrain(); 
     private static Intake intake = new Intake();
+    private static AirControl compressor = new AirControl();
 
     // Initialize our joystick for manipulation and controller for drivetrain.
     public static final Joystick manipulatorControl = new Joystick(0);
@@ -68,6 +71,12 @@ public class RobotContainer {
     private final JoystickButton joystick6 = new JoystickButton(manipulatorControl, 6);
 
     /** 
+     * Bottom right button on the base of the stick.
+     * Turns on the compressor while pressed and held. 
+     */
+    private final JoystickButton joystick12 = new JoystickButton(manipulatorControl, 12);
+
+    /** 
      * The container for the robot. Contains subsystems, OI devices, and commands. 
      */
     public RobotContainer() {
@@ -86,14 +95,23 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         // Note that the {button}.whileHeld({command}) has been depricated
+
+        // Actuates the claw when a button is pressed
         joystick1.whileTrue(new ActuateClaw(claw)); 
+
+        // Actuates the arm up or down when a button is pressed
         joystick2.whileTrue(new ActuateArm(arm, "full"));
 
+        // Spins the intake forward or backward while two respective buttons are held
         joystick3.whileTrue(new SpinIntake(intake, "backward"));
         joystick5.whileTrue(new SpinIntake(intake, "forward"));
 
+        // Actuates the arm up or down while two respective buttons are pressed
         joystick4.whileTrue(new ActuateArm(arm, "down"));
         joystick6.whileTrue(new ActuateArm(arm, "up"));
+
+        // Turns on the compressor while the button is held
+        joystick12.whileTrue(new TurnOnCompressor(compressor, false));
     }
 
     /**
