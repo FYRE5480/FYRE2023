@@ -103,14 +103,10 @@ public final class Constants {
     /** The port of the compressor. */
     public static final int COMPRESSOR_MIN_PSI = 0;
     
-    /** The default miniumum PSI for the compressor to run at. 
-     * not set yet
-    */
+    /** The port of the compressor. */
     public static final int COMPRESSOR_MAX_PSI = 0;
     
-    /** The default maximum PSI for the compressor to run at. 
-     * not set yet
-    */
+    /** The toggle for motor safety. */
     public static final boolean SAFETY_TOGGLE = false; 
     
     /** The multipler of the speed of the drivetrain. */
