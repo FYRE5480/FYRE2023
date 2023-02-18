@@ -100,10 +100,14 @@ public final class Constants {
     /** The port of the compressor. */
     public static final int COMPRESSOR_PCM_PORT = 0;
     
-    /** The port of the compressor. */
+    /** The default minimum psi the compressor should run at.
+     * not set yet
+     */
     public static final int COMPRESSOR_MIN_PSI = 0;
     
-    /** The port of the compressor. */
+    /** The default minimum psi the compressor should run at.
+     * not set yet
+     */
     public static final int COMPRESSOR_MAX_PSI = 0;
     
     /** The toggle for motor safety. */
