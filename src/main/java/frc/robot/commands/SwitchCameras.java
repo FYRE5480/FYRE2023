@@ -9,7 +9,7 @@ public class SwitchCameras {
     /**
      * Attempts to switch the viewport on the SmartDashboard, depending on
      * the direction of the joystick POV and if it has already been switched 
-     * previously. 
+     * recently. 
      *
      * @param has - Checks if a switch has already occurred previously. 
      * @param direction - The current direction of the joystick POV. 

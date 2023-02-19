@@ -17,7 +17,7 @@ public class SpinIntake extends CommandBase {
     /**
      * Creates a method manager for rotating the intake flywheels. 
      *
-     * @param subsystem - The Intake subsystem to be built open. 
+     * @param subsystem - The Intake subsystem to be built upon. 
      * @param direction - The direction in which the intake flywheels will run. 
      */
     public SpinIntake(Intake subsystem, String direction) {

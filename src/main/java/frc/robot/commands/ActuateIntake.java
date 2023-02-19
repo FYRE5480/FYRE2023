@@ -45,6 +45,9 @@ public class ActuateIntake extends CommandBase {
         }
     }
 
+    /**
+     * Pauses the actuation of the intake. 
+     */
     public void end(boolean interrupted) {
         intake.stopActuationIntake();
     }

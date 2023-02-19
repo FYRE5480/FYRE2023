@@ -24,8 +24,6 @@ import frc.robot.Constants;
 public class DriveTrain extends SubsystemBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
-    private AHRS ahrs;
-
     // Initialize our motors by referencing their ports.
     private final WPI_VictorSPX left1 = new WPI_VictorSPX(Constants.LEFT_MOTOR_PORT_A);
     private final WPI_VictorSPX right1 = new WPI_VictorSPX(Constants.RIGHT_MOTOR_PORT_A);
@@ -36,6 +34,9 @@ public class DriveTrain extends SubsystemBase {
     private final MotorControllerGroup leftMotors = new MotorControllerGroup(left1, left2);
     private final MotorControllerGroup rightMotors = new MotorControllerGroup(right1, right2);
     private final DifferentialDrive diffDrive = new DifferentialDrive(leftMotors, rightMotors);
+
+    // Initializes the nav board. 
+    private AHRS ahrs;
 
     // Initialize our encoders to calculate wheel rotation in autonomous. 
     private final Encoder leftEncoder = new Encoder(
