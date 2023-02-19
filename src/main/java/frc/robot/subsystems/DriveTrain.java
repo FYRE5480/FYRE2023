@@ -27,12 +27,16 @@ public class DriveTrain extends SubsystemBase {
     // Initialize our motors by referencing their ports.
     private final WPI_VictorSPX left1 = new WPI_VictorSPX(Constants.LEFT_MOTOR_PORT_A);
     private final WPI_VictorSPX right1 = new WPI_VictorSPX(Constants.RIGHT_MOTOR_PORT_A);
+
     private final WPI_VictorSPX left2 = new WPI_VictorSPX(Constants.LEFT_MOTOR_PORT_B);
     private final WPI_VictorSPX right2 = new WPI_VictorSPX(Constants.RIGHT_MOTOR_PORT_B);
 
+    private final WPI_VictorSPX left3 = new WPI_VictorSPX(Constants.LEFT_MOTOR_PORT_C);
+    private final WPI_VictorSPX right3 = new WPI_VictorSPX(Constants.RIGHT_MOTOR_PORT_C);
+
     // Package our motors into MotorControllerGroups to be added to a DifferentialDrive.
-    private final MotorControllerGroup leftMotors = new MotorControllerGroup(left1, left2);
-    private final MotorControllerGroup rightMotors = new MotorControllerGroup(right1, right2);
+    private final MotorControllerGroup leftMotors = new MotorControllerGroup(left1, left2, left3);
+    private final MotorControllerGroup rightMotors = new MotorControllerGroup(right1, right2, right3);
     private final DifferentialDrive diffDrive = new DifferentialDrive(leftMotors, rightMotors);
 
     // Initializes the nav board. 
@@ -61,7 +65,7 @@ public class DriveTrain extends SubsystemBase {
      */
     public DriveTrain() {
         // Set the safety toggle and expiration on the motors + drivetrain.
-        setupMotors(new WPI_VictorSPX[]{left1, right1, left2, right2});
+        setupMotors(new WPI_VictorSPX[]{left1, right1, left2, right2, left3, right3});
 
         // Reset and prepare our encoders for calculation.
         setupEncoders(new Encoder[]{leftEncoder, rightEncoder});

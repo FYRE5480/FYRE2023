@@ -17,7 +17,7 @@ public final class Constants {
     public static final double ARM_ACTUATION_SPEED = 0.5; 
     
     /** The port of the arm motor. */
-    public static final int ARM_MOTOR_PORT = 5;  
+    public static final int ARM_MOTOR_PORT = 7;  
     
     /** The first port for the arm encoder. */
     public static final int ARM_ENCODER_PORT_A = 5;
@@ -47,7 +47,7 @@ public final class Constants {
     public static final int EXPIRATION_TIME = Integer.MAX_VALUE;
     
     /** The port of the intake motor that lifts it in and out of the robot. */
-    public static final int INTAKE_ACTUATOR_MOTOR_PORT = 4; 
+    public static final int INTAKE_ACTUATOR_MOTOR_PORT = 6; 
     
     /** The speed that the intake lifting motors should be running at. */
     public static final double INTAKE_ACTUATION_SPEED = 0.3; 
@@ -79,11 +79,14 @@ public final class Constants {
     /** The second port for the left encoder. */
     public static final int LEFT_ENCODER_PORT_B = 2;
     
-    /** The port of the left drivetrain motor. */
-    public static final int LEFT_MOTOR_PORT_A = 3;  
+    /** The port of the first left drivetrain motor. */
+    public static final int LEFT_MOTOR_PORT_A = 0;  
     
-    /** The port of the left drivetrain motor. */
-    public static final int LEFT_MOTOR_PORT_B = 2;
+    /** The port of the second left drivetrain motor. */
+    public static final int LEFT_MOTOR_PORT_B = 1;
+    
+    /** The port of the third left drivetrain motor. */
+    public static final int LEFT_MOTOR_PORT_C = 2;
     
     /** The first port for the right encoder. */
     public static final int RIGHT_ENCODER_PORT_A = 1;
@@ -91,11 +94,14 @@ public final class Constants {
     /** The second port for the right encoder. */
     public static final int RIGHT_ENCODER_PORT_B = 0;
     
-    /** The port of the right drivetrain motor. */
-    public static final int RIGHT_MOTOR_PORT_A = 0; 
+    /** The port of the first right drivetrain motor. */
+    public static final int RIGHT_MOTOR_PORT_A = 3; 
     
-    /** The port of the right drivetrain motor. */
-    public static final int RIGHT_MOTOR_PORT_B = 1; 
+    /** The port of the second right drivetrain motor. */
+    public static final int RIGHT_MOTOR_PORT_B = 4; 
+
+    /** The port of the second right drivetrain motor. */
+    public static final int RIGHT_MOTOR_PORT_C = 5; 
     
     /** The port of the compressor. */
     public static final int COMPRESSOR_PCM_PORT = 0;
