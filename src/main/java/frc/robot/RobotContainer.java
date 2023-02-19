@@ -111,7 +111,7 @@ public class RobotContainer {
         joystick6.whileTrue(new ActuateArm(arm, "up"));
 
         // Turns on the compressor while the button is held
-        joystick12.whileTrue(new TurnOnCompressor(compressor, false));
+        joystick12.whileTrue(new TurnOnCompressor(compressor, true));
     }
 
     /**

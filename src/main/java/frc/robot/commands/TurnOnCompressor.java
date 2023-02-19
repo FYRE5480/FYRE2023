@@ -9,7 +9,7 @@ public class TurnOnCompressor extends CommandBase {
     private final AirControl compressor;
 
     // Initialize a boolean for checking if the compressor is on or off. 
-    private boolean onOrOff;
+    private boolean onOrOff = false;
 
     /**
      * Initializes a new TurnOnCompressor command based on the AirControl class.
