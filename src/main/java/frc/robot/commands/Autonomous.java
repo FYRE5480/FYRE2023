@@ -29,13 +29,13 @@ public class Autonomous extends CommandBase {
      * @param subsystemI - The Intake subsystem for obtaining new pieces.
      */
     public Autonomous(DriveTrain subsystemD, Intake subsystemI) {
+        // initializes drivetrain and intake as a required subsystem.
         this.driveTrain = subsystemD;
-
-        // Resets the encoders to their "zero" values. 
-        this.driveTrain.resetAhrs();
-
         this.intake = subsystemI;
         addRequirements(subsystemD, subsystemI);
+
+        // Resets the encoders to their "zero" values.
+        this.driveTrain.resetAhrs();
     }
 
     @Override
