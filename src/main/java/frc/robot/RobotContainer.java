@@ -121,7 +121,7 @@ public class RobotContainer {
 
         // Actuates the intake up or down  while two respective buttons are held
         joystick9.whileTrue(new ActuateIntake(intake, "lower"));
-        joystick9.whileTrue(new ActuateIntake(intake, "lift"));
+        joystick10.whileTrue(new ActuateIntake(intake, "lift"));
 
         // Actuates the arm up or down while two respective buttons are pressed
         joystick4.whileTrue(new ActuateArm(arm, "down"));
