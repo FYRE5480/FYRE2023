@@ -5,9 +5,12 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+//import for our navX2 board
+import com.kauailabs.navx.frc.AHRS;
 // import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SPI;
 // import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 // import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -16,9 +19,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+
 /** Subsystem designed for controlling the bottom driving motors and fetching encoder values. */
 public class DriveTrain extends SubsystemBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+
+    private AHRS ahrs;
 
     // Initialize our motors by referencing their ports.
     private final WPI_VictorSPX left1 = new WPI_VictorSPX(Constants.LEFT_MOTOR_PORT_A);
@@ -59,9 +65,11 @@ public class DriveTrain extends SubsystemBase {
         // Reset and prepare our encoders for calculation.
         setupEncoders(new Encoder[]{leftEncoder, rightEncoder});
 
-        // Reset and calibrate our gyroscope.
-        // driveGyro.reset();
-        // driveGyro.calibrate();
+        // Instantiates our navx2 board.
+        this.ahrs = new AHRS(SPI.Port.kMXP); 
+        // Calibrates the navboard
+        // Robot needs to be still during this process.
+        this.ahrs.calibrate();
     }
 
     /** 
@@ -138,15 +146,62 @@ public class DriveTrain extends SubsystemBase {
      * @return - The current orientation of the gyroscope.
      */
     public double getGyroscope() {
-        // return driveGyro.getAngle();
-        return 0;
+        return ahrs.getAngle();
     }
 
     /** 
-     * Reset the gyroscope. 
+     * Reset only the yaw on the gyroscope.
      */
     public void resetGyroscope() {
-        // driveGyro.reset();
+        ahrs.reset();
+    }
+
+    /** 
+     * Gets the acceleration of the navX2 board in a specific direction. 
+
+     * @param direction - should be 'X', 'Y', or 'Z' - 
+     *      determines which direction of acceleration is returned
+     * 
+     * @return the acceleration in the given direction
+     */
+    public float getAcceleration(char direction) {
+        switch (direction) {
+            case 'X':
+                return ahrs.getWorldLinearAccelX();
+            case 'Y':
+                return ahrs.getWorldLinearAccelY();
+            case 'Z':
+                return ahrs.getWorldLinearAccelZ();
+            default:
+                return 0;
+        }
+    }
+
+    /** 
+     * Gets the velocity of the navX2 board in a specific direction. 
+
+     * @param direction - should be 'X', 'Y', or 'Z' - 
+     *      determines which direction of velocity is returned
+     * 
+     * @return the velocity in the given direction
+     */
+    public float getVelocity(char direction) {
+        switch (direction) {
+            case 'X':
+                return ahrs.getWorldLinearAccelX();
+            case 'Y':
+                return ahrs.getWorldLinearAccelY();
+            case 'Z':
+                return ahrs.getWorldLinearAccelZ();
+            default:
+                return 0;
+        }
+    }
+
+    /** Resets all sensors to their respective zero values. */
+    public void resetAhrs() {
+        ahrs.calibrate();
+        ahrs.zeroYaw();
     }
 
     /**
