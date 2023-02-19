@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ActuateArm;
 import frc.robot.commands.ActuateClaw;
+import frc.robot.commands.ActuateIntake;
 import frc.robot.commands.Driving;
 import frc.robot.commands.SpinIntake;
 import frc.robot.commands.TurnOnCompressor;
@@ -71,6 +72,18 @@ public class RobotContainer {
     private final JoystickButton joystick6 = new JoystickButton(manipulatorControl, 6);
 
     /** 
+     * Middle-left button on the base of the stick.
+     * Actuates the intake up while pressed, unless it is already actuating. 
+     */
+    private final JoystickButton joystick9 = new JoystickButton(manipulatorControl, 9);
+
+    /** 
+     * Middle-right button on the base of the stick.
+     * Actuates the intake up while pressed, unless it is already actuating. 
+     */
+    private final JoystickButton joystick10 = new JoystickButton(manipulatorControl, 10);
+
+    /** 
      * Bottom right button on the base of the stick.
      * Turns on the compressor while pressed and held. 
      */
@@ -106,10 +119,15 @@ public class RobotContainer {
         joystick3.whileTrue(new SpinIntake(intake, "backward"));
         joystick5.whileTrue(new SpinIntake(intake, "forward"));
 
+        // Actuates the intake up or down  while two respective buttons are held
+        joystick9.whileTrue(new ActuateIntake(intake, "lower"));
+        joystick9.whileTrue(new ActuateIntake(intake, "lift"));
+
         // Actuates the arm up or down while two respective buttons are pressed
         joystick4.whileTrue(new ActuateArm(arm, "down"));
         joystick6.whileTrue(new ActuateArm(arm, "up"));
 
+        
         // Turns on the compressor while the button is held
         joystick12.whileTrue(new TurnOnCompressor(compressor, true));
     }
