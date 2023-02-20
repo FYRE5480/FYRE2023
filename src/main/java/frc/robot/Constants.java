@@ -50,10 +50,10 @@ public final class Constants {
     public static final int INTAKE_ACTUATOR_MOTOR_PORT = 7; 
     
     /** The speed that the intake lifting motors should be running at. */
-    public static final double INTAKE_ACTUATION_SPEED = 0.35; 
+    public static final double INTAKE_ACTUATION_SPEED = 0.6; 
     
     /** The speed that the intake flywheels should be running at. */
-    public static final double INTAKE_SPEED = 0.286; 
+    public static final double INTAKE_SPEED = 0.7; 
     
     /** 
     * The two motor controllers that spin the intake motors exist here,
@@ -122,5 +122,5 @@ public final class Constants {
     public static final boolean SAFETY_TOGGLE = false; 
     
     /** The multipler of the speed of the drivetrain. */
-    public static final double THROTTLE = 0.4;
+    public static final double THROTTLE = 0.7;
 }

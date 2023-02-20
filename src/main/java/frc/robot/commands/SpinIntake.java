@@ -32,17 +32,6 @@ public class SpinIntake extends CommandBase {
      */
     public void execute() {
         // If a button for intake spinning is pressed, the flywheels will spin. 
-        spin();
-    }
-
-    public void end(boolean interrupted) {
-        intake.stopIntakeSpin();
-    }
-
-    /**
-     * Spins the intake according to the direction variable.
-     */
-    public void spin() {
         switch (direction) {
             case "forward":
                 intake.spinForward();
@@ -56,5 +45,15 @@ public class SpinIntake extends CommandBase {
                 intake.stopIntakeSpin();
                 break;
         }
+    }
+
+    public void end(boolean interrupted) {
+        intake.stopIntakeSpin();
+    }
+
+    /**
+     * Spins the intake according to the direction variable.
+     */
+    public void spin() {
     }
 }

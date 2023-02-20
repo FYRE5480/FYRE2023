@@ -105,7 +105,7 @@ public class Arm extends SubsystemBase {
      * Actuates the arm up at the ARM_ACTUATION_SPEED. 
      */
     public void actuateUp() {
-        if (!getSwitchReading("lower")) {
+        if (getSwitchReading("upper")) {
             armMotor.set(-Constants.ARM_ACTUATION_SPEED);
         }
     }
@@ -114,9 +114,8 @@ public class Arm extends SubsystemBase {
      * Actuates the arm down at the ARM_ACTUATION_SPEED. 
      */
     public void actuateDown() {
-        if (!getSwitchReading("upper")) {
-            armMotor.set(Constants.ARM_ACTUATION_SPEED);
-        }
+        armMotor.set(Constants.ARM_ACTUATION_SPEED);
+
     }
 
     /**
