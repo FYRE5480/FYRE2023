@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -40,6 +43,9 @@ public class RobotContainer {
     private static DriveTrain driveTrain = new DriveTrain(); 
     private static Intake intake = new Intake();
     //private static AirControl compressor = new AirControl();
+    private Compressor compressor = new Compressor(
+        Constants.COMPRESSOR_PCM_PORT, PneumaticsModuleType.CTREPCM
+    );
 
     // Initialize our joystick for manipulation and controller for drivetrain.
     public static final Joystick manipulatorControl = new Joystick(0);
