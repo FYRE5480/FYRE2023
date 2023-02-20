@@ -17,7 +17,7 @@ public final class Constants {
     public static final double ARM_ACTUATION_SPEED = 0.5; 
     
     /** The port of the arm motor. */
-    public static final int ARM_MOTOR_PORT = 7;  
+    public static final int ARM_MOTOR_PORT = 8;  
     
     /** The first port for the arm encoder. */
     public static final int ARM_ENCODER_PORT_A = 5;
@@ -47,10 +47,10 @@ public final class Constants {
     public static final int EXPIRATION_TIME = Integer.MAX_VALUE;
     
     /** The port of the intake motor that lifts it in and out of the robot. */
-    public static final int INTAKE_ACTUATOR_MOTOR_PORT = 6; 
+    public static final int INTAKE_ACTUATOR_MOTOR_PORT = 7; 
     
     /** The speed that the intake lifting motors should be running at. */
-    public static final double INTAKE_ACTUATION_SPEED = 0.3; 
+    public static final double INTAKE_ACTUATION_SPEED = 0.35; 
     
     /** The speed that the intake flywheels should be running at. */
     public static final double INTAKE_SPEED = 0.286; 
@@ -59,7 +59,7 @@ public final class Constants {
     * The two motor controllers that spin the intake motors exist here,
     * but they are both wired together on one PWM port.
     */
-    public static final int INTAKE_SPINNER_MOTOR_PORT = 8;
+    public static final int INTAKE_SPINNER_MOTOR_PORT = 6;
     
     /** The port for the upper intake limit switch. */
     public static final int INTAKE_SWITCH_PORT_A = 8; 
@@ -116,11 +116,11 @@ public final class Constants {
      * The default maximum psi the compressor should run at.
      * Value is set very high so that the compressor will never turn off when the button is held.
     */
-    public static final int COMPRESSOR_MAX_PSI = 999;
+    public static final int COMPRESSOR_MAX_PSI = 60;
     
     /** The toggle for motor safety. */
     public static final boolean SAFETY_TOGGLE = false; 
     
     /** The multipler of the speed of the drivetrain. */
-    public static final double THROTTLE = 0.7;
+    public static final double THROTTLE = 0.4;
 }

@@ -33,9 +33,6 @@ public class SpinIntake extends CommandBase {
     public void execute() {
         // If a button for intake spinning is pressed, the flywheels will spin. 
         spin();
-
-        // If a button for intake actuation is pressed, the intake will actuate.
-        actuate();
     }
 
     public void end(boolean interrupted) {
@@ -58,40 +55,6 @@ public class SpinIntake extends CommandBase {
             default:
                 intake.stopIntakeSpin();
                 break;
-        }
-    }
-
-
-    /**
-     * Actuates the arm according to the positions of the limit
-     * switches if a button is pressed once.
-     */
-    public void actuate() {
-        if (intake.getSwitchReading("lower")) {
-            while (!intake.getSwitchReading("upper")) {
-                intake.liftIntake();
-            }
-        } else if (intake.getSwitchReading("upper")) {
-            while (!intake.getSwitchReading("lower")) {
-                intake.lowerIntake();
-            }
-        }
-        intake.stopActuationIntake();
-    }
-
-    /**
-     * Method if we wanted an alternate control method,
-     * where we hold down a button to move the intake instead of pressing one once.
-     *
-     * @param direction - The direction to move the intake.
-     */
-    public void actuateConstant(String direction) {
-        if (intake.getSwitchReading("lower") && direction.equals("raise")) {
-            intake.liftIntake();
-        } else if (intake.getSwitchReading("upper") && direction.equals("lower")) {
-            intake.lowerIntake();
-        } else {
-            intake.stopActuationIntake();
         }
     }
 }

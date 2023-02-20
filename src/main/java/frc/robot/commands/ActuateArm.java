@@ -52,9 +52,9 @@ public class ActuateArm extends CommandBase {
                     arm.actuateDown();
                     break;
 
-                case "full":
-                    actuateArmFull();
-                    break;
+                // case "full":
+                //     actuateArmFull();
+                //     break;
 
                 default:
                     arm.stopMotor();

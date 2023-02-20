@@ -14,10 +14,10 @@ import frc.robot.commands.ActuateClaw;
 import frc.robot.commands.ActuateIntake;
 import frc.robot.commands.Driving;
 import frc.robot.commands.SpinIntake;
-import frc.robot.commands.TurnOnCompressor;
+// import frc.robot.commands.TurnOnCompressor;
 import frc.robot.examples.ExampleCommand;
 import frc.robot.examples.ExampleSubsystem;
-import frc.robot.subsystems.AirControl;
+//import frc.robot.subsystems.AirControl;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveTrain;
@@ -39,7 +39,7 @@ public class RobotContainer {
     private static Claw claw = new Claw(); 
     private static DriveTrain driveTrain = new DriveTrain(); 
     private static Intake intake = new Intake();
-    private static AirControl compressor = new AirControl();
+    //private static AirControl compressor = new AirControl();
 
     // Initialize our joystick for manipulation and controller for drivetrain.
     public static final Joystick manipulatorControl = new Joystick(0);
@@ -87,7 +87,7 @@ public class RobotContainer {
      * Bottom right button on the base of the stick.
      * Turns on the compressor while pressed and held. 
      */
-    private final JoystickButton joystick12 = new JoystickButton(manipulatorControl, 12);
+    // private final JoystickButton joystick12 = new JoystickButton(manipulatorControl, 12);
 
     /** 
      * The container for the robot. Contains subsystems, OI devices, and commands. 
@@ -129,7 +129,7 @@ public class RobotContainer {
 
         
         // Turns on the compressor while the button is held
-        joystick12.whileTrue(new TurnOnCompressor(compressor, true));
+        //joystick12.whileTrue(new TurnOnCompressor(compressor, true));
     }
 
     /**
