@@ -104,7 +104,7 @@ public final class Constants {
     public static final int RIGHT_MOTOR_PORT_C = 5; 
     
     /** The port of the compressor. */
-    public static final int COMPRESSOR_PCM_PORT = 0;
+    public static final int COMPRESSOR_PCM_PORT = 10;
     
     /** 
      * The default minimum psi the compressor should run at.
