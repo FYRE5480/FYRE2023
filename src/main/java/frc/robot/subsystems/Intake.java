@@ -87,7 +87,7 @@ public class Intake extends SubsystemBase {
      */
     public void liftIntake() {
         //actuationMotor.set(ControlMode.PercentOutput, Constants.INTAKE_ACTUATION_SPEED);
-        actuationMotor.set(Constants.INTAKE_ACTUATION_SPEED);
+        actuationMotor.set(-Constants.INTAKE_ACTUATION_SPEED);
     }
 
     /**
@@ -95,7 +95,7 @@ public class Intake extends SubsystemBase {
      */
     public void lowerIntake() {
         //actuationMotor.set(ControlMode.PercentOutput, -Constants.INTAKE_ACTUATION_SPEED);
-        actuationMotor.set(-Constants.INTAKE_ACTUATION_SPEED);
+        actuationMotor.set(Constants.INTAKE_ACTUATION_SPEED);
     }
 
     /**
