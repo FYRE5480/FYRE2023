@@ -42,24 +42,22 @@ public class ActuateArm extends CommandBase {
      * presently in motion. If it is, it will perform the proper actuation.
      */
     public void actuate() {
-        if (!actuationInMotion) {
-            switch (direction) {
-                case "up":
-                    arm.actuateUp();
-                    break;
+        switch (direction) {
+            case "up":
+                arm.actuateUp();
+                break;
 
-                case "down":
-                    arm.actuateDown();
-                    break;
+            case "down":
+                arm.actuateDown();
+                break;
 
-                // case "full":
-                //     actuateArmFull();
-                //     break;
+            // case "full":
+            //     actuateArmFull();
+            //     break;
 
-                default:
-                    arm.stopMotor();
-                    break;
-            }
+            default:
+                arm.stopMotor();
+                break;
         }
     }
 

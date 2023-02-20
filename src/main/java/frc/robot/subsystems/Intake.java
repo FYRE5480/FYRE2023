@@ -86,8 +86,11 @@ public class Intake extends SubsystemBase {
      * Runs the actuation motor upwards at the INTAKE_ACTUATION_SPEED level.
      */
     public void liftIntake() {
-        //actuationMotor.set(ControlMode.PercentOutput, Constants.INTAKE_ACTUATION_SPEED);
-        actuationMotor.set(-Constants.INTAKE_ACTUATION_SPEED);
+        if (getSwitchReading("upper")) {
+            //actuationMotor.set(ControlMode.PercentOutput, Constants.INTAKE_ACTUATION_SPEED);
+            actuationMotor.set(-Constants.INTAKE_ACTUATION_SPEED);
+        }
+
     }
 
     /**
