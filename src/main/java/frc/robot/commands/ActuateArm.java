@@ -50,15 +50,9 @@ public class ActuateArm extends CommandBase {
             case "down":
                 arm.actuateDown();
                 break;
-
             // case "full":
             //     actuateArmFull();
             //     break;
-            
-            case "stop":
-                arm.stopMotor();
-                break;
-
             default:
                 arm.stopMotor();
                 break;

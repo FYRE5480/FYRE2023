@@ -85,7 +85,7 @@ public class DriveTrain extends SubsystemBase {
      */
     public void arcadeDrive(double movementSpeed, double rotationalSpeed) {
         // Invert the movement speed if the invertedDrive setting is enabled.
-        movementSpeed *= Constants.INVERTED_DRIVE ? 1 : -1;
+        movementSpeed *= Constants.INVERTED_DRIVE ? -1 : 1;
         diffDrive.arcadeDrive(movementSpeed, rotationalSpeed);
     }
 
