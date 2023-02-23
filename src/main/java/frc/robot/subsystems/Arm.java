@@ -1,9 +1,9 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -14,18 +14,13 @@ public class Arm extends SubsystemBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     // Initialize our motor for our arm. 
-    private final CANSparkMax armMotor = new CANSparkMax(
+    private static final CANSparkMax armMotor = new CANSparkMax(
         Constants.ARM_MOTOR_PORT, 
         MotorType.kBrushed
     );
 
-    // Initialize our encoder for calculating arm movement. 
-    private final Encoder armEncoder = new Encoder(
-        Constants.ARM_ENCODER_PORT_A, 
-        Constants.ARM_ENCODER_PORT_B, 
-        false, 
-        Encoder.EncodingType.k4X
-    );
+    // Initialize the built in encoder on the neo for calculating arm movement. 
+    private static RelativeEncoder armEncoder = armMotor.getAlternateEncoder(Constants.ARM_ENCODER_TYPE, Constants.ARM_ENCODER_DISTANCE_CONSTANT);
 
     // Initialize our limit switches for preventing obscene arm movement. 
     private final DigitalInput armSwitchUpper = new DigitalInput(Constants.ARM_SWITCH_PORT_A);
@@ -37,7 +32,7 @@ public class Arm extends SubsystemBase {
         // setupMotors(new CANSparkMax[]{armMotor});
 
         // Reset and prepare our encoders for calculation.
-        setupEncoders(new Encoder[]{armEncoder});
+        setupEncoders(armEncoder);
     }
         
     /**
@@ -46,14 +41,15 @@ public class Arm extends SubsystemBase {
      * @return - The current position of the arm encoder. 
      */
     public double getEncoder() {
-        return armEncoder.getDistance();
+        // gets the position of the arm by multiplying the deviding the position of the motor by the gear ratio
+        return armEncoder.getPosition() / Constants.ARM_ENCODER_DISTANCE_CONSTANT;
     }
 
     /**
      * Reset the value of the arm encoder. 
      */
     public void resetEncoder() {
-        armEncoder.reset();
+        armEncoder.setPosition(0);
     }
 
     /* 
@@ -75,11 +71,8 @@ public class Arm extends SubsystemBase {
      *
      * @param encoders - An array of the encoders to edit the properties of.
      */
-    public void setupEncoders(Encoder[] encoders) {
-        for (Encoder encoder : encoders) {
-            encoder.reset();
-            encoder.setDistancePerPulse(Constants.ENCODER_DISTANCE_CONSTANT);
-        }
+    public void setupEncoders(RelativeEncoder encoder) {
+        resetEncoder();
     }
 
     /**

@@ -67,9 +67,6 @@ public class DriveTrain extends SubsystemBase {
         // Set the safety toggle and expiration on the motors + drivetrain.
         setupMotors(new WPI_VictorSPX[]{left1, right1, left2, right2, left3, right3});
 
-        // Reset and prepare our encoders for calculation.
-        setupEncoders(new Encoder[]{leftEncoder, rightEncoder});
-
         // Instantiates our navx2 board.
         this.ahrs = new AHRS(SPI.Port.kMXP); 
         // Calibrates the navboard
@@ -222,18 +219,6 @@ public class DriveTrain extends SubsystemBase {
 
         diffDrive.setSafetyEnabled(Constants.SAFETY_TOGGLE);
         diffDrive.setExpiration(Constants.EXPIRATION_TIME);
-    }
-
-    /**
-     * Reset the encoders and prepare to calculate rotation.
-
-     * @param encoders - An array of the encoders to edit the properties of.
-     */
-    public void setupEncoders(Encoder[] encoders) {
-        for (Encoder encoder : encoders) {
-            encoder.reset();
-            encoder.setDistancePerPulse(Constants.ENCODER_DISTANCE_CONSTANT);
-        }
     }
 
     /** 

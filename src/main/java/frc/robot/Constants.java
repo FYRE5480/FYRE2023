@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.revrobotics.SparkMaxAlternateEncoder;
+
 /**
 * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
 * constants. This class should not be used for any other purpose. All constants should be declared
@@ -19,12 +21,18 @@ public final class Constants {
     /** The port of the arm motor. */
     public static final int ARM_MOTOR_PORT = 8;  
     
-    /** The first port for the arm encoder. */
-    public static final int ARM_ENCODER_PORT_A = 5;
-    
-    /** The second port for the arm encoder. */
-    public static final int ARM_ENCODER_PORT_B = 4;
-    
+    /** Encoder type for the built in encoder in the NEO motor */
+    public static final SparkMaxAlternateEncoder.Type ARM_ENCODER_TYPE = SparkMaxAlternateEncoder.Type.kQuadrature;
+
+    // the encoder constant has been changed because it only needs to be used for the arm, not the drivetrain
+    /** 
+    * The constant of the arm encoder's distance per pulse.
+    * Set to 190, because the arm currently has a 1 : 190 gear ratio from the neo
+    * (1:100 gear box, first chain is 16:22, second chain is 16:22 as well).
+    * This can be changed.
+    */
+    public static final int ARM_ENCODER_DISTANCE_CONSTANT = 189;
+
     /** The port for the upper arm limit switch. */
     public static final int ARM_SWITCH_PORT_A = 6; 
     
@@ -39,9 +47,6 @@ public final class Constants {
     
     /** The deadband for the joysticks to prevent small, irregular movements. */
     public static final double CONTROLLER_DEADBAND = 0.25; 
-    
-    /** The constant of the encoder's distance per pulse. */
-    public static final double ENCODER_DISTANCE_CONSTANT = 1.0 / 2048 * 6 * Math.PI;
     
     /** The expiration time for the motor's safety. */
     public static final int EXPIRATION_TIME = Integer.MAX_VALUE;
