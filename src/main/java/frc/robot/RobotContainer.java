@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ActuateArm;
@@ -46,6 +47,7 @@ public class RobotContainer {
     private Compressor compressor = new Compressor(
         Constants.COMPRESSOR_PCM_PORT, PneumaticsModuleType.CTREPCM
     );
+
 
     // Initialize our joystick for manipulation and controller for drivetrain.
     public static final Joystick manipulatorControl = new Joystick(0);
@@ -103,6 +105,7 @@ public class RobotContainer {
         driveTrain.setDefaultCommand(new Driving(driveTrain));
 
         // Configure the button bindings.
+        compressor.enableAnalog(0, 60);
         configureButtonBindings();
     }
 
@@ -132,6 +135,9 @@ public class RobotContainer {
         // Actuates the arm up or down while two respective buttons are pressed
         joystick4.whileTrue(new ActuateArm(arm, "down"));
         joystick6.whileTrue(new ActuateArm(arm, "up"));
+
+        SmartDashboard.putNumber("Current PSI", compressor.getPressure());
+
 
         
         // Turns on the compressor while the button is held
