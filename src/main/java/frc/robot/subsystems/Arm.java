@@ -16,7 +16,7 @@ public class Arm extends SubsystemBase {
     // Initialize our motor for our arm. 
     private static final CANSparkMax armMotor = new CANSparkMax(
         Constants.ARM_MOTOR_PORT, 
-        MotorType.kBrushed
+        MotorType.kBrushless
     );
 
     // Initialize the built in encoder on the neo for calculating arm movement. 
