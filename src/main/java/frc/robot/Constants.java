@@ -19,7 +19,7 @@ public final class Constants {
     public static final double ARM_ACTUATION_SPEED = 0.5; 
     
     /** The port of the arm motor. */
-    public static final int ARM_MOTOR_PORT = 8;  
+    public static final int ARM_MOTOR_PORT = 7;  
     
     /** Encoder type for the built in encoder in the NEO motor */
     public static final SparkMaxAlternateEncoder.Type ARM_ENCODER_TYPE = SparkMaxAlternateEncoder.Type.kQuadrature;
@@ -52,7 +52,7 @@ public final class Constants {
     public static final int EXPIRATION_TIME = Integer.MAX_VALUE;
     
     /** The port of the intake motor that lifts it in and out of the robot. */
-    public static final int INTAKE_ACTUATOR_MOTOR_PORT = 7; 
+    public static final int INTAKE_ACTUATOR_MOTOR_PORT = 8; 
     
     /** The speed that the intake lifting motors should be running at. */
     public static final double INTAKE_ACTUATION_SPEED = 0.6; 
