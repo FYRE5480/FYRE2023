@@ -4,8 +4,8 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
+//import edu.wpi.first.wpilibj.Compressor;
+//simport edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -44,9 +44,9 @@ public class RobotContainer {
     private static DriveTrain driveTrain = new DriveTrain(); 
     private static Intake intake = new Intake();
     //private static AirControl compressor = new AirControl();
-    private Compressor compressor = new Compressor(
-        Constants.COMPRESSOR_PCM_PORT, PneumaticsModuleType.CTREPCM
-    );
+    //private Compressor compressor = new Compressor(
+    //    Constants.COMPRESSOR_PCM_PORT, PneumaticsModuleType.CTREPCM
+    //);
 
 
     // Initialize our joystick for manipulation and controller for drivetrain.
@@ -91,7 +91,7 @@ public class RobotContainer {
      */
     private final JoystickButton joystick10 = new JoystickButton(manipulatorControl, 10);
 
-    /** 
+    /**
      * Bottom right button on the base of the stick.
      * Turns on the compressor while pressed and held. 
      */
@@ -105,7 +105,7 @@ public class RobotContainer {
         driveTrain.setDefaultCommand(new Driving(driveTrain));
 
         // Configure the button bindings.
-        compressor.enableAnalog(0, 60);
+        //compressor.enableAnalog(0, 60);
         configureButtonBindings();
     }
 
@@ -118,11 +118,14 @@ public class RobotContainer {
     private void configureButtonBindings() {
         // Note that the {button}.whileHeld({command}) has been depricated
 
-        // Actuates the claw when a button is pressed
-        joystick1.whileTrue(new ActuateClaw(claw)); 
+        // opens the claw when a button is pressed
+        joystick1.whileTrue(new ActuateClaw(claw, "open")); 
 
         // Actuates the arm up or down when a button is pressed
-        joystick2.whileTrue(new ActuateArm(arm, "full"));
+        //joystick2.whileTrue(new ActuateArm(arm, "full"));
+
+        //closes the claw while held
+        joystick2.whileTrue(new ActuateClaw(claw, "closed")); 
 
         // Spins the intake forward or backward while two respective buttons are held
         joystick3.whileTrue(new SpinIntake(intake, "backward"));
@@ -136,7 +139,7 @@ public class RobotContainer {
         joystick4.whileTrue(new ActuateArm(arm, "down"));
         joystick6.whileTrue(new ActuateArm(arm, "up"));
 
-        SmartDashboard.putNumber("Current PSI", compressor.getPressure());
+        //SmartDashboard.putNumber("Current PSI", compressor.getPressure());
 
 
         

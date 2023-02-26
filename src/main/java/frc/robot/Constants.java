@@ -38,12 +38,15 @@ public final class Constants {
     
     /** The port for the lower arm limit switch. */
     public static final int ARM_SWITCH_PORT_B = 7; 
+
+    /** The port for the claw limit switch. */
+    public static final int CLAW_SWITCH_PORT = 5;
     
     /** The port of the claw solenoid's forward channel. */
-    public static final int CLAW_SOLENOID_FORWARD_CHANNEL = 6;  
+    //public static final int CLAW_SOLENOID_FORWARD_CHANNEL = 6;  
     
     /** The port of the claw solenoid's reverse channel. */
-    public static final int CLAW_SOLENOID_REVERSE_CHANNEL = 7;  
+    //public static final int CLAW_SOLENOID_REVERSE_CHANNEL = 7;  
     
     /** The deadband for the joysticks to prevent small, irregular movements. */
     public static final double CONTROLLER_DEADBAND = 0.25; 
@@ -59,6 +62,12 @@ public final class Constants {
     
     /** The speed that the intake flywheels should be running at. */
     public static final double INTAKE_SPEED = 0.7; 
+    
+    /** Port for the claw's new motor. */
+    public static final int CLAW_MOTOR_PORT = 9;
+
+    /** Actuation speed for claw. */
+    public static final double CLAW_ACTUATION_SPEED = 0.3;
     
     /** 
     * The two motor controllers that spin the intake motors exist here,
@@ -109,19 +118,19 @@ public final class Constants {
     public static final int RIGHT_MOTOR_PORT_C = 5; 
     
     /** The port of the compressor. */
-    public static final int COMPRESSOR_PCM_PORT = 10;
+    //public static final int COMPRESSOR_PCM_PORT = 10;
     
     /** 
      * The default minimum psi the compressor should run at.
      * Value is set very low so that the compressor will always run when the button is held.
      */
-    public static final int COMPRESSOR_MIN_PSI = 0;
+    //public static final int COMPRESSOR_MIN_PSI = 0;
     
     /** 
      * The default maximum psi the compressor should run at.
      * Value is set very high so that the compressor will never turn off when the button is held.
     */
-    public static final int COMPRESSOR_MAX_PSI = 60;
+    //public static final int COMPRESSOR_MAX_PSI = 60;
     
     /** The toggle for motor safety. */
     public static final boolean SAFETY_TOGGLE = false; 
