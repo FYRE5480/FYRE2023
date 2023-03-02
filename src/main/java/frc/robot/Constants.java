@@ -31,7 +31,7 @@ public final class Constants {
     * (1:100 gear box, first chain is 16:22, second chain is 16:22 as well).
     * This can be changed.
     */
-    public static final int ARM_ENCODER_DISTANCE_CONSTANT = 1/189;
+    public static final int ARM_ENCODER_DISTANCE_CONSTANT = 189;
 
     /** The port for the upper arm limit switch. */
     public static final int ARM_SWITCH_PORT_A = 6; 

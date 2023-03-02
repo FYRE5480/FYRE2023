@@ -54,7 +54,7 @@ public class Arm extends SubsystemBase {
      */
     public double getEncoder() {
         // gets the position of the arm by dividing the position of the motor by the gear ratio constant
-        return armEncoder.getPosition() * Constants.ARM_ENCODER_DISTANCE_CONSTANT;
+        return armEncoder.getPosition() / Constants.ARM_ENCODER_DISTANCE_CONSTANT;
     }
 
     /**
