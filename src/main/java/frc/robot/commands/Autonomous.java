@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
@@ -39,9 +40,9 @@ public class Autonomous extends CommandBase {
         this.driveTrain.resetAhrs();
 
         // initializes the values for our PID loop
-        PIDAutoController = new PIDController(0.0035, 0.0005, 0.0001);
-        PIDAutoController.setSetpoint(180);
-        PIDAutoController.setTolerance(1);
+        PIDAutoController = new PIDController(1, 1, 1);
+        PIDAutoController.setSetpoint(280);
+        PIDAutoController.setTolerance(0.5);
     }
 
 
@@ -49,19 +50,25 @@ public class Autonomous extends CommandBase {
      * Runs every time the autonomous command is scheduled.
      */
     public void execute() {
-        driveTrain.tankDrive(
-            MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85), 
-            MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85)
-        );
+        // driveTrain.tankDrive(
+        //     MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -1, 1), 
+        //     MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -1, 1)
+        // );
+        SmartDashboard.putString("HEY AUTO IS WORKING", "WOOOO");
+        driveTrain.arcadeDrive(1, 0);
     }
 
+    public void test() {
+        SmartDashboard.putString("HEY AUTO IS WORKING", "WOOOO");
+        driveTrain.arcadeDrive(1, 0);
+    }
 
     @Override
     public boolean isFinished() {
-        if (PIDAutoController.atSetpoint()) {
-            System.out.println("REACHED SETPOINT!!!");
-            return true;   
-        }
+        // if (PIDAutoController.atSetpoint()) {
+        //     System.out.println("REACHED SETPOINT!!!");
+        //     return true;   
+        // }
         return false;
     }
 

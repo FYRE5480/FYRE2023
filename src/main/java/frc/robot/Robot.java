@@ -10,9 +10,12 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.SwitchCameras;
+import frc.robot.subsystems.DriveTrain;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +29,7 @@ public class Robot extends TimedRobot {
     // Initialize commands for robot use, such as the auto command and container.
     private Command autoCommand;
     private RobotContainer robotContainer;
+
 
     // Create a dummy variable for storing the manipulator controller.
     private static Joystick joystick; 
@@ -45,6 +49,7 @@ public class Robot extends TimedRobot {
     // Variables for switching between cameras. 
     private boolean hasMoved = false; 
     private int currentIndex = 0; 
+    private int theFunny = 0;
 
     /**
 	 * This function is run when the robot is first started up and should be used for any
@@ -99,16 +104,22 @@ public class Robot extends TimedRobot {
     @Override
 	public void autonomousInit() {
         autoCommand = robotContainer.getAutonomousCommand();
-
+        SmartDashboard.putString("HEY THE AUTO INIT IS RUNNING", "HUZAHH!");
+        autoCommand.schedule();
         // schedule the autonomous command (example)
         if (autoCommand != null) {
             autoCommand.schedule();
         }
+
     }
 
     /** This function is called periodically during autonomous. */
     @Override
-    public void autonomousPeriodic() {}
+    public void autonomousPeriodic() {
+        SmartDashboard.putBoolean("PERIOTIC IS RUNNING?", autoCommand.isScheduled());
+        theFunny++;
+        
+    }
 
     @Override
     public void teleopInit() {
