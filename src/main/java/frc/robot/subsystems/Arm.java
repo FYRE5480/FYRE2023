@@ -26,7 +26,6 @@ public class Arm extends SubsystemBase {
     private final DigitalInput armSwitchUpper = new DigitalInput(Constants.ARM_SWITCH_PORT_A);
     private final DigitalInput armSwitchLower = new DigitalInput(Constants.ARM_SWITCH_PORT_B);
 
-
     /** Creates a new ExampleSubsystem. */
     public Arm() {
         // Set the safety toggle and expiration on the motors + drivetrain.
@@ -36,25 +35,14 @@ public class Arm extends SubsystemBase {
         setupEncoders(armEncoder);
     }
         
-
-    /**
-     * Reset the encoders and prepare to calculate rotation.
-     *
-     * @param encoders - An array of the encoders to edit the properties of.
-     */
-    public void setupEncoders(RelativeEncoder encoder) {
-        resetEncoder();
-    }
-
-
     /**
      * Gets the reading of the encoder on the arm motor. 
      *
      * @return - The current position of the arm encoder. 
      */
     public double getEncoder() {
-        // gets the position of the arm by dividing the position of the motor by the gear ratio constant
-        return armEncoder.getPosition() * Constants.ARM_ENCODER_DISTANCE_CONSTANT;
+        // gets the position of the arm by multiplying the dividing the position of the motor by the gear ratio constant
+        return armEncoder.getPosition() / Constants.ARM_ENCODER_DISTANCE_CONSTANT;
     }
 
     /**
@@ -78,7 +66,14 @@ public class Arm extends SubsystemBase {
     }
     */
 
-    
+    /**
+     * Reset the encoders and prepare to calculate rotation.
+     *
+     * @param encoders - An array of the encoders to edit the properties of.
+     */
+    public void setupEncoders(RelativeEncoder encoder) {
+        resetEncoder();
+    }
 
     /**
      * Gets the reading of the appropriate limit switch. 

@@ -54,12 +54,7 @@ public class ActuateArm extends CommandBase {
             //     actuateArmFull();
             //     break;
             default:
-                // will force the arm to stay up until the driver presses down
-                if ((arm.getEncoder() == 90 || arm.getEncoder() == -90) && (arm.getEncoder() <= 95 || arm.getEncoder() >= -95)) {
-                    arm.actuateUp();
-                } else {
-                    arm.stopMotor();
-                }
+                arm.stopMotor();
                 break;
         }
     }

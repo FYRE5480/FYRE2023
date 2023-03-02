@@ -27,11 +27,11 @@ public final class Constants {
     // the encoder constant has been changed because it only needs to be used for the arm, not the drivetrain
     /** 
     * The constant of the arm encoder's distance per pulse.
-    * Set to 1/189, because the arm currently has a 1 : 189 gear ratio from the neo
+    * Set to 190, because the arm currently has a 1 : 190 gear ratio from the neo
     * (1:100 gear box, first chain is 16:22, second chain is 16:22 as well).
     * This can be changed.
     */
-    public static final int ARM_ENCODER_DISTANCE_CONSTANT = 1/189;
+    public static final int ARM_ENCODER_DISTANCE_CONSTANT = 189;
 
     /** The port for the upper arm limit switch. */
     public static final int ARM_SWITCH_PORT_A = 6; 
