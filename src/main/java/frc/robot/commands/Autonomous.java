@@ -50,7 +50,7 @@ public class Autonomous extends CommandBase {
      */
     public void execute() {
         driveTrain.tankDrive(
-            MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85), 
+            MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85  ), 
             MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85)
         );
     }

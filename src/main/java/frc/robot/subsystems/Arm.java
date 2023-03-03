@@ -46,7 +46,6 @@ public class Arm extends SubsystemBase {
         resetEncoder();
     }
 
-
     /**
      * Gets the reading of the encoder on the arm motor. 
      *
