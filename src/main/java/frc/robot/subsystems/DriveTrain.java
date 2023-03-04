@@ -35,8 +35,11 @@ public class DriveTrain extends SubsystemBase {
     private final WPI_VictorSPX right3 = new WPI_VictorSPX(Constants.RIGHT_MOTOR_PORT_C);
 
     // Package our motors into MotorControllerGroups to be added to a DifferentialDrive.
-    private final MotorControllerGroup leftMotors = new MotorControllerGroup(left1, left2, left3);
-    private final MotorControllerGroup rightMotors = new MotorControllerGroup(right1, right2, right3);
+    private final MotorControllerGroup leftMotors = 
+        new MotorControllerGroup(left1, left2, left3);
+    private final MotorControllerGroup rightMotors = 
+        new MotorControllerGroup(right1, right2, right3);
+
     private final DifferentialDrive diffDrive = new DifferentialDrive(leftMotors, rightMotors);
 
     // Initializes the nav board. 
@@ -190,11 +193,11 @@ public class DriveTrain extends SubsystemBase {
     public float getVelocity(char direction) {
         switch (direction) {
             case 'X':
-                return ahrs.getWorldLinearAccelX();
+                return ahrs.getVelocityX();
             case 'Y':
-                return ahrs.getWorldLinearAccelY();
+                return ahrs.getVelocityY();
             case 'Z':
-                return ahrs.getWorldLinearAccelZ();
+                return ahrs.getVelocityZ();
             default:
                 return 0;
         }
@@ -204,6 +207,40 @@ public class DriveTrain extends SubsystemBase {
     public void resetAhrs() {
         ahrs.calibrate();
         ahrs.zeroYaw();
+    }
+
+    /**
+     * Returns the voltage output of any given side of the drivetrain.
+     
+
+     * @param direction - "right", "left" or "both" 
+     *      - the given side of the drivetrain's voltage output to return
+
+     * @return voltage - the returned voltage
+     */
+    public double getVoltage(String direction) {
+        switch (direction) {
+            case "right":
+                return (
+                    (right1.getMotorOutputVoltage() 
+                    + right2.getMotorOutputVoltage() 
+                    + right3.getMotorOutputVoltage()) / 3);
+            case "left":
+                return (
+                        (left1.getMotorOutputVoltage() 
+                        + left2.getMotorOutputVoltage() 
+                        + left3.getMotorOutputVoltage()) / 3);
+            case "both":
+                return (
+                    (right1.getMotorOutputVoltage() 
+                    + right2.getMotorOutputVoltage() 
+                    + right3.getMotorOutputVoltage()
+                    + left1.getMotorOutputVoltage() 
+                    + left2.getMotorOutputVoltage() 
+                    + left3.getMotorOutputVoltage()) / 6);
+            default:
+                return 0.0;
+        }
     }
 
     /**

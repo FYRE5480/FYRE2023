@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ActuateArm;
 import frc.robot.commands.ActuateClaw;
 import frc.robot.commands.ActuateIntake;
+import frc.robot.commands.Autonomous;
 import frc.robot.commands.Driving;
 import frc.robot.commands.SpinIntake;
 // import frc.robot.commands.TurnOnCompressor;
@@ -36,7 +37,7 @@ import frc.robot.subsystems.Intake;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-    private final ExampleCommand autoCommand = new ExampleCommand(exampleSubsystem);
+    private final Autonomous autoCommand = new Autonomous(driveTrain, intake);
 
     // Create new subsystems for the robot to pull from.
     private static Arm arm = new Arm();

@@ -2,7 +2,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.AutoSubsystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 
@@ -19,6 +21,8 @@ public class Autonomous extends CommandBase {
     // Initialize our DriveTrain and Intake subsystems. 
     private final DriveTrain driveTrain; 
     private final Intake intake;
+
+    private final AutoSubsystem auto = new AutoSubsystem(null);
 
     // Initialize a PID controller for feedback loops. 
     private PIDController PIDAutoController;
@@ -49,10 +53,22 @@ public class Autonomous extends CommandBase {
      * Runs every time the autonomous command is scheduled.
      */
     public void execute() {
-        driveTrain.tankDrive(
-            MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85  ), 
-            MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85)
-        );
+        // driveTrain.tankDrive(
+        //     MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85), 
+        //     MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85)
+        // );
+        double time = Timer.getFPGATimestamp();
+        if (time < 8) {
+            if (time < 0.5) {
+                auto.shootCube(time);
+            }
+            if (auto.getDistance(driveTrain.getVelocity('Z'), time) < 1) {
+                driveTrain.tankDrive(-0.25, -0.25);
+            } else if (auto.turn(180)) {
+                driveTrain.tankDrive(0.25, 0.25);
+            }
+        }
+        
     }
 
 

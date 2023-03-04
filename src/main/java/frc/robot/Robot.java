@@ -10,6 +10,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.SwitchCameras;
@@ -56,6 +57,8 @@ public class Robot extends TimedRobot {
         // This will perform all our button bindings & put our autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
 
+
+
         // Create a variable for the robot container's joystick.
         joystick = RobotContainer.manipulatorControl;
 
@@ -99,7 +102,7 @@ public class Robot extends TimedRobot {
     @Override
 	public void autonomousInit() {
         autoCommand = robotContainer.getAutonomousCommand();
-
+        
         // schedule the autonomous command (example)
         if (autoCommand != null) {
             autoCommand.schedule();
@@ -108,7 +111,9 @@ public class Robot extends TimedRobot {
 
     /** This function is called periodically during autonomous. */
     @Override
-    public void autonomousPeriodic() {}
+    public void autonomousPeriodic() {
+
+    }
 
     @Override
     public void teleopInit() {
