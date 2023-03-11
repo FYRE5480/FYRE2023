@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenixpro.signals.Led1OffColorValue;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -13,12 +15,12 @@ import frc.robot.subsystems.DriveTrain;
 public class Driving extends CommandBase {
     // Initialize our variables for controlling drivetrain.
     private DriveTrain driveTrain;
-    private double movementSpeed;
-    private double rotationalSpeed;
+    private double leftMovementSpeed;
+    private double rightMovementSpeed;
 
     // Initialize our speed variables for controlling motor speeds.
-    private double horizontal;
-    private double vertical;
+    private double left;
+    private double right;
 
     /**
      * Initialize our driving commands through our DriveTrain subsystem.
@@ -38,24 +40,24 @@ public class Driving extends CommandBase {
         // Get the current position of the joystick axis.
         // TODO: switch to XboxController. 
 
-        horizontal = RobotContainer.manipulatorControl.getX();
-        vertical = -RobotContainer.manipulatorControl.getY(); 
+        left = RobotContainer.driverControl.getLeftY();
+        right = -RobotContainer.driverControl.getRightY();
 
-        System.out.println(horizontal + " : horizontal, " + vertical + " : vertical"); 
+        System.out.println(left + " : left, " + right + " : right"); 
 
         // Reverse the movement speed if the robot is in tank drive.
-        movementSpeed *= vertical * (Constants.IS_TANK ? -1 : 1);
+        leftMovementSpeed = left;
 
         // Set the rotational speed to the x displacement.
-        rotationalSpeed = horizontal;
+        rightMovementSpeed = right;
 
         // Apply a deadband to the speed modifiers if they are negligible. 
-        double[] speeds = new double[]{ movementSpeed, rotationalSpeed };
+        double[] speeds = new double[]{leftMovementSpeed, rightMovementSpeed};
         speeds = deadband(speeds);
 
         // Calculates the power to apply to each set of motors. 
-        double leftPower = -(rotationalSpeed - movementSpeed) * Constants.THROTTLE;
-        double rightPower = -(rotationalSpeed + movementSpeed) * Constants.THROTTLE;
+        double leftPower = leftMovementSpeed * Constants.THROTTLE;
+        double rightPower = rightMovementSpeed * Constants.THROTTLE;
 
         // Runs each set of motors based on their calculated power levels. 
         driveTrain.tankDrive(leftPower, rightPower);

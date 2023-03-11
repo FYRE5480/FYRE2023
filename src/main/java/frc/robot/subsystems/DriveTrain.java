@@ -87,7 +87,7 @@ public class DriveTrain extends SubsystemBase {
      */
     public void tankDrive(double movementSpeedLeft, double movementSpeedRight) {
         int multiplier = Constants.INVERTED_DRIVE ? -1 : 1;
-        tankDrive(movementSpeedLeft * multiplier, movementSpeedRight * multiplier);
+        diffDrive.tankDrive(movementSpeedLeft * multiplier, movementSpeedRight * multiplier);
     }
 
     /**
@@ -139,7 +139,7 @@ public class DriveTrain extends SubsystemBase {
         }
     }
 
-    /**
+    /**  
      * Get the orientation of the gyroscope.
 
      * @return - The current orientation of the gyroscope.

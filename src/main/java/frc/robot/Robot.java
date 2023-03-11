@@ -57,12 +57,12 @@ public class Robot extends TimedRobot {
 	 */
     @Override
 	public void autonomousInit() {
-        autoCommand = robotContainer.getAutonomousCommand();
+        // autoCommand = robotContainer.getAutonomousCommand();
 
-        // schedule the autonomous command (example)
-        if (autoCommand != null) {
-            autoCommand.schedule();
-        }
+        // // schedule the autonomous command (example)
+        // if (autoCommand != null) {
+        //     autoCommand.schedule();
+        // }
     }
 
     /** This function is called periodically during autonomous. */
