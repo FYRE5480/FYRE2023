@@ -20,10 +20,6 @@ import frc.robot.subsystems.DriveTrain;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-    // The robot's subsystems and commands are defined here...
-    private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-    private final ExampleCommand autoCommand = new ExampleCommand(exampleSubsystem);
-
     // Initialize our joystick for manipulation and controller for drivetrain.
     public static final Joystick manipulatorControl = new Joystick(0);
     public static final XboxController driverControl = new XboxController(1); 
