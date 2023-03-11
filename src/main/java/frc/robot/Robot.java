@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.SwitchCameras;
 import frc.robot.subsystems.DriveTrain;
-
 import java.util.Arrays;
 import java.util.List;
 

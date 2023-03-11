@@ -13,13 +13,11 @@ public class ActuateArm extends CommandBase {
     // Initialize a variable for arm movement direction.
     private String direction;
 
-    // Initialize a variable for checking if a full actuation is occuring.
-    private boolean actuationInMotion; 
-
     /**
 	 * Initialize our arm actuation through the Arm subsystem.
 	 *
 	 * @param subsystem - The Arm subsystem used by this command.
+     * @param direction - The direction of actuation. 
 	 */
     public ActuateArm(Arm subsystem, String direction) {
         this.arm = subsystem;
@@ -57,8 +55,8 @@ public class ActuateArm extends CommandBase {
                 // will force the arm to stay up until the driver presses down
                 if ((arm.getEncoder() == 90 || arm.getEncoder() == -90) && (arm.getEncoder() <= 95 || arm.getEncoder() >= -95)) {
                     arm.actuateUp();
-                } else {
-                    arm.stopMotor();
+                //} else {
+                    //arm.stopMotor();
                 }
                 break;
         }

@@ -93,12 +93,6 @@ public class RobotContainer {
      */
     private final JoystickButton joystick10 = new JoystickButton(manipulatorControl, 10);
 
-    /**
-     * Bottom right button on the base of the stick.
-     * Turns on the compressor while pressed and held. 
-     */
-    // private final JoystickButton joystick12 = new JoystickButton(manipulatorControl, 12);
-
     /** 
      * The container for the robot. Contains subsystems, OI devices, and commands. 
      */
@@ -142,11 +136,6 @@ public class RobotContainer {
         joystick6.whileTrue(new ActuateArm(arm, "up"));
 
         //SmartDashboard.putNumber("Current PSI", compressor.getPressure());
-
-
-        
-        // Turns on the compressor while the button is held
-        //joystick12.whileTrue(new TurnOnCompressor(compressor, true));
     }
 
     /**

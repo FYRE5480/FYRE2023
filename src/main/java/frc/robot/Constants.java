@@ -85,7 +85,7 @@ public final class Constants {
     public static final boolean INVERTED_DRIVE = false; 
     
     /** Toggles the tank drive on the robot. */
-    public static final boolean IS_TANK = false;
+    public static final boolean IS_TANK = true;
     
     /** The first port for the left encoder. */
     public static final int LEFT_ENCODER_PORT_A = 3;
@@ -136,5 +136,5 @@ public final class Constants {
     public static final boolean SAFETY_TOGGLE = false; 
     
     /** The multipler of the speed of the drivetrain. */
-    public static final double THROTTLE = 0.7;
+    public static final double THROTTLE = 1.0;
 }
