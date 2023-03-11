@@ -67,7 +67,7 @@ public class ActuateArm extends CommandBase {
      * the current readings of the limit switches. 
      */
     public void actuateArmFull() {
-        actuationInMotion = true; 
+        //actuationInMotion = true; 
 
         if (arm.getSwitchReading("upper")) {
             arm.actuateDownFull();
@@ -75,7 +75,7 @@ public class ActuateArm extends CommandBase {
             arm.actuateUpFull(); 
         }
 
-        actuationInMotion = false; 
+        //actuationInMotion = false; 
     }
 
     // Called once the command ends or is interrupted.
