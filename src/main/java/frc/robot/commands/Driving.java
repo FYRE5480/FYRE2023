@@ -18,6 +18,8 @@ public class Driving extends CommandBase {
     // Initialize our speed variables for controlling motor speeds.
     private double leftStick;
     private double rightStick;
+    private double rightLimitedStick = 0;
+    private double leftLimitedStick = 0;
 
     // Fetch the driver controller from the RobotContainer.
     private XboxController driverControl;
@@ -49,9 +51,12 @@ public class Driving extends CommandBase {
         double[] speeds = new double[]{ leftStick, rightStick };
         speeds = deadband(speeds);
 
+        rightLimitedStick = driveTrain.limitAcceleration(rightStick, rightLimitedStick);
+        leftLimitedStick = driveTrain.limitAcceleration(leftStick, leftLimitedStick);
+        
         // Calculates the power to apply to each set of motors. 
-        double leftPower = leftStick * Constants.THROTTLE;
-        double rightPower = rightStick * Constants.THROTTLE;
+        double leftPower = leftLimitedStick * Constants.THROTTLE;
+        double rightPower = rightLimitedStick * Constants.THROTTLE;
 
         // Outputs the positions of each of the joystick axis. 
         System.out.println(leftPower + " : left stick, " + rightPower + " : right stick"); 

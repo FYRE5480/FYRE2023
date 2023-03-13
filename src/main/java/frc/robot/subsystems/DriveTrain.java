@@ -222,6 +222,25 @@ public class DriveTrain extends SubsystemBase {
         diffDrive.setExpiration(Constants.EXPIRATION_TIME);
     }
 
+    /**
+     * This method will dampen the acceleration of the drivetrain based on the limiter value in constatnts, which can be tuned.
+
+     * @param joystickValue - raw joystick value
+     * @param limitedJoystickValue - the limited joystick value
+     * @return limitedJoystick - the new limitedJoystick value
+     */
+    public double limitAcceleration(double joystickValue, double limitedJoystickValue) {
+        double limit = Constants.DRIVETRAIN_ACCELERATION_DAMPENER_VALUE;
+        double change = joystickValue - limitedJoystickValue;
+        if (change > limit){
+            change = limit;
+        } else if (change < -limit) {
+            change = -limit;
+        }
+        // returns a new limited joystick value
+        return limitedJoystickValue + change;
+    }
+
     /** 
      * Add each of the calculations from our encoders and gyroscopes to our dashboard. 
      */
