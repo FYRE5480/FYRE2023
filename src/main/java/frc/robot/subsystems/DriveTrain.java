@@ -74,7 +74,7 @@ public class DriveTrain extends SubsystemBase {
         this.ahrs = new AHRS(SPI.Port.kMXP); 
         // Calibrates the navboard
         // Robot needs to be still during this process.
-        this.ahrs.calibrate();
+        resetAhrs();
     }
 
     /** 
@@ -201,6 +201,10 @@ public class DriveTrain extends SubsystemBase {
             default:
                 return 0;
         }
+    }
+
+    public double getPitch() {
+        return ahrs.getPitch();
     }
 
     /** Resets all sensors to their respective zero values. */

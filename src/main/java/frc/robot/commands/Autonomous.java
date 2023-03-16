@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.AutoSubsystem;
 import frc.robot.subsystems.DriveTrain;
@@ -58,18 +59,41 @@ public class Autonomous extends CommandBase {
         //     MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85)
         // );
         double time = Timer.getFPGATimestamp();
-        if (time < 8) {
-            if (time < 0.5) {
-                auto.shootCube(time);
-            }
-            if (auto.getDistance(driveTrain.getVelocity('Z'), time) < 1) {
-                driveTrain.tankDrive(-0.25, -0.25);
-            } else if (auto.turn(180)) {
-                driveTrain.tankDrive(0.25, 0.25);
-            }
-        }
+        autoBalance(time);
         
     }
+
+
+    private void autoBalance(double time) {
+        if (!auto.balance(driveTrain.getPitch())) {
+            SmartDashboard.putBoolean("Is Balancing?", false);
+            if (time < 1.5) {
+                auto.shootCube(time);
+            } else {
+                auto.move(-0.25);
+            }
+        } else {
+            SmartDashboard.putBoolean("Is Balancing?", true);
+        }
+    }
+
+    private void autoNoBalance(double time) {
+        if (time < 8) {
+            if (time < 0.5) {
+                if (auto.getDistance(driveTrain.getVelocity('Z'), time) < 1) {
+                    auto.move(-0.25);
+                } else if (auto.turn(90)) {
+                    auto.move(0.25);
+                    if (auto.getDistance(driveTrain.getVelocity('Z'), time) > 10) {
+                        auto.move(0.25);
+                    } else if (auto.turn(-90)) {
+                        auto.move(0.25);
+                    }
+                }
+            }
+        }
+    }
+
 
 
     @Override

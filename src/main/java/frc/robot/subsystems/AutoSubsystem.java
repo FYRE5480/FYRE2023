@@ -18,6 +18,8 @@ public class AutoSubsystem extends PIDSubsystem {
 
     private double distanceTraveled = 0;
 
+    private double initialPitch;
+
     /**
      * Creates a new AutoSubsystem with PID.
      */
@@ -25,9 +27,11 @@ public class AutoSubsystem extends PIDSubsystem {
         super(new PIDController(0.0035, 0.0005, 0.0001));
         getController().setTolerance(1);
         setSetpoint(getSetpoint());
+        driveTrain.resetAhrs();
         savedPoint.put("X", 0.0);
         savedPoint.put("Z", 0.0);
         savedPoint.put("turn", driveTrain.getGyroscope());
+        initialPitch = driveTrain.getPitch();
     }
 
 
@@ -80,6 +84,17 @@ public class AutoSubsystem extends PIDSubsystem {
     public double getDistance(float velocity, double time) {
         distanceTraveled += (velocity / time);
         return velocity / time;
+    }
+
+    public boolean balance(double pitch) {
+        if (pitch > initialPitch) {
+            driveTrain.arcadeDrive(pitch / 100, 0);
+        } else if (pitch < initialPitch) {
+            driveTrain.arcadeDrive(-pitch / 100, 0);
+        } else {
+            return false;
+        }
+        return true;
     }
     
     public void savePoint() {}
