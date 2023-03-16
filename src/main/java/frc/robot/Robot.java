@@ -48,7 +48,6 @@ public class Robot extends TimedRobot {
     // Variables for switching between cameras. 
     private boolean hasMoved = false; 
     private int currentIndex = 0; 
-    private int theFunny = 0;
 
     /**
 	 * This function is run when the robot is first started up and should be used for any
@@ -116,7 +115,6 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         SmartDashboard.putBoolean("PERIOTIC IS RUNNING?", autoCommand.isScheduled());
-        theFunny++;
         
     }
 
