@@ -20,8 +20,12 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase {
     // There are two motor controllers that exist here, but they are wired together to PWM port. 
     //private final Spark intakeMotor = new Spark(Constants.INTAKE_SPINNER_MOTOR_PORT);
-    private final CANSparkMax intakeMotor = new CANSparkMax(
-        Constants.INTAKE_SPINNER_MOTOR_PORT, 
+    private final CANSparkMax intakeMotor1 = new CANSparkMax(
+        Constants.INTAKE_SPINNER1_MOTOR_PORT, 
+        MotorType.kBrushed
+        );
+    private final CANSparkMax intakeMotor2 = new CANSparkMax(
+        Constants.INTAKE_SPINNER2_MOTOR_PORT, 
         MotorType.kBrushed
         );
     private final CANSparkMax actuationMotor = new CANSparkMax(
@@ -62,21 +66,24 @@ public class Intake extends SubsystemBase {
      * Runs the intake forward at the INTAKE_SPEED level.
      */
     public void spinForward() {
-        intakeMotor.set(Constants.INTAKE_SPEED);
+        intakeMotor1.set(Constants.INTAKE_SPEED);
+        intakeMotor2.set(-Constants.INTAKE_SPEED);
     }
 
     /**
      * Runs the intake backward at the INTAKE_SPEED level.
      */
     public void spinBackward() {
-        intakeMotor.set(-Constants.INTAKE_SPEED);
+        intakeMotor1.set(-Constants.INTAKE_SPEED);
+        intakeMotor2.set(Constants.INTAKE_SPEED);
     }
 
     /**
      * Stops the flywheels on the intake system. 
      */
     public void stopIntakeSpin() {
-        intakeMotor.set(0.0);
+        intakeMotor1.set(0.0);
+        intakeMotor2.set(0.0);
     }
     
 

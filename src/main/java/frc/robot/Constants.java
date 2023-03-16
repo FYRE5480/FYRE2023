@@ -70,10 +70,14 @@ public final class Constants {
     public static final double CLAW_ACTUATION_SPEED = 0.3;
     
     /** 
-    * The two motor controllers that spin the intake motors exist here,
-    * but they are both wired together on one PWM port.
+    * The first intake motor.
     */
-    public static final int INTAKE_SPINNER_MOTOR_PORT = 6;
+    public static final int INTAKE_SPINNER1_MOTOR_PORT = 6;
+
+    /**
+     * The second intake motor.
+     */
+    public static final int INTAKE_SPINNER2_MOTOR_PORT = 10 ;
     
     /** The port for the upper intake limit switch. */
     public static final int INTAKE_SWITCH_PORT_A = 8; 
