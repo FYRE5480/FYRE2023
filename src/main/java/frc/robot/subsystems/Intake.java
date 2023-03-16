@@ -24,10 +24,12 @@ public class Intake extends SubsystemBase {
         Constants.INTAKE_SPINNER1_MOTOR_PORT, 
         MotorType.kBrushed
         );
+
     private final CANSparkMax intakeMotor2 = new CANSparkMax(
         Constants.INTAKE_SPINNER2_MOTOR_PORT, 
         MotorType.kBrushed
         );
+    
     private final CANSparkMax actuationMotor = new CANSparkMax(
         Constants.INTAKE_ACTUATOR_MOTOR_PORT,
         MotorType.kBrushed
@@ -65,7 +67,7 @@ public class Intake extends SubsystemBase {
     /**
      * Runs the intake forward at the INTAKE_SPEED level.
      */
-    public void spinForward() {
+    public void spinForward() { 
         intakeMotor1.set(Constants.INTAKE_SPEED);
         intakeMotor2.set(-Constants.INTAKE_SPEED);
     }

@@ -69,15 +69,12 @@ public final class Constants {
     /** Actuation speed for claw. */
     public static final double CLAW_ACTUATION_SPEED = 0.3;
     
-    /** 
-    * The first intake motor.
-    */
+    /** The port of the first intake motor. */
     public static final int INTAKE_SPINNER1_MOTOR_PORT = 6;
 
-    /**
-     * The second intake motor.
-     */
-    public static final int INTAKE_SPINNER2_MOTOR_PORT = 10 ;
+    /** The port of the second intake motor. */
+    public static final int INTAKE_SPINNER2_MOTOR_PORT = 10;
+
     
     /** The port for the upper intake limit switch. */
     public static final int INTAKE_SWITCH_PORT_A = 8; 
@@ -120,6 +117,12 @@ public final class Constants {
 
     /** The port of the second right drivetrain motor. */
     public static final int RIGHT_MOTOR_PORT_C = 5; 
+
+    /**
+     * The value that will limit the ammount of acceleration on the robot.
+     * It will do this by limiting the ammount of change the joystick will register
+     */
+    public static final double DRIVETRAIN_ACCELERATION_DAMPENER_VALUE = 0.125;
     
     /** The port of the compressor. */
     //public static final int COMPRESSOR_PCM_PORT = 10;
