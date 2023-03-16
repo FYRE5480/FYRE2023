@@ -56,7 +56,7 @@ public class Driving extends CommandBase {
         
         // Calculates the power to apply to each set of motors. 
         double leftPower = leftLimitedStick * Constants.THROTTLE;
-        double rightPower = rightLimitedStick * Constants.THROTTLE;
+        double rightPower = rightLimitedStick * Constants.THROTTLE * Constants.DRIVE_CONTROL_VALUE;
 
         // Outputs the positions of each of the joystick axis. 
         System.out.println(leftPower + " : left stick, " + rightPower + " : right stick"); 

@@ -122,7 +122,7 @@ public final class Constants {
      * The value that will limit the ammount of acceleration on the robot.
      * It will do this by limiting the ammount of change the joystick will register
      */
-    public static final double DRIVETRAIN_ACCELERATION_DAMPENER_VALUE = 0.0625;
+    public static final double DRIVETRAIN_ACCELERATION_DAMPENER_VALUE = 0.5;
     
     /** The port of the compressor. */
     //public static final int COMPRESSOR_PCM_PORT = 10;
@@ -144,4 +144,7 @@ public final class Constants {
     
     /** The multipler of the speed of the drivetrain. */
     public static final double THROTTLE = 1.0;
+
+    /** This is a multiplier to counteract. */
+    public static final double DRIVE_CONTROL_VALUE = 0.125; 
 }

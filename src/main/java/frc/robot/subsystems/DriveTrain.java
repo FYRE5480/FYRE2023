@@ -232,7 +232,7 @@ public class DriveTrain extends SubsystemBase {
     public double limitAcceleration(double joystickValue, double limitedJoystickValue) {
         double limit = Constants.DRIVETRAIN_ACCELERATION_DAMPENER_VALUE;
         double change = joystickValue - limitedJoystickValue;
-        if (change > limit){
+        if (change > limit) {
             change = limit;
         } else if (change < -limit) {
             change = -limit;
