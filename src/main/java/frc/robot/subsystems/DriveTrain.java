@@ -15,6 +15,10 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenixpro.controls.VoltageOut;
+
+import edu.wpi.first.wpilibj.DriverStation;
+
 import frc.robot.Constants;
 
 /** Subsystem designed for controlling the bottom driving motors and fetching encoder values. */
@@ -33,6 +37,8 @@ public class DriveTrain extends SubsystemBase {
     private final MotorControllerGroup leftMotors = new MotorControllerGroup(left1, left2, left3);
     private final MotorControllerGroup rightMotors = new MotorControllerGroup(right1, right2, right3);
     private final DifferentialDrive diffDrive = new DifferentialDrive(leftMotors, rightMotors);
+
+    private double lowestVoltage = 12.0;
 
     // Initialize our encoders to calculate wheel rotation in autonomous. 
     private final Encoder leftEncoder = new Encoder(
@@ -88,6 +94,7 @@ public class DriveTrain extends SubsystemBase {
     public void tankDrive(double movementSpeedLeft, double movementSpeedRight) {
         int multiplier = Constants.INVERTED_DRIVE ? -1 : 1;
         diffDrive.tankDrive(movementSpeedLeft * multiplier, movementSpeedRight * multiplier);
+        putVoltageUsage();
     }
 
     /**
@@ -182,6 +189,16 @@ public class DriveTrain extends SubsystemBase {
         }
     }
 
+    private void putVoltageUsage() {
+        double voltageUsed = 
+            left1.getMotorOutputVoltage() + left2.getMotorOutputVoltage() + left3.getMotorOutputVoltage()
+            + right1.getMotorOutputVoltage() + right2.getMotorOutputVoltage() + right3.getMotorOutputVoltage();
+        
+        if ((12 - voltageUsed) < lowestVoltage ) {
+            lowestVoltage = 12 - voltageUsed;
+        }
+    }
+
     /** 
      * Add each of the calculations from our encoders and gyroscopes to our dashboard. 
      */
@@ -193,6 +210,8 @@ public class DriveTrain extends SubsystemBase {
         SmartDashboard.putNumber("Right Encoder Distance (revolutions)", getEncoder("right"));
         SmartDashboard.putNumber("Driving Throttle", Constants.THROTTLE);
         SmartDashboard.putNumber("Time Total:", DriverStation.getMatchTime());  
+        SmartDashboard.putNumber("Lowest Voltage", lowestVoltage);
+
     }
 }
 
