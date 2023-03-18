@@ -148,5 +148,5 @@ public final class Constants {
     /** This is a multiplier to counteract  . */
     public static final double DRIVE_CONTROL_VALUE = 0.125; 
 
-    public static final double LIMIT_CONSTANT = 0.3; 
+    public static final double LIMIT_CONSTANT = 0.4; 
 }
