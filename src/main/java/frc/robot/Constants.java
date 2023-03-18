@@ -34,7 +34,7 @@ public final class Constants {
     public static final int ARM_ENCODER_DISTANCE_CONSTANT = 189;
 
     /** The port for the upper arm limit switch. */
-    public static final int ARM_SWITCH_PORT_A = 6; 
+    //public static final int ARM_SWITCH_PORT_A = 6; 
     
     /** The port for the lower arm limit switch. */
     public static final int ARM_SWITCH_PORT_B = 7; 
@@ -69,11 +69,11 @@ public final class Constants {
     /** Actuation speed for claw. */
     public static final double CLAW_ACTUATION_SPEED = 0.3;
     
-    /** 
-    * The two motor controllers that spin the intake motors exist here,
-    * but they are both wired together on one PWM port.
-    */
-    public static final int INTAKE_SPINNER_MOTOR_PORT = 6;
+    /** The port of the first spinner motor */
+    public static final int INTAKE_SPINNER2_MOTOR_PORT = 6;
+
+    /** The port of the second spinner motor */
+    public static final int INTAKE_SPINNER1_MOTOR_PORT = 10;
     
     /** The port for the upper intake limit switch. */
     public static final int INTAKE_SWITCH_PORT_A = 8; 
