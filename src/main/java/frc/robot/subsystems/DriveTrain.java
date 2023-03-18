@@ -46,19 +46,19 @@ public class DriveTrain extends SubsystemBase {
     private AHRS ahrs;
 
     // Initialize our encoders to calculate wheel rotation in autonomous. 
-    private final Encoder leftEncoder = new Encoder(
-        Constants.LEFT_ENCODER_PORT_A, 
-        Constants.LEFT_ENCODER_PORT_B, 
-        false, 
-        Encoder.EncodingType.k4X
-    );
+    // private final Encoder leftEncoder = new Encoder(
+    //     Constants.LEFT_ENCODER_PORT_A, 
+    //     Constants.LEFT_ENCODER_PORT_B, 
+    //     false, 
+    //     Encoder.EncodingType.k4X
+    // );
 
-    private final Encoder rightEncoder = new Encoder(
-        Constants.RIGHT_ENCODER_PORT_A, 
-        Constants.RIGHT_ENCODER_PORT_B, 
-        false, 
-        Encoder.EncodingType.k2X
-    );
+    // private final Encoder rightEncoder = new Encoder(
+    //     Constants.RIGHT_ENCODER_PORT_A, 
+    //     Constants.RIGHT_ENCODER_PORT_B, 
+    //     false, 
+    //     Encoder.EncodingType.k2X
+    // );
 
     // Initialize our gyroscope for measuring the angle of the bot.
     // private final Gyro driveGyro = new ADXRS450_Gyro(Port.kOnboardCS0);
@@ -107,43 +107,43 @@ public class DriveTrain extends SubsystemBase {
      * @param side - The distance traveled by a particular side of a robot.
      * @return - The current distance traveled of a particular encoder. 
      */
-    public double getEncoder(String side) {
-        switch (side) {
-            case "left":
-                return leftEncoder.getDistance();
+    // public double getEncoder(String side) {
+    //     switch (side) {
+    //         case "left":
+    //             return leftEncoder.getDistance();
                 
-            case "right":
-                return rightEncoder.getDistance();
+    //         case "right":
+    //             return rightEncoder.getDistance();
 
-            default: 
-                return 0.0;
-        }
-    }
+    //         default: 
+    //             return 0.0;
+    //     }
+    // }
 
     /**
      * Reset the values of an encoder or encoders.
 
      * @param side - The side of the robot to reset. 
      */
-    public void resetEncoder(String side) {
-        switch (side) {
-            case "left":
-                leftEncoder.reset();
-                break;
+    // public void resetEncoder(String side) {
+    //     switch (side) {
+    //         case "left":
+    //             leftEncoder.reset();
+    //             break;
 
-            case "right":
-                rightEncoder.reset();
-                break;
+    //         case "right":
+    //             rightEncoder.reset();
+    //             break;
 
-            case "both":
-                leftEncoder.reset();
-                rightEncoder.reset();
-                break;
+    //         case "both":
+    //             leftEncoder.reset();
+    //             rightEncoder.reset();
+    //             break;
             
-            default:
-                break;
-        }
-    }
+    //         default:
+    //             break;
+    //     }
+    // }
 
     /**
      * Get the orientation of the gyroscope.
@@ -269,8 +269,8 @@ public class DriveTrain extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("GYRO Angle Chart:", getGyroscope());
         SmartDashboard.putNumber("GYRO Reading:", getGyroscope() % 360);
-        SmartDashboard.putNumber("Left Encoder Distance (revolutions)", getEncoder("left"));
-        SmartDashboard.putNumber("Right Encoder Distance (revolutions)", getEncoder("right"));
+        // SmartDashboard.putNumber("Left Encoder Distance (revolutions)", getEncoder("left"));
+        // SmartDashboard.putNumber("Right Encoder Distance (revolutions)", getEncoder("right"));
         SmartDashboard.putNumber("Driving Throttle", Constants.THROTTLE);
         SmartDashboard.putNumber("Time Total:", DriverStation.getMatchTime());  
     }
