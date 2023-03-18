@@ -96,7 +96,6 @@ public class DriveTrain extends SubsystemBase {
     public void tankDrive(double movementSpeedLeft, double movementSpeedRight) {
         int multiplier = Constants.INVERTED_DRIVE ? -1 : 1;
         diffDrive.tankDrive(movementSpeedLeft * multiplier, movementSpeedRight * multiplier);
-        
     }
 
     /**
@@ -223,12 +222,14 @@ public class DriveTrain extends SubsystemBase {
     }
 
     /**
-     * This method will dampen the acceleration of the drivetrain based on the limiter value in constatnts, which can be tuned.
+     * This method will dampen the acceleration of the drivetrain based on 
+     * the limiter value in constatnts, which can be tuned.
 
      * @param joystickValue - raw joystick value
      * @param limitedJoystickValue - the limited joystick value
      * @return limitedJoystick - the new limitedJoystick value
      */
+
     public double limitAcceleration(double joystickValue, double limitedJoystickValue) {
         double limit = Constants.DRIVETRAIN_ACCELERATION_DAMPENER_VALUE;
         double change = joystickValue - limitedJoystickValue;
@@ -237,6 +238,7 @@ public class DriveTrain extends SubsystemBase {
         } else if (change < -limit) {
             change = -limit;
         }
+
         // returns a new limited joystick value
         return limitedJoystickValue + change;
     }
@@ -246,12 +248,14 @@ public class DriveTrain extends SubsystemBase {
      */
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("GYRO Angle Chart:", getGyroscope());
+        /* SmartDashboard.putNumber("GYRO Angle Chart:", getGyroscope());
         SmartDashboard.putNumber("GYRO Reading:", getGyroscope() % 360);
         SmartDashboard.putNumber("Left Encoder Distance (revolutions)", getEncoder("left"));
         SmartDashboard.putNumber("Right Encoder Distance (revolutions)", getEncoder("right"));
         SmartDashboard.putNumber("Driving Throttle", Constants.THROTTLE);
-        SmartDashboard.putNumber("Time Total:", DriverStation.getMatchTime());  
+        SmartDashboard.putNumber("Time Total:", DriverStation.getMatchTime()); */ 
+        SmartDashboard.putNumber("Power Draw Left", left1.getMotorOutputVoltage()); 
+        SmartDashboard.putNumber("Power Draw Right", right1.getMotorOutputVoltage());
     }
 }
 

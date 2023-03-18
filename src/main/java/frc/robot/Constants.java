@@ -145,6 +145,8 @@ public final class Constants {
     /** The multipler of the speed of the drivetrain. */
     public static final double THROTTLE = 1.0;
 
-    /** This is a multiplier to counteract. */
+    /** This is a multiplier to counteract  . */
     public static final double DRIVE_CONTROL_VALUE = 0.125; 
+
+    public static final double LIMIT_CONSTANT = 0.3; 
 }

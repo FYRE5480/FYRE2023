@@ -49,8 +49,6 @@ public class RobotContainer {
     //    Constants.COMPRESSOR_PCM_PORT, PneumaticsModuleType.CTREPCM
     //);
     
-
-
     // Initialize our joystick for manipulation and controller for drivetrain.
     public static final Joystick manipulatorControl = new Joystick(0);
     public static final XboxController driverControl = new XboxController(1); 
