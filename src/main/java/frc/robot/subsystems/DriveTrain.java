@@ -97,7 +97,8 @@ public class DriveTrain extends SubsystemBase {
      */
     public void tankDrive(double movementSpeedLeft, double movementSpeedRight) {
         int multiplier = Constants.INVERTED_DRIVE ? -1 : 1;
-        diffDrive.tankDrive(movementSpeedLeft * multiplier, movementSpeedRight * multiplier);
+        diffDrive.tankDrive(movementSpeedLeft * 3 / 4, movementSpeedRight * 3 / 4);
+        
     }
 
     /**
@@ -203,13 +204,12 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public double getPitch() {
-        return ahrs.getPitch();
+        return ahrs.getRoll();
     }
 
     /** Resets all sensors to their respective zero values. */
     public void resetAhrs() {
         ahrs.calibrate();
-        ahrs.zeroYaw();
     }
 
     /**
@@ -272,6 +272,9 @@ public class DriveTrain extends SubsystemBase {
         // SmartDashboard.putNumber("Right Encoder Distance (revolutions)", getEncoder("right"));
         SmartDashboard.putNumber("Driving Throttle", Constants.THROTTLE);
         SmartDashboard.putNumber("Time Total:", DriverStation.getMatchTime());  
+        SmartDashboard.putNumber("Pitch", ahrs.getPitch());
+        SmartDashboard.putNumber("Roll", ahrs.getRoll());
+        SmartDashboard.putNumber("Yaw", ahrs.getYaw());
     }
 }
 
