@@ -1,0 +1,44 @@
+********** Robot program starting **********
+NT: Listening on NT3 port 1735, NT4 port 5810
+NT: Got a NT3 connection from 10.54.80.175 port 59448
+NT: CONNECTED NT3 client 'NT3@10.54.80.175:59448' (from 10.54.80.175:59448)
+navX-Sensor Java library for FRC
+navX-Sensor Yaw Reset request ignored - startup calibration is currently in progress.
+navX-Sensor Java library for FRC
+navX-Sensor Yaw Reset request ignored - startup calibration is currently in progress.
+Unhandled exception: java.lang.IllegalStateException: A CANSparkMax instance has already been created with this device ID: 10
+Error at com.revrobotics.CANSparkMaxLowLevel.<init>(CANSparkMaxLowLevel.java:137): Unhandled exception: java.lang.IllegalStateException: A CANSparkMax instance has already been created with this device ID: 10
+at com.revrobotics.CANSparkMaxLowLevel.<init>(CANSparkMaxLowLevel.java:137)
+at com.revrobotics.CANSparkMax.<init>(CANSparkMax.java:191)
+at frc.robot.subsystems.Intake.<init>(Intake.java:23)
+at frc.robot.subsystems.AutoSubsystem.<init>(AutoSubsystem.java:15)
+at frc.robot.commands.Autonomous.<init>(Autonomous.java:26)
+The robot program quit unexpectedly. This is usually due to a code error.
+The above stacktrace can help determine where the error occurred.
+See https://wpilib.org/stacktrace for more information.
+at frc.robot.RobotContainer.<init>(RobotContainer.java:40)
+The startCompetition() method (or methods called by it) should have handled the exception above.
+at frc.robot.Robot.robotInit(Robot.java:58)
+at edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:106)
+at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:343)
+at edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:433)
+at frc.robot.Main.main(Main.java:23)
+navX-Sensor Connected.
+Warning at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:358): The robot program quit unexpectedly. This is usually due to a code error.
+The above stacktrace can help determine where the error occurred.
+See https://wpilib.org/stacktrace for more information.
+Error at edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:365): The startCompetition() method (or methods called by it) should have handled the exception above.
+[phoenix-diagnostics] Server shutdown cleanly. (dur:0)
+[phoenix] Library shutdown cleanly
+pure virtual method called
+terminate called without an active exception
+Paused: 1034
+Discard
+Clear
+Don't Show Prints
+Switch to Viewer
+Don't Show Warnings
+Disconnect
+Show Timestamps
+Save Log
+Set Team Number

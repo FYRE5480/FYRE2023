@@ -22,8 +22,8 @@ public class Autonomous extends CommandBase {
     // Initialize our DriveTrain and Intake subsystems. 
     private final DriveTrain driveTrain; 
     private final Intake intake;
-
-    private final AutoSubsystem auto = new AutoSubsystem(null);
+    private final PIDController controller = null;
+    private final AutoSubsystem auto;
 
     // Initialize a PID controller for feedback loops. 
     private PIDController PIDAutoController;
@@ -34,11 +34,11 @@ public class Autonomous extends CommandBase {
      * @param subsystemD - The DriveTrain subsystem for controlling robot movement. 
      * @param subsystemI - The Intake subsystem for obtaining new pieces.
      */
-    public Autonomous(DriveTrain subsystemD, Intake subsystemI) {
+    public Autonomous() {
         // initializes drivetrain and intake as a required subsystem.
-        this.driveTrain = subsystemD;
-        this.intake = subsystemI;
-        addRequirements(subsystemD, subsystemI);
+        this.driveTrain = new DriveTrain();
+        this.intake = new Intake();
+        this.auto = new AutoSubsystem(controller, driveTrain, intake);
 
         // resets the encoders to their "zero" values.
         this.driveTrain.resetAhrs();
@@ -59,13 +59,13 @@ public class Autonomous extends CommandBase {
         //     MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85)
         // );
         double time = Timer.getFPGATimestamp();
-        autoBalance(time);
+        stupid();
         
     }
 
 
     private void autoBalance(double time) {
-        if (!auto.balance(driveTrain.getPitch())) {
+        if (auto.balance(driveTrain.getPitch())) {
             SmartDashboard.putBoolean("Is Balancing?", false);
             if (time < 1.5) {
                 auto.shootCube(time);
@@ -76,6 +76,15 @@ public class Autonomous extends CommandBase {
             SmartDashboard.putBoolean("Is Balancing?", true);
         }
     }
+
+
+    private void stupid() {
+        if (auto.balance(driveTrain.getPitch())) {
+            auto.move(-0.75);
+        }
+    }
+
+
 
     private void autoNoBalance(double time) {
         if (time < 8) {
