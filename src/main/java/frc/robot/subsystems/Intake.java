@@ -25,10 +25,10 @@ public class Intake extends SubsystemBase {
         MotorType.kBrushed
         );
 
-        private final CANSparkMax intakeMotor2 = new CANSparkMax(
-            Constants.INTAKE_SPINNER2_MOTOR_PORT, 
-            MotorType.kBrushed
-        );
+    private final CANSparkMax intakeMotor2 = new CANSparkMax(
+        Constants.INTAKE_SPINNER2_MOTOR_PORT, 
+        MotorType.kBrushed
+    );
 
         
     private final CANSparkMax actuationMotor = new CANSparkMax(
