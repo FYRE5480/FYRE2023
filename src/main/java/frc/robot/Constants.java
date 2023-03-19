@@ -21,7 +21,7 @@ public final class Constants {
     /** The port of the arm motor. */
     public static final int ARM_MOTOR_PORT = 7;  
     
-    /** Encoder type for the built in encoder in the NEO motor */
+    /** Encoder type for the built in encoder in the NEO motor. */
     public static final SparkMaxAlternateEncoder.Type ARM_ENCODER_TYPE = SparkMaxAlternateEncoder.Type.kQuadrature;
 
     // the encoder constant has been changed because it only needs to be used for the arm, not the drivetrain
