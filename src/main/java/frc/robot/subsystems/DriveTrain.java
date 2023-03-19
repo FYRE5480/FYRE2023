@@ -15,9 +15,6 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import com.ctre.phoenixpro.controls.VoltageOut;
-
-import edu.wpi.first.wpilibj.DriverStation;
 
 import frc.robot.Constants;
 
