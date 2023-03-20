@@ -113,7 +113,7 @@ public class RobotContainer {
         // Note that the {button}.whileHeld({command}) has been depricated
 
         // opens the claw when a button is pressed
-        joystick1.whileTrue(new ActuateClaw(claw, "open")); 
+        // joystick1.whileTrue(new ActuateClaw(claw, "open")); 
 
         // Actuates the arm up or down when a button is pressed
         //joystick2.whileTrue(new ActuateArm(arm, "full"));

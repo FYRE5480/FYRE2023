@@ -41,7 +41,7 @@ public class DriveTrain extends SubsystemBase {
 
     // Initializes the nav board. 
     private AHRS ahrs;
-    private double lowestVoltage = 12.0;
+    private double lowestVoltage = 12.5;
 
     // Initialize our encoders to calculate wheel rotation in autonomous. 
     private final Encoder leftEncoder = new Encoder(
@@ -247,11 +247,11 @@ public class DriveTrain extends SubsystemBase {
 
     private void putVoltageUsage() {
         double voltageUsed = 
-            left1.getMotorOutputVoltage() + left2.getMotorOutputVoltage() + left3.getMotorOutputVoltage()
-            + right1.getMotorOutputVoltage() + right2.getMotorOutputVoltage() + right3.getMotorOutputVoltage();
+            (left1.getMotorOutputVoltage() + left2.getMotorOutputVoltage() + left3.getMotorOutputVoltage()
+            + right1.getMotorOutputVoltage() + right2.getMotorOutputVoltage() + right3.getMotorOutputVoltage()) / 6;
         
-        if ((12 - voltageUsed) < lowestVoltage) {
-            lowestVoltage = 12 - voltageUsed;
+        if ((12.5 - voltageUsed) < lowestVoltage) {
+            lowestVoltage = 12.5 - voltageUsed;
         }
     }
 

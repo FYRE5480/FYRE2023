@@ -12,7 +12,9 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 //import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 /**
  * Subsystem for controlling speed and position of the intake mechanism. 
@@ -68,8 +70,14 @@ public class Intake extends SubsystemBase {
      * Runs the intake forward at the INTAKE_SPEED level.
      */
     public void spinForward() { 
-        intakeMotor1.set(Constants.INTAKE_SPEED);
-        intakeMotor2.set(-Constants.INTAKE_SPEED);
+        if (RobotContainer.manipulatorControl.getRawButton(1)) {
+            intakeMotor1.set(Constants.INTAKE_SPEED * 2);
+            intakeMotor2.set(-Constants.INTAKE_SPEED * 2);
+        } else {
+            intakeMotor1.set(Constants.INTAKE_SPEED);
+            intakeMotor2.set(-Constants.INTAKE_SPEED);
+        }
+
     }
 
     /**
