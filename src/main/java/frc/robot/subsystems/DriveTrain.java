@@ -39,6 +39,8 @@ public class DriveTrain extends SubsystemBase {
     private final MotorControllerGroup rightMotors = new MotorControllerGroup(right1, right2, right3);
     private final DifferentialDrive diffDrive = new DifferentialDrive(leftMotors, rightMotors);
 
+     private double lowestVoltage = 12.0;
+
     // Initializes the nav board. 
     private AHRS ahrs;
 
@@ -96,6 +98,7 @@ public class DriveTrain extends SubsystemBase {
     public void tankDrive(double movementSpeedLeft, double movementSpeedRight) {
         int multiplier = Constants.INVERTED_DRIVE ? -1 : 1;
         diffDrive.tankDrive(movementSpeedLeft * multiplier, movementSpeedRight * multiplier);
+        putVoltageUsage();
     }
 
     /**
@@ -243,19 +246,33 @@ public class DriveTrain extends SubsystemBase {
         return limitedJoystickValue + change;
     }
 
+    /**
+     * Keeps track of the lowest the voltage has dropped when driving.
+     */
+    private void putVoltageUsage() {
+        double voltageUsed = 
+        left1.getMotorOutputVoltage() + left2.getMotorOutputVoltage() + left3.getMotorOutputVoltage() +
+        right1.getMotorOutputVoltage() + right2.getMotorOutputVoltage() + right3.getMotorOutputVoltage();
+
+        if ((12 - voltageUsed) < lowestVoltage) {
+            lowestVoltage = 12 - voltageUsed;
+        }
+    }
+
     /** 
      * Add each of the calculations from our encoders and gyroscopes to our dashboard. 
      */
     @Override
     public void periodic() {
-        /* SmartDashboard.putNumber("GYRO Angle Chart:", getGyroscope());
+        SmartDashboard.putNumber("GYRO Angle Chart:", getGyroscope());
         SmartDashboard.putNumber("GYRO Reading:", getGyroscope() % 360);
         SmartDashboard.putNumber("Left Encoder Distance (revolutions)", getEncoder("left"));
         SmartDashboard.putNumber("Right Encoder Distance (revolutions)", getEncoder("right"));
         SmartDashboard.putNumber("Driving Throttle", Constants.THROTTLE);
-        SmartDashboard.putNumber("Time Total:", DriverStation.getMatchTime()); */ 
+        SmartDashboard.putNumber("Time Total:", DriverStation.getMatchTime());
         SmartDashboard.putNumber("Power Draw Left", left1.getMotorOutputVoltage()); 
         SmartDashboard.putNumber("Power Draw Right", right1.getMotorOutputVoltage());
+        SmartDashboard.putNumber("Lowest Voltage Reached", lowestVoltage);
     }
 }
 
