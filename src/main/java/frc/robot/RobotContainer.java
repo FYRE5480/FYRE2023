@@ -124,6 +124,7 @@ public class RobotContainer {
         // Spins the intake forward or backward while two respective buttons are held
         joystick3.whileTrue(new SpinIntake(intake, "backward"));
         joystick5.whileTrue(new SpinIntake(intake, "forward"));
+        joystick5.and(joystick1).whileTrue(new SpinIntake(intake, "forwardFast"));
 
         // Actuates the intake up or down  while two respective buttons are held
         joystick9.whileTrue(new ActuateIntake(intake, "lower"));
