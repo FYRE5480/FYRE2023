@@ -25,6 +25,7 @@ public class Autonomous extends CommandBase {
     private final PIDController controller = null;
     private final AutoSubsystem auto;
 
+    private String balanceAuto;
     // Initialize a PID controller for feedback loops. 
     private PIDController PIDAutoController;
 
@@ -47,6 +48,8 @@ public class Autonomous extends CommandBase {
         PIDAutoController = new PIDController(0.0035, 0.0005, 0.0001);
         PIDAutoController.setSetpoint(180);
         PIDAutoController.setTolerance(1);
+
+        balanceAuto = SmartDashboard.getString("Balance Auto? ('yes' or 'no')", "no");
     }
 
 
@@ -59,7 +62,12 @@ public class Autonomous extends CommandBase {
         //     MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85)
         // );
         double time = Timer.getFPGATimestamp();
-        stupid();
+        if (balanceAuto.equals("yes")) {
+            autoBalance(time);
+        } else {
+            autoNoBalance(time);
+        }
+       // stupid();
         
     }
 
@@ -102,6 +110,7 @@ public class Autonomous extends CommandBase {
             }
         }
     }
+
 
 
 

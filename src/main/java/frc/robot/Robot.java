@@ -11,6 +11,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.SwitchCameras;
@@ -47,6 +48,8 @@ public class Robot extends TimedRobot {
     private boolean hasMoved = false; 
     private int currentIndex = 0; 
 
+    private String autoType;
+
     /**
 	 * This function is run when the robot is first started up and should be used for any
 	 * initialization code.
@@ -71,6 +74,9 @@ public class Robot extends TimedRobot {
 
         // Push our cameras into the array. 
         cameras = new UsbCamera[]{frontCam, clawCam};
+
+        
+        SmartDashboard.putString("Balance Auto? ('y' or 'n')", autoType);
     }
 
     /**
