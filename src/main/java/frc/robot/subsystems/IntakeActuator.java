@@ -20,17 +20,6 @@ import frc.robot.RobotContainer;
  * Subsystem for controlling speed and position of the intake mechanism. 
  */
 public class IntakeActuator extends SubsystemBase {
-    // There are two motor controllers that exist here, but they are wired together to PWM port. 
-    //private final Spark intakeMotor = new Spark(Constants.INTAKE_SPINNER_MOTOR_PORT);
-    private final CANSparkMax intakeMotor1 = new CANSparkMax(
-        Constants.INTAKE_SPINNER1_MOTOR_PORT, 
-        MotorType.kBrushed
-        );
-
-    private final CANSparkMax intakeMotor2 = new CANSparkMax(
-        Constants.INTAKE_SPINNER2_MOTOR_PORT, 
-        MotorType.kBrushed
-        );
     
     private final CANSparkMax actuationMotor = new CANSparkMax(
         Constants.INTAKE_ACTUATOR_MOTOR_PORT,

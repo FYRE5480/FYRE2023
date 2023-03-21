@@ -32,10 +32,6 @@ public class Intake extends SubsystemBase {
         MotorType.kBrushed
         );
     
-    private final CANSparkMax actuationMotor = new CANSparkMax(
-        Constants.INTAKE_ACTUATOR_MOTOR_PORT,
-        MotorType.kBrushed
-        );
     
 
     // Sets up the encoders for the intake
