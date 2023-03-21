@@ -75,8 +75,8 @@ public class Intake extends SubsystemBase {
     }
 
     public void spinForwadFast() {
-        intakeMotor1.set(100);
-        intakeMotor2.set(-100);
+        intakeMotor1.set(1.0);
+        intakeMotor2.set(-1.0);
     }
 
     /**
