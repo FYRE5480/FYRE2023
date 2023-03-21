@@ -2,13 +2,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.IntakeActuator;
 
 /**
  * Handler for methods relating to the actuation of the intake mechanism. 
  */
 public class ActuateIntake extends CommandBase {
     // Initialize the variable for controlling the intake
-    private Intake intake;
+    private IntakeActuator intake;
 
     // Initialize the variable to discern the direction of actuation. 
     private String direction;
@@ -19,7 +20,7 @@ public class ActuateIntake extends CommandBase {
      * @param subsystem - The Arm subsystem to be used. 
      * @param direction - The direction to actuate the intake mechanism. 
      */
-    public ActuateIntake(Intake subsystem, String direction) {
+    public ActuateIntake(IntakeActuator subsystem, String direction) {
         this.intake = subsystem;
         this.direction = direction;
 

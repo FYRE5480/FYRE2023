@@ -27,6 +27,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.IntakeActuator;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -44,7 +45,7 @@ public class RobotContainer {
     private static Claw claw = new Claw(); 
     private static DriveTrain driveTrain = new DriveTrain(); 
     private static Intake intakeWheels = new Intake();
-    private static Intake intakeActuator = new Intake();
+    private static IntakeActuator intakeActuator = new IntakeActuator();
     
     //private static AirControl compressor = new AirControl();
     //private Compressor compressor = new Compressor(
