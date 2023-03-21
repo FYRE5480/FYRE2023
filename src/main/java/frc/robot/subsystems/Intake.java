@@ -149,7 +149,7 @@ public class Intake extends SubsystemBase {
                 spinBackward();
                 break;
             default:
-                stopActuationIntake();
+                stopIntakeSpin();
                 break;
         }
     }
