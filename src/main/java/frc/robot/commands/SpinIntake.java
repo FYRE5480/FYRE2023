@@ -41,6 +41,9 @@ public class SpinIntake extends CommandBase {
                 intake.spinBackward();
                 break;
 
+            case "forwardFast":
+                intake.spinForwadFast();
+                break;
             default:
                 intake.stopIntakeSpin();
                 break;
@@ -49,11 +52,5 @@ public class SpinIntake extends CommandBase {
 
     public void end(boolean interrupted) {
         intake.stopIntakeSpin();
-    }
-
-    /**
-     * Spins the intake according to the direction variable.
-     */
-    public void spin() {
     }
 }

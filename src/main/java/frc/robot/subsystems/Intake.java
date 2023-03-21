@@ -70,14 +70,13 @@ public class Intake extends SubsystemBase {
      * Runs the intake forward at the INTAKE_SPEED level.
      */
     public void spinForward() { 
-        if (RobotContainer.manipulatorControl.getRawButton(1)) {
-            intakeMotor1.set(1.0);
-            intakeMotor2.set(-1.0);
-        } else {
-            intakeMotor1.set(Constants.INTAKE_SPEED);
-            intakeMotor2.set(-Constants.INTAKE_SPEED);
-        }
+        intakeMotor1.set(Constants.INTAKE_SPEED);
+        intakeMotor2.set(-Constants.INTAKE_SPEED);
+    }
 
+    public void spinForwadFast() {
+        intakeMotor1.set(1.0);
+        intakeMotor2.set(-1.0);
     }
 
     /**
