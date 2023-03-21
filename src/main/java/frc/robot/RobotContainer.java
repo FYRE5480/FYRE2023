@@ -122,13 +122,18 @@ public class RobotContainer {
         joystick2.whileTrue(new ActuateClaw(claw, "closed")); 
 
         // Spins the intake forward or backward while two respective buttons are held
-        joystick3.whileTrue(new SpinIntake(intake, "backward"));
-        joystick5.whileTrue(new SpinIntake(intake, "forward"));
-        joystick5.and(joystick1).whileTrue(new SpinIntake(intake, "forwardFast"));
+        joystick3.whileTrue(new SpinIntake(intake, "backward", false, null));
+        joystick5.whileTrue(new SpinIntake(intake, "forward", false, null));
+        joystick5.and(joystick1).whileTrue(new SpinIntake(intake, "forwardFast", false, null));
 
         // Actuates the intake up or down  while two respective buttons are held
         joystick9.whileTrue(new ActuateIntake(intake, "lower"));
         joystick10.whileTrue(new ActuateIntake(intake, "lift"));
+
+        joystick3.and(joystick9).whileTrue(new SpinIntake(intake, "backward", true, "lower"));
+        joystick3.and(joystick10).whileTrue(new SpinIntake(intake, "backward", true, "lift"));
+        joystick5.and(joystick9).whileTrue(new SpinIntake(intake, "forward", true, "lower"));
+        joystick5.and(joystick10).whileTrue(new SpinIntake(intake, "forward", true, "lift"));
 
         // Actuates the arm up or down while two respective buttons are pressed
         joystick4.whileTrue(new ActuateArm(arm, "down"));
