@@ -270,13 +270,9 @@ public class DriveTrain extends SubsystemBase {
         SmartDashboard.putNumber("Time Total:", DriverStation.getMatchTime());
         SmartDashboard.putNumber("Power Draw Left", left1.getMotorOutputVoltage()); 
         SmartDashboard.putNumber("Power Draw Right", right1.getMotorOutputVoltage());
-<<<<<<< HEAD
-        SmartDashboard.putNumber("Lowest Voltage Reached", lowestVoltage);
-=======
         SmartDashboard.putNumber("Time Total:", DriverStation.getMatchTime());  
         SmartDashboard.putNumber("Lowest Voltage", lowestVoltage);
 
->>>>>>> 4c85beac0fa839d50250553871bfdaf0b0ddaca4
     }
 }
 
