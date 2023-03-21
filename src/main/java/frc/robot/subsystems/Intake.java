@@ -124,34 +124,4 @@ public class Intake extends SubsystemBase {
         //actuationMotor.set(ControlMode.PercentOutput, 0.0);
         actuationMotor.set(0.0);
     }
-
-    public void intakeAndActuate(String actuateDirection, String flywheelDirection) {
-        switch (actuateDirection) {
-            case "lower":
-                liftIntake();
-                break;
-            case "lift":
-                lowerIntake();
-                break;
-            default:
-                stopActuationIntake();
-                break;
-        }
-
-        switch (actuateDirection) {
-            case "forwardFast":
-                spinForwadFast();
-                break;
-            case "forward":
-                spinForward();
-                break;
-            case "backward":
-                spinBackward();
-                break;
-            default:
-                stopIntakeSpin();
-                break;
-        }
-    }
-
 }

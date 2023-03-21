@@ -37,13 +37,15 @@ import frc.robot.subsystems.Intake;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-    private final Autonomous autoCommand = new Autonomous(driveTrain, intake);
+    private final Autonomous autoCommand = new Autonomous(driveTrain, intakeWheels);
 
     // Create new subsystems for the robot to pull from.
     private static Arm arm = new Arm();
     private static Claw claw = new Claw(); 
     private static DriveTrain driveTrain = new DriveTrain(); 
-    private static Intake intake = new Intake();
+    private static Intake intakeWheels = new Intake();
+    private static Intake intakeActuator = new Intake();
+    
     //private static AirControl compressor = new AirControl();
     //private Compressor compressor = new Compressor(
     //    Constants.COMPRESSOR_PCM_PORT, PneumaticsModuleType.CTREPCM
@@ -121,21 +123,14 @@ public class RobotContainer {
         //closes the claw while held
         joystick2.whileTrue(new ActuateClaw(claw, "closed")); 
 
-
-        joystick3.and(joystick9).whileTrue(new SpinIntake(intake, "backward", true, "lower"));
-        joystick3.and(joystick10).whileTrue(new SpinIntake(intake, "backward", true, "lift"));
-        joystick5.and(joystick9).whileTrue(new SpinIntake(intake, "forward", true, "lower"));
-        joystick5.and(joystick10).whileTrue(new SpinIntake(intake, "forward", true, "lift"));
-
-        
         // Spins the intake forward or backward while two respective buttons are held
-        joystick3.whileTrue(new SpinIntake(intake, "backward", false, null));
-        joystick5.whileTrue(new SpinIntake(intake, "forward", false, null));
-        joystick5.and(joystick1).whileTrue(new SpinIntake(intake, "forwardFast", false, null));
+        joystick3.whileTrue(new SpinIntake(intakeWheels, "backward"));
+        joystick5.whileTrue(new SpinIntake(intakeWheels, "forward"));
+        joystick5.and(joystick1).whileTrue(new SpinIntake(intakeWheels, "forwardFast"));
 
         // Actuates the intake up or down  while two respective buttons are held
-        joystick9.whileTrue(new ActuateIntake(intake, "lower"));
-        joystick10.whileTrue(new ActuateIntake(intake, "lift"));
+        joystick9.whileTrue(new ActuateIntake(intakeActuator, "lower"));
+        joystick10.whileTrue(new ActuateIntake(intakeActuator, "lift"));
 
         // Actuates the arm up or down while two respective buttons are pressed
         joystick4.whileTrue(new ActuateArm(arm, "down"));
