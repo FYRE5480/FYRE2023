@@ -109,6 +109,12 @@ public class Robot extends TimedRobot {
             autoCommand.schedule();
         }
 
+        //autoCommand = robotContainer.getAutonomousCommand();
+
+        // // schedule the autonomous command (example)
+        // if (autoCommand != null) {
+        //     autoCommand.schedule();
+        // }
     }
 
     /** This function is called periodically during autonomous. */

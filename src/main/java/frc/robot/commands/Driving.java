@@ -5,6 +5,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
+import com.ctre.phoenixpro.signals.Led1OffColorValue;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -14,12 +16,12 @@ import frc.robot.subsystems.DriveTrain;
 public class Driving extends CommandBase {
     // Initialize the DriveTrain subsytem.
     private DriveTrain driveTrain;
+    private double leftMovementSpeed;
+    private double rightMovementSpeed;
 
     // Initialize our speed variables for controlling motor speeds.
     private double leftStick;
     private double rightStick;
-    private double rightLimitedStick = 0;
-    private double leftLimitedStick = 0;
 
     // Fetch the driver controller from the RobotContainer.
     private XboxController driverControl;
@@ -55,8 +57,12 @@ public class Driving extends CommandBase {
         leftStick = Constants.IS_TANK ? -driverControl.getLeftY() : driverControl.getLeftY();
         rightStick = Constants.IS_TANK ? driverControl.getRightY() : driverControl.getRightX(); 
 
-        // Apply a deadband to the joystick directions if they are negligible. 
-        double[] speeds = new double[]{ leftStick, rightStick };
+
+        System.out.println(leftStick + " : left, " + rightStick + " : right"); 
+
+
+        // Apply a deadband to the speed modifiers if they are negligible. 
+        double[] speeds = new double[]{leftStick, rightStick};
         speeds = deadband(speeds);
 
         /* rightLimitedStick = driveTrain.limitAcceleration(rightStick, rightLimitedStick);
@@ -67,11 +73,11 @@ public class Driving extends CommandBase {
         double average = (sum / 2) * Constants.LIMIT_CONSTANT; // 0 - 0.3; 
         double limitedValue = 1 - average; // 0.7 - 1; 
 
-        System.out.println(Math.round(sum * 100.0) / 100.0 + " " + Math.round(average * 100.0) / 100.0 + " " + Math.round(limitedValue * 100.0) / 100.0);
+        //System.out.println(Math.round(sum * 100.0) / 100.0 + " " + Math.round(average * 100.0) / 100.0 + " " + Math.round(limitedValue * 100.0) / 100.0);
 
         // Calculates the power to apply to each set of motors. 
-        double leftPower = leftStick * Math.abs(limitedValue) * Constants.THROTTLE;
-        double rightPower = rightStick * Math.abs(limitedValue) * Constants.THROTTLE;
+        leftMovementSpeed = leftStick * Constants.THROTTLE;
+        rightMovementSpeed = rightStick * Constants.THROTTLE;
 
         // Outputs the positions of each of the joystick axis. 
         // System.out.println(leftStick + " : left stick, " + rightStick + " : right stick"); 
@@ -79,9 +85,9 @@ public class Driving extends CommandBase {
 
         // Runs each set of motors based on their calculated power levels. 
         if (Constants.IS_TANK) {
-            driveTrain.tankDrive(leftPower, rightPower);
+            driveTrain.tankDrive(leftMovementSpeed, rightMovementSpeed);
         } else {
-            driveTrain.arcadeDrive(rightPower, leftPower);
+            driveTrain.arcadeDrive(rightMovementSpeed, leftMovementSpeed);
         }
     }
 

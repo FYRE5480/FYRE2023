@@ -11,12 +11,12 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
-// import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-// import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import frc.robot.Constants;
 
 
@@ -39,10 +39,11 @@ public class DriveTrain extends SubsystemBase {
     private final MotorControllerGroup rightMotors = new MotorControllerGroup(right1, right2, right3);
     private final DifferentialDrive diffDrive = new DifferentialDrive(leftMotors, rightMotors);
 
-     private double lowestVoltage = 12.0;
+
 
     // Initializes the nav board. 
     private AHRS ahrs;
+    private double lowestVoltage = 12.5;
 
     // Initialize our encoders to calculate wheel rotation in autonomous. 
     private final Encoder leftEncoder = new Encoder(
@@ -56,7 +57,7 @@ public class DriveTrain extends SubsystemBase {
         Constants.RIGHT_ENCODER_PORT_A, 
         Constants.RIGHT_ENCODER_PORT_B, 
         false, 
-        Encoder.EncodingType.k2X
+        Encoder.EncodingType.k4X
     );
 
     // Initialize our gyroscope for measuring the angle of the bot.
@@ -145,7 +146,7 @@ public class DriveTrain extends SubsystemBase {
         }
     }
 
-    /**
+    /**  
      * Get the orientation of the gyroscope.
 
      * @return - The current orientation of the gyroscope.
@@ -246,16 +247,13 @@ public class DriveTrain extends SubsystemBase {
         return limitedJoystickValue + change;
     }
 
-    /**
-     * Keeps track of the lowest the voltage has dropped when driving.
-     */
     private void putVoltageUsage() {
         double voltageUsed = 
-        left1.getMotorOutputVoltage() + left2.getMotorOutputVoltage() + left3.getMotorOutputVoltage() +
-        right1.getMotorOutputVoltage() + right2.getMotorOutputVoltage() + right3.getMotorOutputVoltage();
-
-        if ((12 - voltageUsed) < lowestVoltage) {
-            lowestVoltage = 12 - voltageUsed;
+            (left1.getMotorOutputVoltage() + left2.getMotorOutputVoltage() + left3.getMotorOutputVoltage()
+            + right1.getMotorOutputVoltage() + right2.getMotorOutputVoltage() + right3.getMotorOutputVoltage()) / 6;
+        
+        if ((12.5 - voltageUsed) < lowestVoltage) {
+            lowestVoltage = 12.5 - voltageUsed;
         }
     }
 
@@ -272,7 +270,13 @@ public class DriveTrain extends SubsystemBase {
         SmartDashboard.putNumber("Time Total:", DriverStation.getMatchTime());
         SmartDashboard.putNumber("Power Draw Left", left1.getMotorOutputVoltage()); 
         SmartDashboard.putNumber("Power Draw Right", right1.getMotorOutputVoltage());
+<<<<<<< HEAD
         SmartDashboard.putNumber("Lowest Voltage Reached", lowestVoltage);
+=======
+        SmartDashboard.putNumber("Time Total:", DriverStation.getMatchTime());  
+        SmartDashboard.putNumber("Lowest Voltage", lowestVoltage);
+
+>>>>>>> 4c85beac0fa839d50250553871bfdaf0b0ddaca4
     }
 }
 

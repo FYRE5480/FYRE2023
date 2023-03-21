@@ -54,6 +54,4 @@ public class SpinIntake extends CommandBase {
     /**
      * Spins the intake according to the direction variable.
      */
-    public void spin() {
-    }
 }
