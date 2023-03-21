@@ -31,34 +31,10 @@ public class Intake extends SubsystemBase {
         Constants.INTAKE_SPINNER2_MOTOR_PORT, 
         MotorType.kBrushed
         );
-    
-    
-
-    // Sets up the encoders for the intake
-    private final DigitalInput intakeSwitchUpper = new DigitalInput(Constants.INTAKE_SWITCH_PORT_A);
-    private final DigitalInput intakeSwitchLower = new DigitalInput(Constants.INTAKE_SWITCH_PORT_B);
 
     /** Creates a new Intake subsystem. */
     public Intake() {}
 
-    /**
-     * Gets the reading of the appropriate limit switch. 
-     *
-     * @param side - The limit switch to be referenced ("upper" or "lower")
-     * @return - The current poisition of the prompted limit switch. 
-     */
-    public boolean getSwitchReading(String side) {
-        switch (side) {
-            case "upper":
-                return intakeSwitchUpper.get();
-                
-            case "lower":
-                return intakeSwitchLower.get();
-
-            default: 
-                return true;
-        }
-    }
 
     // Methods for controlling the speed of the intake. 
 
