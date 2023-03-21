@@ -13,6 +13,10 @@ public class SpinIntake extends CommandBase {
     // Initialize the direction to spin the intake. 
     private String direction;
 
+    private boolean actuate;
+
+    private String actuateDirection;
+
 
     /**
      * Creates a method manager for rotating the intake flywheels. 
@@ -20,7 +24,7 @@ public class SpinIntake extends CommandBase {
      * @param subsystem - The Intake subsystem to be built upon. 
      * @param direction - The direction in which the intake flywheels will run. 
      */
-    public SpinIntake(Intake subsystem, String direction) {
+    public SpinIntake(Intake subsystem, String direction, boolean actuate, String actuateDirection) {
         this.intake = subsystem;
         this.direction = direction;
         
@@ -31,22 +35,26 @@ public class SpinIntake extends CommandBase {
      * Runs whatever methods are currently prompted from the intake. 
      */
     public void execute() {
-        // If a button for intake spinning is pressed, the flywheels will spin. 
-        switch (direction) {
-            case "forward":
-                intake.spinForward();
-                break;
+        if (!actuate) {
+            // If a button for intake spinning is pressed, the flywheels will spin. 
+            switch (direction) {
+                case "forward":
+                    intake.spinForward();
+                    break;
 
-            case "backward":
-                intake.spinBackward();
-                break;
+                case "backward":
+                    intake.spinBackward();
+                    break;
 
-            case "forwardFast":
-                intake.spinForwadFast();
-                break;
-            default:
-                intake.stopIntakeSpin();
-                break;
+                case "forwardFast":
+                    intake.spinForwadFast();
+                    break;
+                default:
+                    intake.stopIntakeSpin();
+                    break;
+            }
+        } else {
+            intake.intakeAndActuate(actuateDirection, direction);
         }
     }
 
