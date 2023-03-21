@@ -71,8 +71,8 @@ public class Intake extends SubsystemBase {
      */
     public void spinForward() { 
         if (RobotContainer.manipulatorControl.getRawButton(1)) {
-            intakeMotor1.set(Constants.INTAKE_SPEED * 2);
-            intakeMotor2.set(-Constants.INTAKE_SPEED * 2);
+            intakeMotor1.set(1.0);
+            intakeMotor2.set(-1.0);
         } else {
             intakeMotor1.set(Constants.INTAKE_SPEED);
             intakeMotor2.set(-Constants.INTAKE_SPEED);
