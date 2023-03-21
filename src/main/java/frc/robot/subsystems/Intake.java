@@ -90,34 +90,4 @@ public class Intake extends SubsystemBase {
         intakeMotor1.set(0.0);
         intakeMotor2.set(0.0);
     }
-    
-
-    // Methods for controlling the actuation of the intake. 
-
-    /**
-     * Runs the actuation motor upwards at the INTAKE_ACTUATION_SPEED level.
-     */
-    public void liftIntake() {
-        if (getSwitchReading("upper")) {
-            //actuationMotor.set(ControlMode.PercentOutput, Constants.INTAKE_ACTUATION_SPEED);
-            actuationMotor.set(-Constants.INTAKE_ACTUATION_SPEED);
-        }
-
-    }
-
-    /**
-     * Runs the actuation motor downwards at the INTAKE_ACTUATION_SPEED level. 
-     */
-    public void lowerIntake() {
-        //actuationMotor.set(ControlMode.PercentOutput, -Constants.INTAKE_ACTUATION_SPEED);
-        actuationMotor.set(Constants.INTAKE_ACTUATION_SPEED);
-    }
-
-    /**
-     * Stops the actuation motor on the intake system. 
-     */
-    public void stopActuationIntake() {
-        //actuationMotor.set(ControlMode.PercentOutput, 0.0);
-        actuationMotor.set(0.0);
-    }
 }

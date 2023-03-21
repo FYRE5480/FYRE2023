@@ -54,35 +54,6 @@ public class IntakeActuator extends SubsystemBase {
     }
 
     // Methods for controlling the speed of the intake. 
-
-    /**
-     * Runs the intake forward at the INTAKE_SPEED level.
-     */
-    public void spinForward() { 
-        intakeMotor1.set(Constants.INTAKE_SPEED);
-        intakeMotor2.set(-Constants.INTAKE_SPEED);
-    }
-
-    public void spinForwadFast() {
-        intakeMotor1.set(1.0);
-        intakeMotor2.set(-1.0);
-    }
-
-    /**
-     * Runs the intake backward at the INTAKE_SPEED level.
-     */
-    public void spinBackward() {
-        intakeMotor1.set(-Constants.INTAKE_SPEED);
-        intakeMotor2.set(Constants.INTAKE_SPEED);
-    }
-
-    /**
-     * Stops the flywheels on the intake system. 
-     */
-    public void stopIntakeSpin() {
-        intakeMotor1.set(0.0);
-        intakeMotor2.set(0.0);
-    }
     
 
     // Methods for controlling the actuation of the intake. 
