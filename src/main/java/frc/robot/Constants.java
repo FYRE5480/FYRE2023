@@ -61,7 +61,7 @@ public final class Constants {
     public static final double INTAKE_ACTUATION_SPEED = 0.6; 
     
     /** The speed that the intake flywheels should be running at. */
-    public static final double INTAKE_SPEED = 0.30; 
+    public static final double INTAKE_SPEED = 0.35; 
     
     /** Port for the claw's new motor. */
     public static final int CLAW_MOTOR_PORT = 9;
