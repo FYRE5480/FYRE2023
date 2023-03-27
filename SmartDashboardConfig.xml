@@ -1,5 +1,11 @@
 <xml version="1.0">
 <dashboard>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="284" y="5"/>
+		<width>399</width>
+		<height>261</height>
+		<property name="Camera Choice" value=""/>
+	</static-widget>
 	<widget field="Current PSI" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="120"/>
 	</widget>

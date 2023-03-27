@@ -23,7 +23,7 @@ public class Arm extends SubsystemBase {
     private static RelativeEncoder armEncoder = armMotor.getAlternateEncoder(Constants.ARM_ENCODER_TYPE, Constants.ARM_ENCODER_DISTANCE_CONSTANT);
 
     // Initialize our limit switches for preventing obscene arm movement. 
-    private final DigitalInput armSwitchUpper = new DigitalInput(Constants.ARM_SWITCH_PORT_A);
+    //private final DigitalInput armSwitchUpper = new DigitalInput(Constants.ARM_SWITCH_PORT_A);
     private final DigitalInput armSwitchLower = new DigitalInput(Constants.ARM_SWITCH_PORT_B);
 
 
@@ -45,7 +45,6 @@ public class Arm extends SubsystemBase {
     public void setupEncoders(RelativeEncoder encoder) {
         resetEncoder();
     }
-
 
     /**
      * Gets the reading of the encoder on the arm motor. 
@@ -88,8 +87,8 @@ public class Arm extends SubsystemBase {
      */
     public boolean getSwitchReading(String side) {
         switch (side) {
-            case "upper":
-                return armSwitchUpper.get();
+            // case "upper":
+            //     return armSwitchUpper.get();
                 
             case "lower":
                 return armSwitchLower.get();

@@ -35,8 +35,11 @@ public class DriveTrain extends SubsystemBase {
     private final WPI_VictorSPX right3 = new WPI_VictorSPX(Constants.RIGHT_MOTOR_PORT_C);
 
     // Package our motors into MotorControllerGroups to be added to a DifferentialDrive.
-    private final MotorControllerGroup leftMotors = new MotorControllerGroup(left1, left2, left3);
-    private final MotorControllerGroup rightMotors = new MotorControllerGroup(right1, right2, right3);
+    private final MotorControllerGroup leftMotors = 
+        new MotorControllerGroup(left1, left2, left3);
+    private final MotorControllerGroup rightMotors = 
+        new MotorControllerGroup(right1, right2, right3);
+
     private final DifferentialDrive diffDrive = new DifferentialDrive(leftMotors, rightMotors);
 
 
@@ -46,19 +49,19 @@ public class DriveTrain extends SubsystemBase {
     private double lowestVoltage = 12.5;
 
     // Initialize our encoders to calculate wheel rotation in autonomous. 
-    private final Encoder leftEncoder = new Encoder(
-        Constants.LEFT_ENCODER_PORT_A, 
-        Constants.LEFT_ENCODER_PORT_B, 
-        false, 
-        Encoder.EncodingType.k4X
-    );
+    // private final Encoder leftEncoder = new Encoder(
+    //     Constants.LEFT_ENCODER_PORT_A, 
+    //     Constants.LEFT_ENCODER_PORT_B, 
+    //     false, 
+    //     Encoder.EncodingType.k4X
+    // );
 
-    private final Encoder rightEncoder = new Encoder(
-        Constants.RIGHT_ENCODER_PORT_A, 
-        Constants.RIGHT_ENCODER_PORT_B, 
-        false, 
-        Encoder.EncodingType.k4X
-    );
+    // private final Encoder rightEncoder = new Encoder(
+    //     Constants.RIGHT_ENCODER_PORT_A, 
+    //     Constants.RIGHT_ENCODER_PORT_B, 
+    //     false, 
+    //     Encoder.EncodingType.k2X
+    // );
 
     // Initialize our gyroscope for measuring the angle of the bot.
     // private final Gyro driveGyro = new ADXRS450_Gyro(Port.kOnboardCS0);
@@ -74,7 +77,7 @@ public class DriveTrain extends SubsystemBase {
         this.ahrs = new AHRS(SPI.Port.kMXP); 
         // Calibrates the navboard
         // Robot needs to be still during this process.
-        this.ahrs.calibrate();
+        resetAhrs();
     }
 
     /** 
@@ -98,8 +101,8 @@ public class DriveTrain extends SubsystemBase {
      */
     public void tankDrive(double movementSpeedLeft, double movementSpeedRight) {
         int multiplier = Constants.INVERTED_DRIVE ? -1 : 1;
-        diffDrive.tankDrive(movementSpeedLeft * multiplier, movementSpeedRight * multiplier);
-        putVoltageUsage();
+        diffDrive.tankDrive(movementSpeedLeft * 3 / 4, movementSpeedRight * 3 / 4);
+        
     }
 
     /**
@@ -108,43 +111,43 @@ public class DriveTrain extends SubsystemBase {
      * @param side - The distance traveled by a particular side of a robot.
      * @return - The current distance traveled of a particular encoder. 
      */
-    public double getEncoder(String side) {
-        switch (side) {
-            case "left":
-                return leftEncoder.getDistance();
+    // public double getEncoder(String side) {
+    //     switch (side) {
+    //         case "left":
+    //             return leftEncoder.getDistance();
                 
-            case "right":
-                return rightEncoder.getDistance();
+    //         case "right":
+    //             return rightEncoder.getDistance();
 
-            default: 
-                return 0.0;
-        }
-    }
+    //         default: 
+    //             return 0.0;
+    //     }
+    // }
 
     /**
      * Reset the values of an encoder or encoders.
 
      * @param side - The side of the robot to reset. 
      */
-    public void resetEncoder(String side) {
-        switch (side) {
-            case "left":
-                leftEncoder.reset();
-                break;
+    // public void resetEncoder(String side) {
+    //     switch (side) {
+    //         case "left":
+    //             leftEncoder.reset();
+    //             break;
 
-            case "right":
-                rightEncoder.reset();
-                break;
+    //         case "right":
+    //             rightEncoder.reset();
+    //             break;
 
-            case "both":
-                leftEncoder.reset();
-                rightEncoder.reset();
-                break;
+    //         case "both":
+    //             leftEncoder.reset();
+    //             rightEncoder.reset();
+    //             break;
             
-            default:
-                break;
-        }
-    }
+    //         default:
+    //             break;
+    //     }
+    // }
 
     /**  
      * Get the orientation of the gyroscope.
@@ -194,20 +197,57 @@ public class DriveTrain extends SubsystemBase {
     public float getVelocity(char direction) {
         switch (direction) {
             case 'X':
-                return ahrs.getWorldLinearAccelX();
+                return ahrs.getVelocityX();
             case 'Y':
-                return ahrs.getWorldLinearAccelY();
+                return ahrs.getVelocityY();
             case 'Z':
-                return ahrs.getWorldLinearAccelZ();
+                return ahrs.getVelocityZ();
             default:
                 return 0;
         }
     }
 
+    public double getPitch() {
+        return ahrs.getRoll();
+    }
+
     /** Resets all sensors to their respective zero values. */
     public void resetAhrs() {
         ahrs.calibrate();
-        ahrs.zeroYaw();
+    }
+
+    /**
+     * Returns the voltage output of any given side of the drivetrain.
+     
+
+     * @param direction - "right", "left" or "both" 
+     *      - the given side of the drivetrain's voltage output to return
+
+     * @return voltage - the returned voltage
+     */
+    public double getVoltage(String direction) {
+        switch (direction) {
+            case "right":
+                return (
+                    (right1.getMotorOutputVoltage() 
+                    + right2.getMotorOutputVoltage() 
+                    + right3.getMotorOutputVoltage()) / 3);
+            case "left":
+                return (
+                        (left1.getMotorOutputVoltage() 
+                        + left2.getMotorOutputVoltage() 
+                        + left3.getMotorOutputVoltage()) / 3);
+            case "both":
+                return (
+                    (right1.getMotorOutputVoltage() 
+                    + right2.getMotorOutputVoltage() 
+                    + right3.getMotorOutputVoltage()
+                    + left1.getMotorOutputVoltage() 
+                    + left2.getMotorOutputVoltage() 
+                    + left3.getMotorOutputVoltage()) / 6);
+            default:
+                return 0.0;
+        }
     }
 
     /**
@@ -264,8 +304,8 @@ public class DriveTrain extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("GYRO Angle Chart:", getGyroscope());
         SmartDashboard.putNumber("GYRO Reading:", getGyroscope() % 360);
-        SmartDashboard.putNumber("Left Encoder Distance (revolutions)", getEncoder("left"));
-        SmartDashboard.putNumber("Right Encoder Distance (revolutions)", getEncoder("right"));
+        // SmartDashboard.putNumber("Left Encoder Distance (revolutions)", getEncoder("left"));
+        // SmartDashboard.putNumber("Right Encoder Distance (revolutions)", getEncoder("right"));
         SmartDashboard.putNumber("Driving Throttle", Constants.THROTTLE);
         SmartDashboard.putNumber("Time Total:", DriverStation.getMatchTime());
         SmartDashboard.putNumber("Power Draw Left", left1.getMotorOutputVoltage()); 
@@ -273,6 +313,9 @@ public class DriveTrain extends SubsystemBase {
         SmartDashboard.putNumber("Time Total:", DriverStation.getMatchTime());  
         SmartDashboard.putNumber("Lowest Voltage", lowestVoltage);
 
+        SmartDashboard.putNumber("Pitch", ahrs.getPitch());
+        SmartDashboard.putNumber("Roll", ahrs.getRoll());
+        SmartDashboard.putNumber("Yaw", ahrs.getYaw());
     }
 }
 

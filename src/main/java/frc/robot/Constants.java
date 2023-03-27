@@ -34,7 +34,7 @@ public final class Constants {
     public static final int ARM_ENCODER_DISTANCE_CONSTANT = 189;
 
     /** The port for the upper arm limit switch. */
-    public static final int ARM_SWITCH_PORT_A = 6; 
+    //public static final int ARM_SWITCH_PORT_A = 6; 
     
     /** The port for the lower arm limit switch. */
     public static final int ARM_SWITCH_PORT_B = 7; 
@@ -74,7 +74,6 @@ public final class Constants {
 
     /** The port of the second intake motor. */
     public static final int INTAKE_SPINNER2_MOTOR_PORT = 10;
-
     
     /** The port for the upper intake limit switch. */
     public static final int INTAKE_SWITCH_PORT_A = 8; 

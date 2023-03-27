@@ -2,8 +2,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.AutoSubsystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 
@@ -20,7 +22,10 @@ public class Autonomous extends CommandBase {
     // Initialize our DriveTrain and Intake subsystems. 
     private final DriveTrain driveTrain; 
     private final Intake intake;
+    private final PIDController controller = null;
+    private final AutoSubsystem auto;
 
+    private String balanceAuto;
     // Initialize a PID controller for feedback loops. 
     private PIDController PIDAutoController;
 
@@ -30,19 +35,21 @@ public class Autonomous extends CommandBase {
      * @param subsystemD - The DriveTrain subsystem for controlling robot movement. 
      * @param subsystemI - The Intake subsystem for obtaining new pieces.
      */
-    public Autonomous(DriveTrain subsystemD, Intake subsystemI) {
+    public Autonomous() {
         // initializes drivetrain and intake as a required subsystem.
-        this.driveTrain = subsystemD;
-        this.intake = subsystemI;
-        addRequirements(subsystemD, subsystemI);
+        this.driveTrain = new DriveTrain();
+        this.intake = new Intake();
+        this.auto = new AutoSubsystem(controller, driveTrain, intake);
 
         // resets the encoders to their "zero" values.
         this.driveTrain.resetAhrs();
 
         // initializes the values for our PID loop
-        PIDAutoController = new PIDController(1, 1, 1);
-        PIDAutoController.setSetpoint(280);
-        PIDAutoController.setTolerance(0.5);
+        PIDAutoController = new PIDController(0.0035, 0.0005, 0.0001);
+        PIDAutoController.setSetpoint(180);
+        PIDAutoController.setTolerance(1);
+
+        balanceAuto = SmartDashboard.getString("Balance Auto? ('yes' or 'no')", "no");
     }
 
 
@@ -51,17 +58,65 @@ public class Autonomous extends CommandBase {
      */
     public void execute() {
         // driveTrain.tankDrive(
-        //     MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -1, 1), 
-        //     MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -1, 1)
+        //     MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85), 
+        //     MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85)
         // );
-        SmartDashboard.putString("HEY AUTO IS WORKING", "WOOOO");
-        driveTrain.arcadeDrive(1, 0);
+        double time = Timer.getFPGATimestamp();
+        if (balanceAuto.equals("yes")) {
+            autoBalance(time);
+        } else {
+            autoNoBalance(time);
+        }
+       // stupid();
+        
     }
 
     public void test() {
         SmartDashboard.putString("HEY AUTO IS WORKING", "WOOOO");
         driveTrain.arcadeDrive(1, 0);
     }
+
+    private void autoBalance(double time) {
+        if (auto.balance(driveTrain.getPitch())) {
+            SmartDashboard.putBoolean("Is Balancing?", false);
+            if (time < 1.5) {
+                auto.shootCube(time);
+            } else {
+                auto.move(-0.25);
+            }
+        } else {
+            SmartDashboard.putBoolean("Is Balancing?", true);
+        }
+    }
+
+
+    private void stupid() {
+        if (auto.balance(driveTrain.getPitch())) {
+            auto.move(-0.75);
+        }
+    }
+
+
+
+    private void autoNoBalance(double time) {
+        if (time < 8) {
+            if (time < 0.5) {
+                if (auto.getDistance(driveTrain.getVelocity('Z'), time) < 1) {
+                    auto.move(-0.25);
+                } else if (auto.turn(90)) {
+                    auto.move(0.25);
+                    if (auto.getDistance(driveTrain.getVelocity('Z'), time) > 10) {
+                        auto.move(0.25);
+                    } else if (auto.turn(-90)) {
+                        auto.move(0.25);
+                    }
+                }
+            }
+        }
+    }
+
+
+
 
     @Override
     public boolean isFinished() {
