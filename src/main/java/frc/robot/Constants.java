@@ -59,7 +59,21 @@ public final class Constants {
     
     /** The speed that the intake lifting motors should be running at. */
     public static final double INTAKE_ACTUATION_SPEED = 0.6; 
-    
+
+    /** The angle at which the intake should be to shoot the cubes. */
+    public static final double INTAKE_SHOOTER_ANGLE = 65;
+
+    /** The angle at which the intake should rest in the robot. */
+    public static final double INTAKE_RESTING_ANGLE = 110;
+
+    public static final double INTAKE_GEAR_RATIO = 22/48;
+
+    /** The first encoder port for actuating the intake. */
+    public static final int INTAKE_ACTUATION_ENCODER_A = 9;
+
+    /** The second encoder port for actuating the intake. */
+    public static final int INTAKE_ACTUATION_ENCODER_B = 10;
+
     /** The speed that the intake flywheels should be running at. */
     public static final double INTAKE_SPEED = 0.35; 
     

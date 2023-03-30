@@ -56,12 +56,7 @@ public class DriveTrain extends SubsystemBase {
     //     Encoder.EncodingType.k4X
     // );
 
-    // private final Encoder rightEncoder = new Encoder(
-    //     Constants.RIGHT_ENCODER_PORT_A, 
-    //     Constants.RIGHT_ENCODER_PORT_B, 
-    //     false, 
-    //     Encoder.EncodingType.k2X
-    // );
+
 
     // Initialize our gyroscope for measuring the angle of the bot.
     // private final Gyro driveGyro = new ADXRS450_Gyro(Port.kOnboardCS0);
@@ -101,7 +96,7 @@ public class DriveTrain extends SubsystemBase {
      */
     public void tankDrive(double movementSpeedLeft, double movementSpeedRight) {
         int multiplier = Constants.INVERTED_DRIVE ? -1 : 1;
-        diffDrive.tankDrive(movementSpeedLeft * 3 / 4, movementSpeedRight * 3 / 4);
+        diffDrive.tankDrive(movementSpeedLeft, movementSpeedRight);
         
     }
 

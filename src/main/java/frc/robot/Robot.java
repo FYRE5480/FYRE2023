@@ -50,8 +50,6 @@ public class Robot extends TimedRobot {
     private boolean hasMoved = false; 
     private int currentIndex = 0; 
 
-    private String autoType;
-
     /**
 	 * This function is run when the robot is first started up and should be used for any
 	 * initialization code.
@@ -78,7 +76,7 @@ public class Robot extends TimedRobot {
         cameras = new UsbCamera[]{frontCam, clawCam};
 
         
-        SmartDashboard.putString("Balance Auto? ('y' or 'n')", autoType);
+        SmartDashboard.putString("Balance Auto?", "'yes' or 'no'");
     }
 
     /**
@@ -110,27 +108,17 @@ public class Robot extends TimedRobot {
     @Override
 	public void autonomousInit() {
         autoCommand = robotContainer.getAutonomousCommand();
-        SmartDashboard.putString("HEY THE AUTO INIT IS RUNNING", "HUZAHH!");
         autoCommand.schedule();
-        
+    
         // schedule the autonomous command (example)
         if (autoCommand != null) {
             autoCommand.schedule();
         }
-
-        //autoCommand = robotContainer.getAutonomousCommand();
-
-        // // schedule the autonomous command (example)
-        // if (autoCommand != null) {
-        //     autoCommand.schedule();
-        // }
     }
 
     /** This function is called periodically during autonomous. */
     @Override
     public void autonomousPeriodic() {
-        SmartDashboard.putBoolean("PERIOTIC IS RUNNING?", autoCommand.isScheduled());
-        
 
     }
 

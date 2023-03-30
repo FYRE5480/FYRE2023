@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.AutoSubsystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.IntakeActuator;
 
 /*
  * TODO: get PID working, instead of using encoder values, use acceleration and velocity.
@@ -21,7 +22,8 @@ import frc.robot.subsystems.Intake;
 public class Autonomous extends CommandBase {
     // Initialize our DriveTrain and Intake subsystems. 
     private final DriveTrain driveTrain; 
-    private final Intake intake;
+    private final Intake intakeWheels;
+    private final IntakeActuator intakeActuator;
     private final PIDController controller = null;
     private final AutoSubsystem auto;
 
@@ -35,11 +37,12 @@ public class Autonomous extends CommandBase {
      * @param subsystemD - The DriveTrain subsystem for controlling robot movement. 
      * @param subsystemI - The Intake subsystem for obtaining new pieces.
      */
-    public Autonomous() {
+    public Autonomous(DriveTrain driveTrain, Intake intakeWheels, IntakeActuator intakeActuator) {
         // initializes drivetrain and intake as a required subsystem.
-        this.driveTrain = new DriveTrain();
-        this.intake = new Intake();
-        this.auto = new AutoSubsystem(controller, driveTrain, intake);
+        this.driveTrain = driveTrain;
+        this.intakeWheels = intakeWheels;
+        this.intakeActuator = intakeActuator;
+        this.auto = new AutoSubsystem(controller, driveTrain, intakeWheels, intakeActuator);
 
         // resets the encoders to their "zero" values.
         this.driveTrain.resetAhrs();
@@ -67,7 +70,6 @@ public class Autonomous extends CommandBase {
         } else {
             autoNoBalance(time);
         }
-       // stupid();
         
     }
 
@@ -77,17 +79,19 @@ public class Autonomous extends CommandBase {
     }
 
     private void autoBalance(double time) {
-        if (auto.balance(driveTrain.getPitch())) {
-            SmartDashboard.putBoolean("Is Balancing?", false);
-            if (time < 1.5) {
-                auto.shootCube(time);
+        if (intakeActuator.setIntakePosition("shoot")) {
+            if (auto.checkBalance(driveTrain.getPitch())) {
+                SmartDashboard.putBoolean("Is Balancing?", false);
+                if (time < 1.5) {
+                    auto.shootCube(time);
+                } else {
+                    auto.move(-0.25);
+                }
             } else {
-                auto.move(-0.25);
+                SmartDashboard.putBoolean("Is Balancing?", true);
             }
-        } else {
-            SmartDashboard.putBoolean("Is Balancing?", true);
         }
-    }
+    } 
 
 
     private void stupid() {

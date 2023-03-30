@@ -38,7 +38,7 @@ public class SpinIntake extends CommandBase {
                 break;
 
             case "forwardFast":
-                intake.spinForwadFast();
+                intake.spinForwardFast();
                 break;
                 
             case "backward":

@@ -45,14 +45,7 @@ public class RobotContainer {
     private static DriveTrain driveTrain = new DriveTrain(); 
     private static Intake intakeWheels = new Intake();
     private static IntakeActuator intakeActuator = new IntakeActuator();
-    
-    // private static DriveTrain driveTrain = new DriveTrain(); 
-    // private static Intake intake = new Intake();
-    private final Autonomous autoCommand = new Autonomous();
-    //private static AirControl compressor = new AirControl();
-    //private Compressor compressor = new Compressor(
-    //    Constants.COMPRESSOR_PCM_PORT, PneumaticsModuleType.CTREPCM
-    //);
+    private final Autonomous autoCommand = new Autonomous(driveTrain, intakeWheels, intakeActuator);
     
     // Initialize our joystick for manipulation and controller for drivetrain.
     public static final Joystick manipulatorControl = new Joystick(0);

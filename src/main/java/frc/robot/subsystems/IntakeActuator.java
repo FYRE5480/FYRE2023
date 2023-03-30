@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 //import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Joystick;
@@ -25,6 +26,13 @@ public class IntakeActuator extends SubsystemBase {
         Constants.INTAKE_ACTUATOR_MOTOR_PORT,
         MotorType.kBrushed
         );
+
+    private final Encoder actuationEncoder = new Encoder(
+        Constants.INTAKE_ACTUATION_ENCODER_A, 
+        Constants.INTAKE_ACTUATION_ENCODER_B, 
+        false,
+        Encoder.EncodingType.k1X
+        );
     
 
     // Sets up the encoders for the intake
@@ -32,8 +40,15 @@ public class IntakeActuator extends SubsystemBase {
     private final DigitalInput intakeSwitchLower = new DigitalInput(Constants.INTAKE_SWITCH_PORT_B);
 
     /** Creates a new Intake subsystem. */
-    public IntakeActuator() {}
+    public IntakeActuator() {
+        actuationEncoder.reset();
+    }
 
+    public double getEncoder() {
+        return actuationEncoder.getDistance() * Constants.ARM_ENCODER_DISTANCE_CONSTANT;
+    }
+
+// 22 over 48
     /**
      * Gets the reading of the appropriate limit switch. 
      *
@@ -55,6 +70,40 @@ public class IntakeActuator extends SubsystemBase {
 
     // Methods for controlling the speed of the intake. 
     
+    public boolean setIntakePosition(String position) {
+        switch (position) {
+            case "in":
+                if (getEncoder() < Constants.INTAKE_RESTING_ANGLE) {
+                    liftIntake();
+                } else {
+                    return true;
+                }
+                break;
+            case "shoot":
+                if (getEncoder() > Constants.INTAKE_SHOOTER_ANGLE) {
+                    lowerIntake();
+                } else if (getEncoder() < Constants.INTAKE_SHOOTER_ANGLE) {
+                    liftIntake();
+                } else {
+                    return true;
+                }
+                break;
+            case "out":
+                if (getEncoder() > 0) {
+                    lowerIntake();
+                } else if (getEncoder() < 0) {
+                    liftIntake();
+                } else {
+                    return true;
+                }
+                break;
+            default:
+                stopActuationIntake();
+                break;
+        }
+        return false;
+    }
+
 
     // Methods for controlling the actuation of the intake. 
 

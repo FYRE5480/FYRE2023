@@ -4,8 +4,10 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import frc.robot.Constants;
 import frc.robot.commands.Autonomous;
 
 import java.util.Hashtable;
@@ -15,8 +17,10 @@ import java.util.Hashtable;
  */
 public class AutoSubsystem extends PIDSubsystem {
 
-    private final DriveTrain driveTrain;
-    private final Intake intake;
+    private DriveTrain driveTrain;
+    private Intake intakeWheels;
+    private IntakeActuator intakeActuator;
+
 
     private Hashtable<String, Double> savedPoint = new Hashtable<String, Double>();
 
@@ -27,12 +31,13 @@ public class AutoSubsystem extends PIDSubsystem {
     /**
      * Creates a new AutoSubsystem with PID.
      */
-    public AutoSubsystem(PIDController controller, DriveTrain dt, Intake i) {
+    public AutoSubsystem(PIDController controller, DriveTrain dt, Intake iwheels, IntakeActuator iActuator) {
         super(new PIDController(0.0035, 0.0005, 0.0001));
         getController().setTolerance(1);
         setSetpoint(getSetpoint());
         this.driveTrain = dt;
-        this.intake = i;
+        this.intakeWheels = iwheels;
+        this.intakeActuator = iActuator;
         driveTrain.resetAhrs();
         savedPoint.put("X", 0.0);
         savedPoint.put("Z", 0.0);
@@ -58,7 +63,7 @@ public class AutoSubsystem extends PIDSubsystem {
     }
 
     public void move(double speed) {
-        driveTrain.tankDrive(speed, -speed);
+        driveTrain.tankDrive(speed / 4, -speed / 4);
     }
 
     /**
@@ -82,7 +87,7 @@ public class AutoSubsystem extends PIDSubsystem {
      */
     public void shootCube(double time) {
         if (time < 1) {
-            intake.spinForward();
+            intakeWheels.spinForwardFast();
         }
 
     }
@@ -93,6 +98,7 @@ public class AutoSubsystem extends PIDSubsystem {
     }
 
     public boolean balance(double pitch) {
+        // the plus and minus 5 are to add a deadband to the balancing to act as a deadband for noise in the gyro
         if (pitch > initialPitch + 5) {
             driveTrain.tankDrive(pitch / 100, -pitch / 100);
             return true;
@@ -105,9 +111,7 @@ public class AutoSubsystem extends PIDSubsystem {
     }
     
     public boolean checkBalance(double pitch) {
-        if (pitch  > initialPitch + 5) {
-            return true;
-        } else if (pitch < initialPitch - 5) {
+        if (pitch  > initialPitch + 5 || pitch < initialPitch - 5) {
             return true;
         }
         return false;

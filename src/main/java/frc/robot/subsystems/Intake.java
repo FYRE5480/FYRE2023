@@ -46,7 +46,7 @@ public class Intake extends SubsystemBase {
         intakeMotor2.set(-Constants.INTAKE_SPEED);
     }
 
-    public void spinForwadFast() {
+    public void spinForwardFast() {
         intakeMotor1.set(1.0);
         intakeMotor2.set(-1.0);
     }
