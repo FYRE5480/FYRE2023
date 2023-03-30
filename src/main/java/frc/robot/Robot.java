@@ -112,6 +112,7 @@ public class Robot extends TimedRobot {
     
         // schedule the autonomous command (example)
         if (autoCommand != null) {
+            System.out.println("command schedualed");
             autoCommand.schedule();
         }
     }
@@ -128,9 +129,12 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autoCommand != null) {
+        try {
             autoCommand.cancel();
-    	}
+        } catch (Exception e) {
+            // TODO: handle exception
+            
+        }
     }
 
     /** This function is called periodically during operator control. */

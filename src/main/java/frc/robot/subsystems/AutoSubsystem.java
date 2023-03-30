@@ -63,7 +63,8 @@ public class AutoSubsystem extends PIDSubsystem {
     }
 
     public void move(double speed) {
-        driveTrain.tankDrive(speed / 4, -speed / 4);
+        System.out.println("Reaching move command with speed " + speed);
+        driveTrain.tankDrive(speed, -speed);
     }
 
     /**
@@ -99,10 +100,10 @@ public class AutoSubsystem extends PIDSubsystem {
 
     public boolean balance(double pitch) {
         // the plus and minus 5 are to add a deadband to the balancing to act as a deadband for noise in the gyro
-        if (pitch > initialPitch + 5) {
+        if (pitch > initialPitch + 7) {
             driveTrain.tankDrive(pitch / 100, -pitch / 100);
             return true;
-        } else if (pitch < initialPitch - 5) {
+        } else if (pitch < initialPitch - 7) {
             driveTrain.tankDrive(-pitch / 100, pitch / 100);
             return true;
         } else {
@@ -111,7 +112,7 @@ public class AutoSubsystem extends PIDSubsystem {
     }
     
     public boolean checkBalance(double pitch) {
-        if (pitch  > initialPitch + 5 || pitch < initialPitch - 5) {
+        if (pitch  > initialPitch + 7 || pitch < initialPitch - 7   ) {
             return true;
         }
         return false;

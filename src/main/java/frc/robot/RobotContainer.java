@@ -94,7 +94,7 @@ public class RobotContainer {
      */
     public RobotContainer() {
         // Add a new Driving command to the drivetrain.
-        //driveTrain.setDefaultCommand(new Driving(driveTrain));
+        driveTrain.setDefaultCommand(new Driving(driveTrain));
 
         // Configure the button bindings.
         //compressor.enableAnalog(0, 60);

@@ -34,18 +34,22 @@ public class IntakeActuator extends SubsystemBase {
         Encoder.EncodingType.k1X
         );
     
+        
 
     // Sets up the encoders for the intake
-    private final DigitalInput intakeSwitchUpper = new DigitalInput(Constants.INTAKE_SWITCH_PORT_A);
-    private final DigitalInput intakeSwitchLower = new DigitalInput(Constants.INTAKE_SWITCH_PORT_B);
+    //private final DigitalInput intakeSwitchUpper = new DigitalInput(Constants.INTAKE_SWITCH_PORT_A);
+    //private final DigitalInput intakeSwitchLower = new DigitalInput(Constants.INTAKE_SWITCH_PORT_B);
 
     /** Creates a new Intake subsystem. */
     public IntakeActuator() {
         actuationEncoder.reset();
+
+        actuationEncoder.setDistancePerPulse(1);
     }
 
     public double getEncoder() {
-        return actuationEncoder.getDistance() * Constants.ARM_ENCODER_DISTANCE_CONSTANT;
+        System.out.println(actuationEncoder.getDistance());
+        return actuationEncoder.getDistance();
     }
 
 // 22 over 48
@@ -55,18 +59,18 @@ public class IntakeActuator extends SubsystemBase {
      * @param side - The limit switch to be referenced ("upper" or "lower")
      * @return - The current poisition of the prompted limit switch. 
      */
-    public boolean getSwitchReading(String side) {
-        switch (side) {
-            case "upper":
-                return intakeSwitchUpper.get();
+    // public boolean getSwitchReading(String side) {
+    //     switch (side) {
+    //         case "upper":
+    //             return intakeSwitchUpper.get();
                 
-            case "lower":
-                return intakeSwitchLower.get();
+    //         case "lower":
+    //             return intakeSwitchLower.get();
 
-            default: 
-                return true;
-        }
-    }
+    //         default: 
+    //             return true;
+    //     }
+    // }
 
     // Methods for controlling the speed of the intake. 
     
@@ -74,25 +78,25 @@ public class IntakeActuator extends SubsystemBase {
         switch (position) {
             case "in":
                 if (getEncoder() < Constants.INTAKE_RESTING_ANGLE) {
-                    liftIntake();
+                    lowerIntake();
                 } else {
                     return true;
                 }
                 break;
             case "shoot":
                 if (getEncoder() > Constants.INTAKE_SHOOTER_ANGLE) {
-                    lowerIntake();
-                } else if (getEncoder() < Constants.INTAKE_SHOOTER_ANGLE) {
                     liftIntake();
+                } else if (getEncoder() < Constants.INTAKE_SHOOTER_ANGLE) {
+                    lowerIntake();
                 } else {
                     return true;
                 }
                 break;
             case "out":
                 if (getEncoder() > 0) {
-                    lowerIntake();
-                } else if (getEncoder() < 0) {
                     liftIntake();
+                } else if (getEncoder() < 0) {
+                    lowerIntake();
                 } else {
                     return true;
                 }
@@ -111,10 +115,8 @@ public class IntakeActuator extends SubsystemBase {
      * Runs the actuation motor upwards at the INTAKE_ACTUATION_SPEED level.
      */
     public void liftIntake() {
-        if (getSwitchReading("upper")) {
             //actuationMotor.set(ControlMode.PercentOutput, Constants.INTAKE_ACTUATION_SPEED);
             actuationMotor.set(-Constants.INTAKE_ACTUATION_SPEED);
-        }
 
     }
 

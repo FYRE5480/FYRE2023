@@ -81,7 +81,7 @@ public class Driving extends CommandBase {
 
         // Outputs the positions of each of the joystick axis. 
         // System.out.println(leftStick + " : left stick, " + rightStick + " : right stick"); 
-        // System.out.println(leftPower + " : left power, " + rightPower + " : right power"); 
+        System.out.println(leftMovementSpeed + " : left power, " + rightMovementSpeed + " : right power"); 
 
         // Runs each set of motors based on their calculated power levels. 
         if (Constants.IS_TANK) {
