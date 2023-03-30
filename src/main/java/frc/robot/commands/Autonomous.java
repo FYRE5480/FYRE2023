@@ -66,15 +66,15 @@ public class Autonomous extends CommandBase {
         //     MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85), 
         //     MathUtil.clamp(PIDAutoController.calculate(driveTrain.getGyroscope()), -0.85, 0.85)
         // );
-        double time = Timer.getFPGATimestamp();
+        //double time = Timer.getFPGATimestamp();
         // if (balanceAuto.equals("yes")) {
         //     autoBalance(time);
         // } else {
         //     autoNoBalance(time);
         // }
-        System.out.println("executing");
-        SmartDashboard.putNumber("Intake Encoder Value", intakeActuator.getEncoder());
-        autoBalanceNoShoot(time);
+        //System.out.println("executing");
+        //SmartDashboard.putNumber("Intake Encoder Value", intakeActuator.getEncoder());
+        driveTrain.tankDrive(-0.7, 0.7);
     }
 
     public void test() {
@@ -134,7 +134,7 @@ public class Autonomous extends CommandBase {
         if (!auto.checkBalance(driveTrain.getPitch())) {
             System.out.println("moving");
             SmartDashboard.putBoolean("Is Balancing?", false);
-            auto.move(-0.7);
+            auto.move(-1);
         } else {
             i++;
             System.out.println("balancing");
