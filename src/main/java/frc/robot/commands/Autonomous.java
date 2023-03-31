@@ -85,7 +85,7 @@ public class Autonomous extends CommandBase {
         System.out.println("executing"); 
         //SmartDashboard.putNumber("Intake Encoder Value", intakeActuator.getEncoder());
         double speed = SmartDashboard.getNumber("Auto Speed", 0.75);
-        goForTime(2, speed);
+        autoNoBalanceNoShoot(2);
     }   
 
     public void bareMin(double time, double speed) {
@@ -168,15 +168,16 @@ public class Autonomous extends CommandBase {
     }
 
     public void autoNoBalanceNoShoot(double time) {
-        while (Timer.getFPGATimestamp() - initialTime < 1.2) {
+        while (Timer.getFPGATimestamp() - initialTime < 1) {
             intakeActuator.lowerIntake();
         }
-        while (Timer.getFPGATimestamp() - initialTime < 2.2) {
+        intakeActuator.stopActuationIntake();
+        while (Timer.getFPGATimestamp() - initialTime < 2) {
             intakeWheels.spinForwardFast();
         }
-        bareMin(Timer.getFPGATimestamp() - initialTime + time, 0.75);
+        intakeWheels.stopIntakeSpin();
+        goForTime(time + 2, 0.75);
     }
-
 
 
     @Override
