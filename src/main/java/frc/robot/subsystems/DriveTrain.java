@@ -97,7 +97,7 @@ public class DriveTrain extends SubsystemBase {
     public void tankDrive(double movementSpeedLeft, double movementSpeedRight) {
         int multiplier = Constants.INVERTED_DRIVE ? -1 : 1;
         diffDrive.tankDrive(movementSpeedLeft, movementSpeedRight);
-        System.out.println("Movement Speed: " + movementSpeedLeft);
+        // System.out.println("Movement Speed: " + movementSpeedLeft);
     }
 
     /**
