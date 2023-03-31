@@ -94,6 +94,12 @@ public class Autonomous extends CommandBase {
         }
     }
 
+    public void testMotors() {
+        while (Timer.getFPGATimestamp() - initialTime < 2) {
+
+        }
+    }
+
     public void goForTime(double time, double speed) {
         bareMin(time, -speed);
         bareMin(time + 0.125, 0.5);
@@ -106,28 +112,23 @@ public class Autonomous extends CommandBase {
     }
 
     private void autoBalance(double time) {
-        if (intakeActuator.setIntakePosition("shoot")) {
-            
-        }
-
         while (Timer.getFPGATimestamp() - initialTime < 1.2) {
             intakeActuator.lowerIntake();
         }
+        intakeActuator.stopActuationIntake();
         while (Timer.getFPGATimestamp() - initialTime < 2.2) {
             intakeWheels.spinForwardFast();
         }
+        intakeWheels.stopIntakeSpin();
         while (Timer.getFPGATimestamp() - initialTime < 15) {
             if (auto.checkBalance(driveTrain.getPitch())) {
                 SmartDashboard.putBoolean("Is Balancing?", false);
-                  if (time < 1.5) {
-                      auto.shootCube(time);
-                  } else {
-                      auto.move(-0.25);
-                  }
-              } else {
-                  auto.balance(driveTrain.getPitch());
-                  SmartDashboard.putBoolean("Is Balancing?", true);
-              }
+                auto.move(-0.25);
+
+            } else {
+                auto.balance(driveTrain.getPitch());
+                SmartDashboard.putBoolean("Is Balancing?", true);
+            }
         }
     } 
 
@@ -185,7 +186,7 @@ public class Autonomous extends CommandBase {
             intakeWheels.spinForwardFast();
         }
         intakeWheels.stopIntakeSpin();
-        goForTime(time + 2, 0.75);
+        // goForTime(Timer.getFPGATimestamp() - initialTime + time, 0.75);
     }
 
 
