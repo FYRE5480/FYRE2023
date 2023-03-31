@@ -106,19 +106,28 @@ public class Autonomous extends CommandBase {
     }
 
     private void autoBalance(double time) {
-    System.out.println("Hi reaching function");
         if (intakeActuator.setIntakePosition("shoot")) {
+            
+        }
+
+        while (Timer.getFPGATimestamp() - initialTime < 1.2) {
+            intakeActuator.lowerIntake();
+        }
+        while (Timer.getFPGATimestamp() - initialTime < 2.2) {
+            intakeWheels.spinForwardFast();
+        }
+        while (Timer.getFPGATimestamp() - initialTime < 15) {
             if (auto.checkBalance(driveTrain.getPitch())) {
-              SmartDashboard.putBoolean("Is Balancing?", false);
-                if (time < 1.5) {
-                    auto.shootCube(time);
-                } else {
-                    auto.move(-0.25);
-                }
-            } else {
-                auto.balance(driveTrain.getPitch());
-                SmartDashboard.putBoolean("Is Balancing?", true);
-            }
+                SmartDashboard.putBoolean("Is Balancing?", false);
+                  if (time < 1.5) {
+                      auto.shootCube(time);
+                  } else {
+                      auto.move(-0.25);
+                  }
+              } else {
+                  auto.balance(driveTrain.getPitch());
+                  SmartDashboard.putBoolean("Is Balancing?", true);
+              }
         }
     } 
 
