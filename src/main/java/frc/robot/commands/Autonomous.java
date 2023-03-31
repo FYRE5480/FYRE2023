@@ -84,11 +84,21 @@ public class Autonomous extends CommandBase {
 
         System.out.println("executing"); 
         //SmartDashboard.putNumber("Intake Encoder Value", intakeActuator.getEncoder());
+        double speed = SmartDashboard.getNumber("Auto Speed", 0.75);
+        goForTime(2, speed);
+    }   
 
-        while (Timer.getFPGATimestamp() - initialTime < 1) {
-            driveTrain.tankDrive(-1, 1);
+    public void bareMin(double time, double speed) {
+        while (Timer.getFPGATimestamp() - initialTime < time) {
+            driveTrain.tankDrive(speed, -speed);
         }
     }
+
+    public void goForTime(double time, double speed) {
+        bareMin(time, -speed);
+        bareMin(time + 0.125, 0.5);
+    }
+
 
     public void test() {
         SmartDashboard.putString("HEY AUTO IS WORKING", "WOOOO");
@@ -142,7 +152,7 @@ public class Autonomous extends CommandBase {
         }
     }
 
-    private void autoBalanceNoShoot(double time) {
+    private void autoBalanceNoShoot() {
         System.out.println("calling function");
         if (!auto.checkBalance(driveTrain.getPitch())) {
             System.out.println("moving");
@@ -158,20 +168,13 @@ public class Autonomous extends CommandBase {
     }
 
     public void autoNoBalanceNoShoot(double time) {
-        if (time < 8) {
-            if (time < 0.5) {
-                if (auto.getDistance(driveTrain.getVelocity('Z'), time) < 1) {
-                    auto.move(-0.25);
-                } else if (auto.turn(90)) {
-                    auto.move(0.25);
-                    if (auto.getDistance(driveTrain.getVelocity('Z'), time) > 10) {
-                        auto.move(0.25);
-                    } else if (auto.turn(-90)) {
-                        auto.move(0.25);
-                    }
-                }
-            }
+        while (Timer.getFPGATimestamp() - initialTime < 1.2) {
+            intakeActuator.lowerIntake();
         }
+        while (Timer.getFPGATimestamp() - initialTime < 2.2) {
+            intakeWheels.spinForwardFast();
+        }
+        bareMin(Timer.getFPGATimestamp() - initialTime + time, 0.75);
     }
 
 

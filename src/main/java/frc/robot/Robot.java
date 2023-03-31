@@ -75,6 +75,7 @@ public class Robot extends TimedRobot {
         // Push our cameras into the array. 
         cameras = new UsbCamera[]{frontCam, clawCam};
 
+        SmartDashboard.putNumber("Auto Speed", 0.75);
         
         SmartDashboard.putString("Balance Auto?", "'yes' or 'no'");
     }
