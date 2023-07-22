@@ -22,9 +22,9 @@ public final class Constants {
     public static final int ARM_MOTOR_PORT = 7;  
     
     /** Encoder type for the built in encoder in the NEO motor. */
-    public static final SparkMaxAlternateEncoder.Type ARM_ENCODER_TYPE = SparkMaxAlternateEncoder.Type.kQuadrature;
+    public static final SparkMaxAlternateEncoder.Type ARM_ENCODER_TYPE = 
+        SparkMaxAlternateEncoder.Type.kQuadrature;
 
-    // the encoder constant has been changed because it only needs to be used for the arm, not the drivetrain
     /** 
     * The constant of the arm encoder's distance per pulse.
     * Set to 189, because the arm currently has a 1 : 189 gear ratio from the neo
@@ -33,8 +33,6 @@ public final class Constants {
     */
     public static final int ARM_ENCODER_DISTANCE_CONSTANT = 189;
 
-    /** The port for the upper arm limit switch. */
-    //public static final int ARM_SWITCH_PORT_A = 6; 
     
     /** The port for the lower arm limit switch. */
     public static final int ARM_SWITCH_PORT_B = 7; 

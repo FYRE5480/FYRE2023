@@ -10,12 +10,10 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.SwitchCameras;
-import frc.robot.subsystems.DriveTrain;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,7 +27,6 @@ public class Robot extends TimedRobot {
     // Initialize commands for robot use, such as the auto command and container.
     private Command autoCommand;
     private RobotContainer robotContainer;
-
 
     // Create a dummy variable for storing the manipulator controller.
     private static Joystick joystick; 
@@ -59,8 +56,6 @@ public class Robot extends TimedRobot {
         // Instantiate our RobotContainer. 
         // This will perform all our button bindings & put our autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
-
-
 
         // Create a variable for the robot container's joystick.
         joystick = RobotContainer.manipulatorControl;
@@ -120,9 +115,7 @@ public class Robot extends TimedRobot {
 
     /** This function is called periodically during autonomous. */
     @Override
-    public void autonomousPeriodic() {
-
-    }
+    public void autonomousPeriodic() {}
 
     @Override
     public void teleopInit() {
@@ -130,11 +123,8 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        try {
+        if (autoCommand != null) {
             autoCommand.cancel();
-        } catch (Exception e) {
-            // TODO: handle exception
-            
         }
     }
 

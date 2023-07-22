@@ -10,21 +10,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ActuateArm;
-import frc.robot.commands.ActuateClaw;
 import frc.robot.commands.ActuateIntake;
 import frc.robot.commands.Autonomous;
 import frc.robot.commands.Driving;
 import frc.robot.commands.SpinIntake;
-// import frc.robot.commands.TurnOnCompressor;
-import frc.robot.examples.ExampleCommand;
-import frc.robot.examples.ExampleSubsystem;
-//import frc.robot.subsystems.AirControl;
-import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakeActuator;
@@ -37,11 +28,8 @@ import frc.robot.subsystems.IntakeActuator;
  */
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
-    private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 
     // Create new subsystems for the robot to pull from.
-    private static Arm arm = new Arm();
-    private static Claw claw = new Claw(); 
     private static DriveTrain driveTrain = new DriveTrain(); 
     private static Intake intakeWheels = new Intake();
     private static IntakeActuator intakeActuator = new IntakeActuator();
@@ -56,26 +44,11 @@ public class RobotContainer {
     /** Big trigger on the front of the stick. Toggles the claw. */
     private final JoystickButton joystick1 = new JoystickButton(manipulatorControl, 1);
 
-    /** Button on left side of stick where thumb lies. Actuates arm fully up or down. */
-    private final JoystickButton joystick2 = new JoystickButton(manipulatorControl, 2);
-
     /** Bottom-left button on the top of the stick. Runs intake backward. */
     private final JoystickButton joystick3 = new JoystickButton(manipulatorControl, 3);
 
-    /** 
-     * Bottom-right button on the top of the stick. 
-     * Actuates the arm down while pressed, unless it is already actuating. 
-     */
-    private final JoystickButton joystick4 = new JoystickButton(manipulatorControl, 4);
-
     /** Top-left button on the top of the stick. Runs intake forward. */
     private final JoystickButton joystick5 = new JoystickButton(manipulatorControl, 5);
-
-    /** 
-     * Top-right button on the top of the stick. 
-     * Actuates the arm up while pressed, unless it is already actuating. 
-     */
-    private final JoystickButton joystick6 = new JoystickButton(manipulatorControl, 6);
 
     /** 
      * Middle-left button on the base of the stick.
@@ -97,7 +70,6 @@ public class RobotContainer {
         driveTrain.setDefaultCommand(new Driving(driveTrain));
 
         // Configure the button bindings.
-        //compressor.enableAnalog(0, 60);
         configureButtonBindings();
     }
 
@@ -110,15 +82,6 @@ public class RobotContainer {
     private void configureButtonBindings() {
         // Note that the {button}.whileHeld({command}) has been depricated
 
-        // opens the claw when a button is pressed
-        // joystick1.whileTrue(new ActuateClaw(claw, "open"));  
-
-        // Actuates the arm up or down when a button is pressed
-        //joystick2.whileTrue(new ActuateArm(arm, "full"));
-
-        //closes the claw while held
-        //joystick2.whileTrue(new ActuateClaw(claw, "closed")); 
-
         // Spins the intake forward or backward while two respective buttons are held
         joystick3.whileTrue(new SpinIntake(intakeWheels, "backward"));
         joystick5.whileTrue(new SpinIntake(intakeWheels, "forward"));
@@ -127,12 +90,6 @@ public class RobotContainer {
         // Actuates the intake up or down  while two respective buttons are held
         joystick9.whileTrue(new ActuateIntake(intakeActuator, "lower"));
         joystick10.whileTrue(new ActuateIntake(intakeActuator, "lift"));
-
-        // Actuates the arm up or down while two respective buttons are pressed
-       // joystick4.whileTrue(new ActuateArm(arm, "down"));
-        //joystick6.whileTrue(new ActuateArm(arm, "up"));
-
-        //SmartDashboard.putNumber("Current PSI", compressor.getPressure());
     }
 
     /**
